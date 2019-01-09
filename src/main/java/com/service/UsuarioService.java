@@ -20,7 +20,6 @@ import com.constant.ConnectionConstants;
 import com.dao.UsuarioDao;
 import com.factory.ConnectionFactory;
 import com.helper.EncodingHelper;
-import com.zaxxer.hikari.pool.HikariPool;
 import javax.servlet.http.HttpServletRequest;
 
 /**
