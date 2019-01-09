@@ -1,7 +1,5 @@
 package com.constant;
 
-
-
 public class ConnectionConstants {
 
 	public static enum EnumConstans  {
@@ -13,7 +11,7 @@ public class ConnectionConstants {
 	};
 
 	public static final EnumConstans connectionPool = EnumConstans.Hikari;
-	public static final String databaseName = "wildcart";
+	public static final String databaseName = "conexion";
 	public static final String databaseLogin = "root";
 	public static final String databasePassword = "bitnami";
 	public static final String databasePort = "3306";
