@@ -5,9 +5,7 @@
  */
 package com.service;
 
-/*import com.bean.ReplyBean;
-import net.daw.dao.UsuarioDao;
-import net.daw.bean.UsuarioBean;*/
+
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.google.gson.Gson;

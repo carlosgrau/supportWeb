@@ -2,6 +2,7 @@ package com.factory;
 
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.service.EmpresaService;
 import com.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +26,17 @@ public class ServiceFactory {
                         break;
                     case "check":
                         oReplyBean = oUsuarioService.check();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
+            case "empresa":
+                EmpresaService oEmpresaService = new EmpresaService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oEmpresaService.get();
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");

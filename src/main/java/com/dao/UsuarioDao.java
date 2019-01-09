@@ -42,7 +42,7 @@ public class UsuarioDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oUsuarioBean = new UsuarioBean();
-                oUsuarioBean.fill(oResultSet, oConnection, 1);
+                oUsuarioBean.fill(oResultSet, oConnection);
             } else {
                 oUsuarioBean = null;
             }
