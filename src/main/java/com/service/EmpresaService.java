@@ -54,6 +54,7 @@ public class EmpresaService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
+            oUsuarioBean.disposeConnection();
         }
 
         return oReplyBean;
@@ -83,6 +84,7 @@ public class EmpresaService {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
+            oUsuarioBean.disposeConnection();
         }
 
         return oReplyBean;

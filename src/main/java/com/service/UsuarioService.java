@@ -38,7 +38,7 @@ public class UsuarioService {
     public ReplyBean login() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
+        Connection oConnection = null;
         String strLogin = oRequest.getParameter("user");
         String strPassword = oRequest.getParameter("pass");
         try {
@@ -58,6 +58,7 @@ public class UsuarioService {
             throw new Exception("ERROR: Service level: login method: " + ob + " object", ex);
         } finally {
             oConnectionPool.disposeConnection();
+            oConnection.close();
         }
         return oReplyBean;
     }
