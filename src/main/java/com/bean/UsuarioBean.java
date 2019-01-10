@@ -20,8 +20,7 @@ import java.sql.SQLException;
 public class UsuarioBean {
     private Connection oConnectionCli;
     private HikariDataSource oConnectionPoolCli;
-    public String loginCliente;
-    public String host;
+    
     @Expose
     private int id;
     @Expose
