@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +28,7 @@ public class EmpresaDao {
     }
 
     public EmpresaBean get(int id) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
+        String strSQL = "SELECT * FROM " + ob+" WHERE id_auto = ?";
         EmpresaBean oEmpresaBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
@@ -37,7 +38,7 @@ public class EmpresaDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oEmpresaBean = new EmpresaBean();
-                oEmpresaBean.setId(oResultSet.getInt("id"));
+                oEmpresaBean.setId(oResultSet.getInt("id_auto"));
                 oEmpresaBean.setEjercicio(oResultSet.getInt("ejercicio"));
                 oEmpresaBean.setEmpresa(oResultSet.getInt("empresa"));
                 oEmpresaBean.setNombre(oResultSet.getString("nombre"));
@@ -57,4 +58,41 @@ public class EmpresaDao {
         }
         return oEmpresaBean;
     }
+    
+    public ArrayList<EmpresaBean> getpage(int iRpp, int iPage) throws Exception {
+		String strSQL = "SELECT * FROM " + ob;
+		ArrayList<EmpresaBean> alEmpresaBean;
+		if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+			strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+			ResultSet oResultSet = null;
+			PreparedStatement oPreparedStatement = null;
+			try {
+				oPreparedStatement = oConnection.prepareStatement(strSQL);
+				oResultSet = oPreparedStatement.executeQuery();
+				alEmpresaBean = new ArrayList<EmpresaBean>();
+				while (oResultSet.next()) {
+					EmpresaBean oEmpresaBean = new EmpresaBean();
+                                        oEmpresaBean.setId(oResultSet.getInt("id_auto"));
+                                        oEmpresaBean.setEjercicio(oResultSet.getInt("ejercicio"));
+                                        oEmpresaBean.setEmpresa(oResultSet.getInt("empresa"));
+                                        oEmpresaBean.setNombre(oResultSet.getString("nombre"));
+                                        oEmpresaBean.setNif(oResultSet.getString("nif"));
+					alEmpresaBean.add(oEmpresaBean);
+				}
+			} catch (SQLException e) {
+				throw new Exception("Error en Dao getpage de " + ob, e);
+			} finally {
+				if (oResultSet != null) {
+					oResultSet.close();
+				}
+				if (oPreparedStatement != null) {
+					oPreparedStatement.close();
+				}
+			}
+		} else {
+			throw new Exception("Error en Dao getpage de " + ob);
+		}
+		return alEmpresaBean;
+
+	}
 }

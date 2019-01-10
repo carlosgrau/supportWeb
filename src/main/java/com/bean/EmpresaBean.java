@@ -66,7 +66,7 @@ public class EmpresaBean {
         this.ejercicio = ejercicio;
     }
 
-    public EmpresaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+    public EmpresaBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
         this.setId(oResultSet.getInt("id"));
         this.setNombre(oResultSet.getString("nombre"));
         this.setEmpresa(oResultSet.getInt("empresa"));

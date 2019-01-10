@@ -131,12 +131,12 @@ public class UsuarioBean {
 				+ this.getDatabaseCli();
 	}
 
-    public Connection newConnection() throws Exception {
+    public Connection newConnection(String usuario,String password,String conexion) throws Exception {
 
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(this.newConnectionClient());
-        config.setUsername(this.loginCli);
-        config.setPassword(this.passCli);
+        config.setJdbcUrl(conexion);
+        config.setUsername(usuario);
+        config.setPassword(password);
         config.setMaximumPoolSize(ConnectionConstants.getDatabaseMaxPoolSize);
         config.setMinimumIdle(ConnectionConstants.getDatabaseMinPoolSize);
 
