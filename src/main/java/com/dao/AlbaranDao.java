@@ -5,7 +5,7 @@
  */
 package com.dao;
 
-import com.bean.ClienteBean;
+import com.bean.AlbaranBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,20 +16,20 @@ import java.util.ArrayList;
  *
  * @author a021792876p
  */
-public class ClienteDao {
+public class AlbaranDao {
 
     Connection oConnection;
     String ob = null;
 
-    public ClienteDao(Connection oConnection, String ob) {
+    public AlbaranDao(Connection oConnection, String ob) {
         super();
         this.oConnection = oConnection;
         this.ob = ob;
     }
 
-    public ClienteBean get(int id, int empresa, Integer expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE clicodigo = ? and id_ejercicio = ?";
-        ClienteBean oClienteBean;
+    public AlbaranBean get(int id, int empresa, int expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_auto = ? and id_ejercicio = ?";
+        AlbaranBean oAlbaranBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -38,19 +38,17 @@ public class ClienteDao {
             oPreparedStatement.setInt(2, empresa);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oClienteBean = new ClienteBean();
-//                oClienteBean.setId(oResultSet.getInt("id_auto"));
-//                oClienteBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                oClienteBean.setCodigo(oResultSet.getInt("clicodigo"));
-//                oClienteBean.setNombre(oResultSet.getString("clinombre"));
-//                oClienteBean.setRazonsocial(oResultSet.getString("clirazonsocial"));
-//                oClienteBean.setTelefono(oResultSet.getString("clitelefono1"));
-//                oClienteBean.setNif(oResultSet.getString("clinif"));
-//                oClienteBean.setDireccion(oResultSet.getString("clidireccion"));
-//                oClienteBean.setEmail(oResultSet.getString("cliemail"));
-                oClienteBean.fill(oResultSet, oConnection);
+                oAlbaranBean = new AlbaranBean();
+//                oAlbaranBean.setId(oResultSet.getInt("id_auto"));
+//                oAlbaranBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
+//                oAlbaranBean.setEstado(oResultSet.getInt("estado"));
+//                oAlbaranBean.setFactura(oResultSet.getInt("id_dat140a"));
+//                oAlbaranBean.setFecha(oResultSet.getDate("fecha"));
+//                oAlbaranBean.setId_cliente(oResultSet.getInt("cliente"));
+//                oAlbaranBean.setNombre_cliente(oResultSet.getString("nombre"));
+                oAlbaranBean.fill(oResultSet, oConnection, expand);
             } else {
-                oClienteBean = null;
+                oAlbaranBean = null;
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -62,12 +60,12 @@ public class ClienteDao {
                 oPreparedStatement.close();
             }
         }
-        return oClienteBean;
+        return oAlbaranBean;
     }
 
-    public ArrayList<ClienteBean> getpage(int iRpp, int iPage, int empresa) throws Exception {
+    public ArrayList<AlbaranBean> getpage(int iRpp, int iPage, int empresa, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ?";
-        ArrayList<ClienteBean> alClienteBean;
+        ArrayList<AlbaranBean> alAlbaranBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
@@ -76,12 +74,19 @@ public class ClienteDao {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oPreparedStatement.setInt(1, empresa);
                 oResultSet = oPreparedStatement.executeQuery();
-                alClienteBean = new ArrayList<ClienteBean>();
+                alAlbaranBean = new ArrayList<AlbaranBean>();
                 while (oResultSet.next()) {
-                    ClienteBean oClienteBean = new ClienteBean();
-                    oClienteBean = new ClienteBean();
-                    oClienteBean.fill(oResultSet, oConnection);
-                    alClienteBean.add(oClienteBean);
+                    AlbaranBean oAlbaranBean = new AlbaranBean();
+//                    oAlbaranBean = new AlbaranBean();
+//                    oAlbaranBean.setId(oResultSet.getInt("id_auto"));
+//                    oAlbaranBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
+//                    oAlbaranBean.setEstado(oResultSet.getInt("estado"));
+//                    oAlbaranBean.setFactura(oResultSet.getInt("id_dat140a"));
+//                    oAlbaranBean.setFecha(oResultSet.getDate("fecha"));
+//                    oAlbaranBean.setId_cliente(oResultSet.getInt("cliente"));
+//                    oAlbaranBean.setNombre_cliente(oResultSet.getString("nombre"));
+                    oAlbaranBean.fill(oResultSet, oConnection, expand);
+                    alAlbaranBean.add(oAlbaranBean);
                 }
             } catch (SQLException e) {
                 throw new Exception("Error en Dao getpage de " + ob, e);
@@ -96,7 +101,7 @@ public class ClienteDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
-        return alClienteBean;
+        return alAlbaranBean;
 
     }
 }

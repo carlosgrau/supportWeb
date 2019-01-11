@@ -2,6 +2,7 @@ package com.factory;
 
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.service.AlbaranService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
 import com.service.ProductoService;
@@ -80,6 +81,36 @@ public class ServiceFactory {
                         break;
                 }
                 break;
+            case "albaran":
+                AlbaranService oAlbaranService = new AlbaranService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oAlbaranService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oAlbaranService.getpage();
+                        break;
+
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
+//            case "lineaalbaran":
+//                ProductoService oProductoService = new ProductoService(oRequest);
+//                switch (op) {
+//                    case "get":
+//                        oReplyBean = oProductoService.get();
+//                        break;
+//                    case "getpage":
+//                        oReplyBean = oProductoService.getpage();
+//                        break;
+//
+//                    default:
+//                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+//                        break;
+//                }
+//                break;
             default:
                 oReplyBean = new ReplyBean(500, "Object doesn't exist");
                 break;

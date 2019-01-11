@@ -5,10 +5,10 @@
  */
 package com.service;
 
-import com.bean.ClienteBean;
+import com.bean.AlbaranBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
-import com.dao.ClienteDao;
+import com.dao.AlbaranDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author a021792876p
  */
-public class ClienteService {
+public class AlbaranService {
 
     HttpServletRequest oRequest;
     String ob = null;
     String usuario, password, conexion;
 
-    public ClienteService(HttpServletRequest oRequest) {
+    public AlbaranService(HttpServletRequest oRequest) {
         super();
         this.oRequest = oRequest;
-        if ("cliente".equals(oRequest.getParameter("ob"))) {
-            ob = "dat001a";
+        if ("albaran".equals(oRequest.getParameter("ob"))) {
+            ob = "dat031a";
         };
     }
 
@@ -47,10 +47,10 @@ public class ClienteService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
-            ClienteBean oClienteBean = oClienteDao.get(id,empresa,1);
+            AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
+            AlbaranBean oAlbaranBean = oAlbaranDao.get(id, empresa,1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oAlbaranBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
@@ -77,11 +77,11 @@ public class ClienteService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
 
-            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage,empresa);
+            ArrayList<AlbaranBean> alAlbaranBean = oAlbaranDao.getpage(iRpp, iPage, empresa,1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alAlbaranBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {

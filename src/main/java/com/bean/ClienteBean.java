@@ -107,15 +107,15 @@ public class ClienteBean {
     }
 
     public ClienteBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setCodigo(oResultSet.getInt("codigo"));
-        this.setDireccion(oResultSet.getString("direccion"));
-        this.setEmail(oResultSet.getString("email"));
-        this.setEmpresa(oResultSet.getInt("empresa"));
-        this.setNif(oResultSet.getString("nif"));
-        this.setNombre(oResultSet.getString("nombre"));
-        this.setRazonsocial(oResultSet.getString("razonsocial"));
-        this.setTelefono(oResultSet.getString("telefono"));
+        this.setId(oResultSet.getInt("id_auto"));
+        this.setCodigo(oResultSet.getInt("clicodigo"));
+        this.setDireccion(oResultSet.getString("clidireccion"));
+        this.setEmail(oResultSet.getString("cliemail"));
+        this.setEmpresa(oResultSet.getInt("id_ejercicio"));
+        this.setNif(oResultSet.getString("clinif"));
+        this.setNombre(oResultSet.getString("clinombre"));
+        this.setRazonsocial(oResultSet.getString("clirazonsocial"));
+        this.setTelefono(oResultSet.getString("clitelefono1"));
         return this;
     }
 }
