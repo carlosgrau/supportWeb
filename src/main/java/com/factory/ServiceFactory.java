@@ -4,6 +4,7 @@ import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.service.ClienteService;
 import com.service.EmpresaService;
+import com.service.ProductoService;
 import com.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,7 +65,21 @@ public class ServiceFactory {
                         break;
                 }
                 break;
+            case "producto":
+                ProductoService oProductoService = new ProductoService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oProductoService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oProductoService.getpage();
+                        break;
 
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
             default:
                 oReplyBean = new ReplyBean(500, "Object doesn't exist");
                 break;
