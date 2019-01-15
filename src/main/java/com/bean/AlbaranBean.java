@@ -6,10 +6,12 @@
 package com.bean;
 
 import com.dao.ClienteDao;
+import com.dao.LineaAlbaranDao;
 import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -37,6 +39,9 @@ public class AlbaranBean {
 
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
+
+    @Expose(deserialize = false)
+    private ArrayList<LineaAlbaranBean> obj_LineaAlbaran;
 
     public int getId() {
         return id;
@@ -102,6 +107,14 @@ public class AlbaranBean {
         this.obj_Cliente = obj_Cliente;
     }
 
+    public ArrayList<LineaAlbaranBean> getObj_LineaAlbaran() {
+        return obj_LineaAlbaran;
+    }
+
+    public void setObj_LineaAlbaran(ArrayList<LineaAlbaranBean> obj_LineaAlbaran) {
+        this.obj_LineaAlbaran = obj_LineaAlbaran;
+    }
+
     public AlbaranBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setFecha(oResultSet.getDate("fecha"));
@@ -113,7 +126,9 @@ public class AlbaranBean {
 
         if (expand > 0) {
             ClienteDao oClienteDao = new ClienteDao(oConnection, "dat001a");
-            this.setObj_Cliente(oClienteDao.get(oResultSet.getInt("cliente"),oResultSet.getInt("id_ejercicio"),expand -1));
+            LineaAlbaranDao oLineaAlbaranDao = new LineaAlbaranDao(oConnection, "dat131a");
+            this.setObj_LineaAlbaran(oLineaAlbaranDao.getpage(1000, 1, oResultSet.getInt("id_ejercicio"), oResultSet.getInt("id_auto")));
+            this.setObj_Cliente(oClienteDao.get(oResultSet.getInt("cliente"), oResultSet.getInt("id_ejercicio"), expand - 1));
         }
         return this;
 

@@ -71,6 +71,7 @@ public class LineaAlbaranService {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            Integer albaran = Integer.parseInt(oRequest.getParameter("albaran"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
 
             usuario = oUsuarioBean.getLoginCli();
@@ -80,7 +81,7 @@ public class LineaAlbaranService {
 
             LineaAlbaranDao oLineaAlbaranDao = new LineaAlbaranDao(oConnection, ob);
 
-            ArrayList<LineaAlbaranBean> alLineaAlbaranBean = oLineaAlbaranDao.getpage(iRpp, iPage, empresa);
+            ArrayList<LineaAlbaranBean> alLineaAlbaranBean = oLineaAlbaranDao.getpage(iRpp, iPage, empresa,albaran);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaAlbaranBean));
         } catch (Exception ex) {

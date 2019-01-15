@@ -5,7 +5,8 @@
  */
 package com.dao;
 
-import com.bean.LineaAlbaranBean;
+import com.bean.LineaPresupuestoBean;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,32 +17,32 @@ import java.util.ArrayList;
  *
  * @author GADE
  */
-public class LineaAlbaranDao {
+public class LineaPresupuestoDao {
 
     Connection oConnection;
     String ob = null;
 
-    public LineaAlbaranDao(Connection oConnection, String ob) {
+    public LineaPresupuestoDao(Connection oConnection, String ob) {
         super();
         this.oConnection = oConnection;
         this.ob = ob;
     }
 
-    public LineaAlbaranBean get(int id, int empresa, Integer expand) throws Exception {
+    public LineaPresupuestoBean get(String id, int empresa, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-        LineaAlbaranBean oLineaAlbaranBean;
+        LineaPresupuestoBean oLineaPresupuestoBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, id);
+            oPreparedStatement.setString(1, EncodingHelper.quotate(id));
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oLineaAlbaranBean = new LineaAlbaranBean();
-                oLineaAlbaranBean.setPrecio_Total(oResultSet.getFloat("cantidad") * oResultSet.getFloat("preciounitario"));
-                oLineaAlbaranBean.fill(oResultSet, oConnection, 1);
+                oLineaPresupuestoBean = new LineaPresupuestoBean();
+                oLineaPresupuestoBean.setPrecio_Total(oResultSet.getFloat("cantidad") * oResultSet.getFloat("preciounitario"));
+                oLineaPresupuestoBean.fill(oResultSet, oConnection, 1);
             } else {
-                oLineaAlbaranBean = null;
+                oLineaPresupuestoBean = null;
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -53,12 +54,12 @@ public class LineaAlbaranDao {
                 oPreparedStatement.close();
             }
         }
-        return oLineaAlbaranBean;
+        return oLineaPresupuestoBean;
     }
 
-    public ArrayList<LineaAlbaranBean> getpage(int iRpp, int iPage, int empresa, int albaran) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " where id_ejercicio= " + empresa + " and id_dat031a = " + albaran;
-        ArrayList<LineaAlbaranBean> alLineaAlbaranBean;
+    public ArrayList<LineaPresupuestoBean> getpage(int iRpp, int iPage, int empresa, int presupuesto) throws Exception {
+        String strSQL = "SELECT * FROM " + ob + " where id_ejercicio= " + empresa + " and id_dat032a = " + presupuesto;
+        ArrayList<LineaPresupuestoBean> alLineaPresupuestoBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
@@ -66,13 +67,13 @@ public class LineaAlbaranDao {
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oResultSet = oPreparedStatement.executeQuery();
-                alLineaAlbaranBean = new ArrayList<LineaAlbaranBean>();
+                alLineaPresupuestoBean = new ArrayList<LineaPresupuestoBean>();
                 while (oResultSet.next()) {
-                    LineaAlbaranBean oLineaAlbaranBean = new LineaAlbaranBean();
-                    oLineaAlbaranBean = new LineaAlbaranBean();
-                    oLineaAlbaranBean.setPrecio_Total(oResultSet.getFloat("cantidad") * oResultSet.getFloat("preciounitario"));
-                    oLineaAlbaranBean.fill(oResultSet, oConnection, 1);
-                    alLineaAlbaranBean.add(oLineaAlbaranBean);
+                    LineaPresupuestoBean oLineaPresupuestoBean = new LineaPresupuestoBean();
+                    oLineaPresupuestoBean = new LineaPresupuestoBean();
+                    oLineaPresupuestoBean.setPrecio_Total(oResultSet.getFloat("cantidad") * oResultSet.getFloat("preciounitario"));
+                    oLineaPresupuestoBean.fill(oResultSet, oConnection, 1);
+                    alLineaPresupuestoBean.add(oLineaPresupuestoBean);
                 }
             } catch (SQLException e) {
                 throw new Exception("Error en Dao getpage de " + ob, e);
@@ -87,7 +88,7 @@ public class LineaAlbaranDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
-        return alLineaAlbaranBean;
+        return alLineaPresupuestoBean;
 
     }
 }

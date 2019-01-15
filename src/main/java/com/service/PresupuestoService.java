@@ -5,10 +5,10 @@
  */
 package com.service;
 
-import com.bean.ProductoBean;
+import com.bean.PresupuestoBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
-import com.dao.ProductoDao;
+import com.dao.PresupuestoDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author a021792876p
  */
-public class ProductoService {
+public class PresupuestoService {
 
     HttpServletRequest oRequest;
     String ob = null;
     String usuario, password, conexion;
 
-    public ProductoService(HttpServletRequest oRequest) {
+    public PresupuestoService(HttpServletRequest oRequest) {
         super();
         this.oRequest = oRequest;
-        if ("producto".equals(oRequest.getParameter("ob"))) {
-            ob = "dat004a";
+        if ("presupuesto".equals(oRequest.getParameter("ob"))) {
+            ob = "dat032a";
         };
     }
 
@@ -47,10 +47,10 @@ public class ProductoService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
-            ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-            ProductoBean oProductoBean = oProductoDao.get(id.toString(), 1, empresa);
+            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
+            PresupuestoBean oPresupuestoBean = oPresupuestoDao.get(id, empresa, 1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oProductoBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oPresupuestoBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
@@ -77,11 +77,11 @@ public class ProductoService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
-            ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
+            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
 
-            ArrayList<ProductoBean> alProductoBean = oProductoDao.getpage(iRpp, iPage, empresa);
+            ArrayList<PresupuestoBean> alPresupuestoBean = oPresupuestoDao.getpage(iRpp, iPage, empresa, 1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alProductoBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alPresupuestoBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {

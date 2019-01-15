@@ -15,20 +15,20 @@ import java.sql.SQLException;
  *
  * @author a021792876p
  */
-public class LineaAlbaranBean {
+public class LineaPresupuestoBean {
 
     @Expose
     private int id;
     @Expose
     private int empresa;
     @Expose
-    private int codigo;
+    private int id_dat032a;
     @Expose
-    private int id_albaran;
-    @Expose
-    private String descripcion;
+    private int id_presupuesto;
     @Expose
     private String referencia;
+    @Expose
+    private String descripcion;
     @Expose
     private float precio;
     @Expose
@@ -54,28 +54,20 @@ public class LineaAlbaranBean {
         this.empresa = empresa;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getId_dat032a() {
+        return id_dat032a;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setId_dat032a(int id_dat032a) {
+        this.id_dat032a = id_dat032a;
     }
 
-    public int getId_albaran() {
-        return id_albaran;
+     public int getId_presupuesto() {
+        return id_presupuesto;
     }
 
-    public void setId_albaran(int id_albaran) {
-        this.id_albaran = id_albaran;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId_presupuesto(int id_presupuesto) {
+        this.id_presupuesto = id_presupuesto;
     }
 
     public String getReferencia() {
@@ -84,6 +76,14 @@ public class LineaAlbaranBean {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public float getPrecio() {
@@ -102,14 +102,6 @@ public class LineaAlbaranBean {
         this.cantidad = cantidad;
     }
 
-    public ProductoBean getObj_Producto() {
-        return obj_Producto;
-    }
-
-    public void setObj_Producto(ProductoBean obj_Producto) {
-        this.obj_Producto = obj_Producto;
-    }
-
     public float getPrecio_Total() {
         return precio_Total;
     }
@@ -118,13 +110,21 @@ public class LineaAlbaranBean {
         this.precio_Total = precio_Total;
     }
 
-    public LineaAlbaranBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
+    public ProductoBean getObj_Producto() {
+        return obj_Producto;
+    }
+
+    public void setObj_Producto(ProductoBean obj_Producto) {
+        this.obj_Producto = obj_Producto;
+    }
+
+    public LineaPresupuestoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setCantidad(oResultSet.getInt("cantidad"));
         this.setEmpresa(oResultSet.getInt("id_ejercicio"));
-        this.setCodigo(oResultSet.getInt("codigo"));
+        this.setId_dat032a(oResultSet.getInt("id_dat032a"));
         this.setDescripcion(oResultSet.getString("descripcion"));
-        this.setId_albaran(oResultSet.getInt("id_dat031a"));
+        this.setId_presupuesto(oResultSet.getInt("presupuestos"));
         this.setPrecio(oResultSet.getFloat("preciounitario"));
         this.setReferencia(oResultSet.getString("referencia"));
 
@@ -135,4 +135,5 @@ public class LineaAlbaranBean {
         return this;
 
     }
+
 }

@@ -6,6 +6,7 @@
 package com.dao;
 
 import com.bean.ProductoBean;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,14 +28,14 @@ public class ProductoDao {
         this.ob = ob;
     }
 
-    public ProductoBean get(int id, int empresa) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id_auto = ? and id_ejercicio = ?";
+    public ProductoBean get(String id,int expand, int empresa) throws Exception {
+        String strSQL = "SELECT * FROM " + ob + " WHERE artcodigo = ? and id_ejercicio = ?";
         ProductoBean oProductoBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, id);
+            oPreparedStatement.setString(1, EncodingHelper.quotate(id));
             oPreparedStatement.setInt(2, empresa);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
