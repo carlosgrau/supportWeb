@@ -5,6 +5,7 @@ import com.bean.UsuarioBean;
 import com.service.AlbaranService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
+import com.service.LineaAlbaranService;
 import com.service.ProductoService;
 import com.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
@@ -96,21 +97,21 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-//            case "lineaalbaran":
-//                ProductoService oProductoService = new ProductoService(oRequest);
-//                switch (op) {
-//                    case "get":
-//                        oReplyBean = oProductoService.get();
-//                        break;
-//                    case "getpage":
-//                        oReplyBean = oProductoService.getpage();
-//                        break;
-//
-//                    default:
-//                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
-//                        break;
-//                }
-//                break;
+            case "lineaalbaran":
+                LineaAlbaranService oLineaAlbaranService = new LineaAlbaranService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oLineaAlbaranService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oLineaAlbaranService.getpage();
+                        break;
+
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
             default:
                 oReplyBean = new ReplyBean(500, "Object doesn't exist");
                 break;

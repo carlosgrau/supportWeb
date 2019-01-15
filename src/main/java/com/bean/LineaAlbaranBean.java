@@ -109,13 +109,13 @@ public class LineaAlbaranBean {
     }
 
     public LineaAlbaranBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
+        this.setId(oResultSet.getInt("id_auto"));
         this.setCantidad(oResultSet.getInt("cantidad"));
-        this.setEmpresa(oResultSet.getInt("empresa"));
+        this.setEmpresa(oResultSet.getInt("id_ejercicio"));
         this.setCodigo(oResultSet.getInt("codigo"));
         this.setDescripcion(oResultSet.getString("descripcion"));
-        this.setId_albaran(oResultSet.getInt("id_albaran"));
-        this.setPrecio(oResultSet.getFloat("precio"));
+        this.setId_albaran(oResultSet.getInt("id_dat031a"));
+        //this.setPrecio(oResultSet.getFloat("preciounitario")*oResultSet.getFloat('cantidad'));
         this.setReferencia(oResultSet.getString("referencia"));
 
         if (expand > 0) {
