@@ -35,7 +35,7 @@ public class ProductoDao {
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setString(1, EncodingHelper.quotate(id));
+            oPreparedStatement.setString(1, id);
             oPreparedStatement.setInt(2, empresa);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {

@@ -5,6 +5,7 @@ import com.bean.UsuarioBean;
 import com.service.AlbaranService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
+import com.service.FacturaService;
 import com.service.LineaAlbaranService;
 import com.service.PresupuestoService;
 import com.service.ProductoService;
@@ -121,6 +122,21 @@ public class ServiceFactory {
                         break;
                     case "getpage":
                         oReplyBean = oPresupuestoService.getpage();
+                        break;
+
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
+            case "factura":
+                FacturaService oFacturaService = new FacturaService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oFacturaService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oFacturaService.getpage();
                         break;
 
                     default:
