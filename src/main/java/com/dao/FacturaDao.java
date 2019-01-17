@@ -104,4 +104,46 @@ public class FacturaDao {
         return alFacturaBean;
 
     }
+    public ArrayList<FacturaBean> getpageXusuario(int iRpp, int iPage, int empresa, Integer expand, Integer cliente) throws Exception {
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ? and cliente= ?";
+        ArrayList<FacturaBean> alFacturaBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oPreparedStatement.setInt(1, empresa);
+                oPreparedStatement.setInt(2, cliente);
+                oResultSet = oPreparedStatement.executeQuery();
+                alFacturaBean = new ArrayList<FacturaBean>();
+                while (oResultSet.next()) {
+                    FacturaBean oFacturaBean = new FacturaBean();
+//                    oFacturaBean = new FacturaBean();
+//                    oFacturaBean.setId(oResultSet.getInt("id_auto"));
+//                    oFacturaBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
+//                    oFacturaBean.setEstado(oResultSet.getInt("estado"));
+//                    oFacturaBean.setFactura(oResultSet.getInt("id_dat140a"));
+//                    oFacturaBean.setFecha(oResultSet.getDate("fecha"));
+//                    oFacturaBean.setId_cliente(oResultSet.getInt("cliente"));
+//                    oFacturaBean.setNombre_cliente(oResultSet.getString("nombre"));
+                    oFacturaBean.fill(oResultSet, oConnection, expand);
+                    alFacturaBean.add(oFacturaBean);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getpage de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
+            }
+        } else {
+            throw new Exception("Error en Dao getpage de " + ob);
+        }
+        return alFacturaBean;
+
+    }
 }

@@ -138,6 +138,9 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oFacturaService.getpage();
                         break;
+                    case "getpagexusuario":
+                        oReplyBean = oFacturaService.getpageXusuario();
+                        break;
 
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");

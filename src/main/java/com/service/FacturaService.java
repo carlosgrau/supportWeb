@@ -48,7 +48,7 @@ public class FacturaService {
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
-            FacturaBean oFacturaBean = oFacturaDao.get(id, empresa,1);
+            FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 1);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(oFacturaBean));
         } catch (Exception ex) {
@@ -79,7 +79,7 @@ public class FacturaService {
 
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
 
-            ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpage(iRpp, iPage, empresa,1);
+            ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpage(iRpp, iPage, empresa, 1);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alFacturaBean));
         } catch (Exception ex) {
@@ -89,6 +89,37 @@ public class FacturaService {
             oUsuarioBean.disposeConnection();
         }
 
+        return oReplyBean;
+
+    }
+
+    public ReplyBean getpageXusuario() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        try {
+            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+
+            FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
+
+            ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpageXusuario(iRpp, iPage, empresa, 1, cliente);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alFacturaBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getLineaFactura method: " + ob + " object" + ex.getMessage(), ex);
+        } finally {
+            oConnection.close();
+            oUsuarioBean.disposeConnection();
+        }
         return oReplyBean;
 
     }
