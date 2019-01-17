@@ -92,4 +92,34 @@ public class AlbaranService {
         return oReplyBean;
 
     }
+    public ReplyBean getpageXusuario() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        try {
+            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+
+            AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
+
+            ArrayList<AlbaranBean> alAlbaranBean = oAlbaranDao.getpageXusuario(iRpp, iPage, empresa, 1, cliente);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alAlbaranBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getLineaAlbaran method: " + ob + " object" + ex.getMessage(), ex);
+        } finally {
+            oConnection.close();
+            oUsuarioBean.disposeConnection();
+        }
+        return oReplyBean;
+
+    }
 }
