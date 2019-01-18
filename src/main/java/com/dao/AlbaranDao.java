@@ -7,6 +7,7 @@ package com.dao;
 
 import com.bean.AlbaranBean;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,13 +40,6 @@ public class AlbaranDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oAlbaranBean = new AlbaranBean();
-//                oAlbaranBean.setId(oResultSet.getInt("id_auto"));
-//                oAlbaranBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                oAlbaranBean.setEstado(oResultSet.getInt("estado"));
-//                oAlbaranBean.setAlbaran(oResultSet.getInt("id_dat140a"));
-//                oAlbaranBean.setFecha(oResultSet.getDate("fecha"));
-//                oAlbaranBean.setId_cliente(oResultSet.getInt("cliente"));
-//                oAlbaranBean.setNombre_cliente(oResultSet.getString("nombre"));
                 oAlbaranBean.fill(oResultSet, oConnection, expand);
             } else {
                 oAlbaranBean = null;
@@ -77,14 +71,6 @@ public class AlbaranDao {
                 alAlbaranBean = new ArrayList<AlbaranBean>();
                 while (oResultSet.next()) {
                     AlbaranBean oAlbaranBean = new AlbaranBean();
-//                    oAlbaranBean = new AlbaranBean();
-//                    oAlbaranBean.setId(oResultSet.getInt("id_auto"));
-//                    oAlbaranBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                    oAlbaranBean.setEstado(oResultSet.getInt("estado"));
-//                    oAlbaranBean.setAlbaran(oResultSet.getInt("id_dat140a"));
-//                    oAlbaranBean.setFecha(oResultSet.getDate("fecha"));
-//                    oAlbaranBean.setId_cliente(oResultSet.getInt("cliente"));
-//                    oAlbaranBean.setNombre_cliente(oResultSet.getString("nombre"));
                     oAlbaranBean.fill(oResultSet, oConnection, expand);
                     alAlbaranBean.add(oAlbaranBean);
                 }
@@ -104,6 +90,7 @@ public class AlbaranDao {
         return alAlbaranBean;
 
     }
+
     public ArrayList<AlbaranBean> getpageXusuario(int iRpp, int iPage, int empresa, Integer expand, Integer cliente) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ? and cliente= ?";
         ArrayList<AlbaranBean> alAlbaranBean;
@@ -119,14 +106,6 @@ public class AlbaranDao {
                 alAlbaranBean = new ArrayList<AlbaranBean>();
                 while (oResultSet.next()) {
                     AlbaranBean oAlbaranBean = new AlbaranBean();
-//                    oAlbaranBean = new AlbaranBean();
-//                    oAlbaranBean.setId(oResultSet.getInt("id_auto"));
-//                    oAlbaranBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                    oAlbaranBean.setEstado(oResultSet.getInt("estado"));
-//                    oAlbaranBean.setAlbaran(oResultSet.getInt("id_dat140a"));
-//                    oAlbaranBean.setFecha(oResultSet.getDate("fecha"));
-//                    oAlbaranBean.setId_cliente(oResultSet.getInt("cliente"));
-//                    oAlbaranBean.setNombre_cliente(oResultSet.getString("nombre"));
                     oAlbaranBean.fill(oResultSet, oConnection, expand);
                     alAlbaranBean.add(oAlbaranBean);
                 }
@@ -146,4 +125,36 @@ public class AlbaranDao {
         return alAlbaranBean;
 
     }
+    public AlbaranBean create(AlbaranBean oAlbaranBean) throws Exception {
+		String strSQL = "INSERT INTO " + ob + " ( "+ob+".id,  "+ob+".fecha,  "+ob+".iva, "+ob+".id_usuario) VALUES (NULL, ?,?,?); ";
+		ResultSet oResultSet = null;
+		PreparedStatement oPreparedStatement = null;
+		try {
+			oPreparedStatement = oConnection.prepareStatement(strSQL);
+			oPreparedStatement.setDate(1, (Date) oAlbaranBean.getFecha());
+                        oPreparedStatement.setInt(2, oAlbaranBean.getEmpresa());
+                        oPreparedStatement.setInt(2, oAlbaranBean.getEstado());
+                        oPreparedStatement.setInt(2, oAlbaranBean.getFactura());
+                        oPreparedStatement.setInt(2, oAlbaranBean.getId_cliente());
+                        oPreparedStatement.setString(2, oAlbaranBean.getNombre_cliente());
+                        //oPreparedStatement.setInt(3, oAlbaranBean.getObj_Cliente());
+			oPreparedStatement.executeUpdate();
+			oResultSet = oPreparedStatement.getGeneratedKeys();
+			if (oResultSet.next()) {
+				oAlbaranBean.setId(oResultSet.getInt(1));
+			} else {
+				oAlbaranBean.setId(0);
+			}
+		} catch (SQLException e) {
+			throw new Exception("Error en Dao create de " + ob, e);
+		} finally {
+			if (oResultSet != null) {
+				oResultSet.close();
+			}
+			if (oPreparedStatement != null) {
+				oPreparedStatement.close();
+			}
+		}
+		return oAlbaranBean;
+	}
 }

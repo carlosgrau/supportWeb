@@ -48,7 +48,37 @@ public class AlbaranService {
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
             AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
-            AlbaranBean oAlbaranBean = oAlbaranDao.get(id, empresa,1);
+            AlbaranBean oAlbaranBean = oAlbaranDao.get(id, empresa, 1);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(oAlbaranBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
+        } finally {
+            oConnection.close();
+            oUsuarioBean.disposeConnection();
+        }
+
+        return oReplyBean;
+
+    }
+
+    public ReplyBean create() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+
+        try {
+            Integer id = Integer.parseInt(oRequest.getParameter("id"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+
+            AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
+            AlbaranBean oAlbaranBean = oAlbaranDao.get(id, empresa, 1);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(oAlbaranBean));
         } catch (Exception ex) {
@@ -79,7 +109,7 @@ public class AlbaranService {
 
             AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
 
-            ArrayList<AlbaranBean> alAlbaranBean = oAlbaranDao.getpage(iRpp, iPage, empresa,1);
+            ArrayList<AlbaranBean> alAlbaranBean = oAlbaranDao.getpage(iRpp, iPage, empresa, 1);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alAlbaranBean));
         } catch (Exception ex) {
@@ -92,6 +122,7 @@ public class AlbaranService {
         return oReplyBean;
 
     }
+
     public ReplyBean getpageXusuario() throws Exception {
         ReplyBean oReplyBean;
         Connection oConnection = null;

@@ -96,7 +96,9 @@ public class ServiceFactory {
                     case "getpagexusuario":
                         oReplyBean = oAlbaranService.getpageXusuario();
                         break;
-
+                    case "create":
+                        oReplyBean = oAlbaranService.create();
+                        break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                         break;
