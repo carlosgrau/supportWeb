@@ -92,4 +92,37 @@ public class PresupuestoService {
         return oReplyBean;
 
     }
+    
+    public ReplyBean getpageXusuario() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        try {
+            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+
+            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
+
+            ArrayList<PresupuestoBean> alPresupuestoBean = oPresupuestoDao.getpageXusuario(iRpp, iPage, empresa, 1, cliente);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alPresupuestoBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getLineaPresupuesto method: " + ob + " object" + ex.getMessage(), ex);
+        } finally {
+            oConnection.close();
+            oUsuarioBean.disposeConnection();
+        }
+        return oReplyBean;
+
+    }
+    
+    
 }

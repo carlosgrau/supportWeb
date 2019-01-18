@@ -104,4 +104,46 @@ public class PresupuestoDao {
         return alPresupuestoBean;
 
     }
+    public ArrayList<PresupuestoBean> getpageXusuario(int iRpp, int iPage, int empresa, Integer expand, Integer cliente) throws Exception {
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ? and cliente= ?";
+        ArrayList<PresupuestoBean> alPresupuestoBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oPreparedStatement.setInt(1, empresa);
+                oPreparedStatement.setInt(2, cliente);
+                oResultSet = oPreparedStatement.executeQuery();
+                alPresupuestoBean = new ArrayList<PresupuestoBean>();
+                while (oResultSet.next()) {
+                    PresupuestoBean oPresupuestoBean = new PresupuestoBean();
+//                    oPresupuestoBean = new PresupuestoBean();
+//                    oPresupuestoBean.setId(oResultSet.getInt("id_auto"));
+//                    oPresupuestoBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
+//                    oPresupuestoBean.setEstado(oResultSet.getInt("estado"));
+//                    oPresupuestoBean.setPresupuesto(oResultSet.getInt("id_dat140a"));
+//                    oPresupuestoBean.setFecha(oResultSet.getDate("fecha"));
+//                    oPresupuestoBean.setId_cliente(oResultSet.getInt("cliente"));
+//                    oPresupuestoBean.setNombre_cliente(oResultSet.getString("nombre"));
+                    oPresupuestoBean.fill(oResultSet, oConnection, expand);
+                    alPresupuestoBean.add(oPresupuestoBean);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getpage de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
+            }
+        } else {
+            throw new Exception("Error en Dao getpage de " + ob);
+        }
+        return alPresupuestoBean;
+
+    }
 }
