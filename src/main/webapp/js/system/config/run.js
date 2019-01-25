@@ -14,7 +14,7 @@ SuportWeb4All.run(['$rootScope', 'sessionService', '$location', '$http', 'countc
                 } else {
                     oSessionService.setSessionInactive;
                     if (nextUrl != '/' && nextUrl != '/home' && nextUrl != '/login') {
-                        $location.path("/login");
+                        $location.path("/");
                     }
                 }
             }, function (response) {

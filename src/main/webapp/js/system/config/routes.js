@@ -128,6 +128,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 
         //LOGIN
         $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'loginController'});
+        $routeProvider.when('/empresa', {templateUrl: 'js/common/empresa.html', controller: 'empresaController'});
 
         //OTROS
         $routeProvider.when('/', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});

@@ -19,16 +19,16 @@ moduleLogin.controller('loginController', ['$scope', '$http', 'sessionService', 
                         $scope.mensajeError = true;
                     } else {
                         $scope.mensajeError = false;
-                        sessionService.setSessionActive();
+                       /* sessionService.setSessionActive();
                         sessionService.setUserName(response.data.message.nombre + ' ' + response.data.message.ape1);
                         sessionService.setUserId(response.data.message.id);
                         $scope.idUsuariologeado= sessionService.getUserId();
                         $scope.usuariologeado = sessionService.getUserName();
-                        sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
+                        sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);*/
                         $scope.mensaje = true;
                     }
                 }
-                $location.url('/home');
+                $location.url('/empresa');
             }, function (response) {
                 $scope.mensajeError = true;
                 $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
