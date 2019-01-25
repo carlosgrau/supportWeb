@@ -5,6 +5,7 @@ var SuportWeb4All = angular.module('MyApp', [
     'services',
     'commonControllers',
     'loginControllers',
+    'empresaControllers',
     'moduleComponent',
     'ngMaterial',
     'Directives'
