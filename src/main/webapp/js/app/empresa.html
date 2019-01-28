@@ -6,8 +6,10 @@
             <img class="card-img-top" src="http://www.themailcompany.es/wp-content/uploads/header_01.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{(fila.nombre).toUpperCase()}}</h5>
-                <p class="card-text">{{fila.empresa}}</p>
-                <a href="#" class="btn btn-success">Seleccionar</a>
+                <p class="card-text">EMPRESA:{{fila.empresa}}</p>
+                <p class="card-text">NIF:{{fila.ejercicio}}</p>
+                <p class="card-text">EJERCICIO:{{fila.nif}}</p>
+                <a href="{{fila.empresa}}" class="btn btn-success">Seleccionar</a>
             </div>
         </div>
     </div>
