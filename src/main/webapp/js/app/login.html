@@ -4,7 +4,7 @@
             <h1 id="titulo">Login</h1>
 
             <form class="form" name="userForm">
-                <input type="text" placeholder="Usuario" id="login" name="login" ng-model="usuario" ng-required="true">
+                <input type="text" placeholder="Usuario" id="login" name="login" ng-model="login" ng-required="true">
                 <input type="password" placeholder="Contraseña" id="password" name="password" ng-model="password" ng-required="true">
                 <button ng-click="validar()" type="button" ng-disabled="userForm.$invalid" id="login-button">Login</button>
             </form>
