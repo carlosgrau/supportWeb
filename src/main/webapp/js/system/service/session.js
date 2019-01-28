@@ -2,16 +2,23 @@
 moduleService.service('sessionService', ['$location', function ($location) {
         var isSessionActive = false;
         var userName = "";
-        var userId='';
-        var tipoUserId= '';
+        var userId = '';
+        var tipoUserId = '';
         var carrito = 0;
         var observerCallbacks = [];
+        var empresaEjercicio = 0;
         return {
             getUserName: function () {
                 return userName;
             },
             setUserName: function (name) {
                 userName = name;
+            },
+            getEmpresa: function () {
+                return empresaEjercicio;
+            },
+            setEmpresa: function (empresa) {
+                empresaEjercicio = empresa;
             },
             isSessionActive: function () {
                 return isSessionActive;
@@ -48,7 +55,7 @@ moduleService.service('sessionService', ['$location', function ($location) {
             registerObserverCallback: function (callback) {
                 observerCallbacks.push(callback);
             }
-            
+
         };
-        
+
     }]);
