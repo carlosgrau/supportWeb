@@ -1,88 +1,15 @@
-//var autenticacionAdministrador = function ($q, $location, $http, sessionService, countcarritoService) {
-//    var deferred = $q.defer();
-//    var usuario;
-//    var nombreUsuario;
-//    var idUsuarioLogeado;
-//    $http({
-//        method: 'GET',
-//        url: 'json?ob=usuario&op=check'
-//    }).then(function (response) {
-//        respuesta = response;
-//        if (response.data.status === 200) {
-//            //comprobar que el usuario en sesión es administrador
-//            usuario = response.data.message.obj_tipoUsuario.id;
-//            nombreUsuario = response.data.message.nombre + ' ' + response.data.message.ape1;
-//            idUsuarioLogeado = response.data.message.id;
-//            if (usuario === 1) {
-//                countcarritoService.updateCarrito();
-//                //hay que meter el usuario activo en el sessionService
-//                sessionService.setTipoUserId(usuario);
-//                sessionService.setUserId(idUsuarioLogeado);
-//                sessionService.setUserName(nombreUsuario);
-//                sessionService.setSessionActive();
-//                deferred.resolve();
-//            } else {
-//                $location.path('/home');
-//            }
-//        } else {
-//            $location.path('/home');
-//        }
-//    }, function (response) {
-//        $location.path('/home');
-//        respuesta = response;
-//    });
-//
-//    return deferred.promise;
-//};
-//var autenticacionUsuario = function ($q, $location, $http, sessionService, countcarritoService, $routeParams) {
-//    var deferred = $q.defer();
-//    var usuario;
-//    var nombreUsuario;
-//    var idUsuarioLogeado;
-//    var id = $routeParams.id;
-//    $http({
-//        method: 'GET',
-//        url: 'json?ob=usuario&op=check'
-//    }).then(function (response) {
-//        if (response.data.status === 200) {
-//            //comprobar que el usuario en sesión es usuario
-//
-//            usuario = response.data.message.obj_tipoUsuario.id;
-//            nombreUsuario = response.data.message.nombre + ' ' + response.data.message.ape1;
-//            idUsuarioLogeado = response.data.message.id;
-//            if (usuario === 2) {
-//                countcarritoService.updateCarrito();
-//                //hay que meter el usuario activo en el sessionService
-//                sessionService.setTipoUserId(usuario);
-//                sessionService.setUserId(idUsuarioLogeado);
-//                sessionService.setUserName(nombreUsuario);
-//                sessionService.setSessionActive();
-//                deferred.resolve();
-//            }
-//            //hay que meter el usuario activo en el sessionService
-//        } else {
-//            $location.path('/home');
-//        }
-//    }, function (response) {
-//        $location.path('/home');
-//    });
-//    return deferred.promise;
-//};
-
-
-
 SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         //ADMINISTRADOR
         //USUARIO
-//        $routeProvider.when('/usuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/plist', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/view/:id?', {templateUrl: 'js/app/usuario/view.html', controller: 'usuarioViewControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/edit/:id?', {templateUrl: 'js/app/usuario/edit.html', controller: 'usuarioEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/remove/:id?', {templateUrl: 'js/app/usuario/remove.html', controller: 'usuarioRemoveControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/create/', {templateUrl: 'js/app/usuario/create.html', controller: 'usuarioCreateControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plistfactura.html', controller: 'usuarioPlistFacturaControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/usuario/new', {templateUrl: 'js/app/usuario/new.html', controller: 'usuarioNewControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//
+        $routeProvider.when('/cliente/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
+        $routeProvider.when('/cliente/plist', {templateUrl: 'js/app/cliente/plist.html', controller: 'usuarioPlistController'});
+        $routeProvider.when('/cliente/view/:id?', {templateUrl: 'js/app/cliente/view.html', controller: 'usuarioViewController'});
+        $routeProvider.when('/cliente/edit/:id?', {templateUrl: 'js/app/cliente/edit.html', controller: 'usuarioEditController'});
+        $routeProvider.when('/cliente/remove/:id?', {templateUrl: 'js/app/cliente/remove.html', controller: 'usuarioRemoveController'});
+        $routeProvider.when('/cliente/create/', {templateUrl: 'js/app/cliente/create.html', controller: 'usuarioCreateController'});
+        $routeProvider.when('/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plistfactura.html', controller: 'usuarioPlistFacturaController'});
+        $routeProvider.when('/cliente/new', {templateUrl: 'js/app/cliente/new.html', controller: 'usuarioNewController'});
+
 //        //TIPOUSUARIO
 //        $routeProvider.when('/tipousuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipousuario/plist.html', controller: 'tipousuarioPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //        $routeProvider.when('/tipousuario/edit/:id?', {templateUrl: 'js/app/tipousuario/edit.html', controller: 'tipousuarioEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
@@ -118,13 +45,13 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 //        $routeProvider.when('/linea/edit/:id?', {templateUrl: 'js/app/linea/edit.html', controller: 'lineaEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //        $routeProvider.when('/linea/lineafactura/:id?', {templateUrl: 'js/app/linea/lineafactura.html', controller: 'lineaNewControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //
-//        //USUARIOS
-//        $routeProvider.when('/usr/usuario/view/:id?', {templateUrl: 'js/app/usr/usuario/view.html', controller: 'usuarioViewControllerUsr', resolve: {auth: autenticacionUsuario}});
-//        $routeProvider.when('/usr/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/factura/plistlinea.html', controller: 'facturaViewControllerUsr', resolve: {auth: autenticacionUsuario}});
-//        $routeProvider.when('/usr/producto/view/:id?', {templateUrl: 'js/app/usr/producto/view.html', controller: 'productoViewControllerUsr', resolve: {auth: autenticacionUsuario}});
-//        $routeProvider.when('/usr/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/producto/plist.html', controller: 'productoPlistUsrControllerUsr', resolve: {auth: autenticacionUsuario}});
-//        $routeProvider.when('/usr/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/usuario/plistfactura.html', controller: 'usuarioPlistFacturaControllerUsr', resolve: {auth: autenticacionUsuario}});
-//
+        //USUARIOS
+        $routeProvider.when('/usr/cliente/view/:id?', {templateUrl: 'js/app/usr/cliente/view.html', controller: 'clienteViewController'});
+        $routeProvider.when('/usr/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/factura/plistlinea.html', controller: 'clienteViewController'});
+        $routeProvider.when('/usr/producto/view/:id?', {templateUrl: 'js/app/usr/producto/view.html', controller: 'productoViewController'});
+        $routeProvider.when('/usr/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/producto/plist.html', controller: 'productoPlistUsrController'});
+        $routeProvider.when('/usr/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/cliente/plistfactura.html', controller: 'usuarioPlistFacturaController'});
+
 
         //LOGIN
         $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'loginController'});
