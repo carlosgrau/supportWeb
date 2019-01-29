@@ -6,7 +6,7 @@ moduleService.service('sessionService', ['$location', function ($location) {
         var tipoUserId = '';
         var carrito = 0;
         var observerCallbacks = [];
-        var empresaEjercicio = 0;
+        var empresaEjercicio;
         return {
             getUserName: function () {
                 return userName;

@@ -78,28 +78,31 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
             $scope.ajaxDataEmpresa = response.data.message || 'Request failed';
         });
         $scope.seleccionar = function (ejercicio) {
+           
+            var json = {
+                ejercicio: $scope.ajaxDataEmpresa.ejercicio
+            }
+            $http({
+                method: 'GET',
+                withCredentials: true,
+                url: '/json?ob=empresa&op=select',
+                params: {json: JSON.stringify(json)}
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.mensaje = true;
+            }, function (response) {
+                $scope.ajaxDatoTipoUsuario = response.data.message || 'Request failed';
+                $scope.status = response.status;
+            });
+
             sessionService.setEmpresa(ejercicio);
             console.log(sessionService.getEmpresa());
         };
+        
+        
         $scope.update = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
-        $scope.addProducto = function (id) {
-
-            $http({
-                method: 'GET',
-                url: '/json?ob=carrito&op=add&prod=' + id + '&cant=1'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message;
-
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message || 'Request failed';
-            });
-        };
-
-
 
         //paginacion neighbourhood
         function pagination2() {

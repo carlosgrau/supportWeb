@@ -10,6 +10,7 @@ import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.dao.EmpresaDao;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -91,4 +92,22 @@ public class EmpresaService {
 
     }
 
+    public void select() throws Exception {
+        ReplyBean oReplyBean = null;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        EmpresaBean oEmpresaBean = null;
+        try {
+            String strJsonFromClient = oRequest.getParameter("json");
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oEmpresaBean = oGson.fromJson(strJsonFromClient, oEmpresaBean.getClass());
+            oRequest.getSession().setAttribute("ejercicio",oEmpresaBean);
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
+        } finally {
+            oConnection.close();
+            oUsuarioBean.disposeConnection();
+        }
+    }
+;
 }

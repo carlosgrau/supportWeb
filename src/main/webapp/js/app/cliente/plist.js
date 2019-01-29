@@ -2,7 +2,7 @@
 
 moduleCliente.controller('clientePlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-
+        console.log(sessionService.getEmpresa());
         $scope.totalPages = 1;
 
         if (!$routeParams.order) {
@@ -70,7 +70,7 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
 
         $http({
             method: 'GET',
-            url: '/json?ob=usuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=cliente&op=getpage&ejercicio='+sessionService.getEmpresa()+'&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
