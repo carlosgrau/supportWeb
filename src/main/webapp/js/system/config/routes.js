@@ -2,13 +2,13 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         //ADMINISTRADOR
         //USUARIO
         $routeProvider.when('/cliente/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
-        $routeProvider.when('/cliente/plist', {templateUrl: 'js/app/cliente/plist.html', controller: 'usuarioPlistController'});
-        $routeProvider.when('/cliente/view/:id?', {templateUrl: 'js/app/cliente/view.html', controller: 'usuarioViewController'});
-        $routeProvider.when('/cliente/edit/:id?', {templateUrl: 'js/app/cliente/edit.html', controller: 'usuarioEditController'});
-        $routeProvider.when('/cliente/remove/:id?', {templateUrl: 'js/app/cliente/remove.html', controller: 'usuarioRemoveController'});
-        $routeProvider.when('/cliente/create/', {templateUrl: 'js/app/cliente/create.html', controller: 'usuarioCreateController'});
-        $routeProvider.when('/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plistfactura.html', controller: 'usuarioPlistFacturaController'});
-        $routeProvider.when('/cliente/new', {templateUrl: 'js/app/cliente/new.html', controller: 'usuarioNewController'});
+        $routeProvider.when('/cliente/plist', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
+        $routeProvider.when('/cliente/view/:id?', {templateUrl: 'js/app/cliente/view.html', controller: 'clienteViewController'});
+        $routeProvider.when('/cliente/edit/:id?', {templateUrl: 'js/app/cliente/edit.html', controller: 'clienteEditController'});
+        $routeProvider.when('/cliente/remove/:id?', {templateUrl: 'js/app/cliente/remove.html', controller: 'clienteRemoveController'});
+        $routeProvider.when('/cliente/create/', {templateUrl: 'js/app/cliente/create.html', controller: 'clienteCreateController'});
+        $routeProvider.when('/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plistfactura.html', controller: 'clientePlistFacturaController'});
+        $routeProvider.when('/cliente/new', {templateUrl: 'js/app/cliente/new.html', controller: 'clienteNewController'});
 
 //        //TIPOUSUARIO
 //        $routeProvider.when('/tipousuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipousuario/plist.html', controller: 'tipousuarioPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});

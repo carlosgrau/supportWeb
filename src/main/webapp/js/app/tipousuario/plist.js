@@ -1,6 +1,6 @@
 'use strict'
 
-moduleTipousuario.controller('tipousuarioPlistControllerAdm', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.ob = "tipousuario";

@@ -1,6 +1,6 @@
 'use strict'
 
-moduleCliente.controller('clientePlistControllerAdm', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+moduleCliente.controller('clientePlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;

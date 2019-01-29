@@ -1,6 +1,6 @@
 'use strict'
 
-moduleTipousuario.controller('usuarioRemoveControllerAdm', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
+moduleTipousuario.controller('clienteRemoveController', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, toolService, $routeParams, sessionService) {
 
         $http({

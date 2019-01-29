@@ -1,6 +1,6 @@
 'use strict';
 
-moduleUsuario.controller('usuarioCreateControllerAdm', ['$scope', '$http', 'sessionService',
+moduleCliente.controller('clienteCreateControllerAdm', ['$scope', '$http', 'sessionService',
     function ($scope, $http, sessionService) {
         
         if (sessionService) {
