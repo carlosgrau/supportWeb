@@ -74,4 +74,12 @@ public class EmpresaBean {
         this.setNif(oResultSet.getString("nif"));
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "EmpresaBean{" + "id=" + id + ", empresa=" + empresa + ", nombre=" + nombre + ", nif=" + nif + ", ejercicio=" + ejercicio + '}';
+    }
+    
+    
+    
 }

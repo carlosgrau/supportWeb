@@ -11,6 +11,7 @@ import com.bean.UsuarioBean;
 import com.dao.EmpresaDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -92,22 +93,24 @@ public class EmpresaService {
 
     }
 
-    public void select() throws Exception {
-        ReplyBean oReplyBean = null;
+    public ReplyBean select() throws Exception {
+        ReplyBean oReplyBean;
         Connection oConnection = null;
-        UsuarioBean oUsuarioBean = null;
         EmpresaBean oEmpresaBean = null;
         try {
+            if (oRequest.getSession().getAttribute("ejercicio") != null) {
+                oRequest.getSession().setAttribute("ejercicio", null);
+            }
             String strJsonFromClient = oRequest.getParameter("json");
+
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oEmpresaBean = oGson.fromJson(strJsonFromClient, oEmpresaBean.getClass());
-            oRequest.getSession().setAttribute("ejercicio",oEmpresaBean);
+            oEmpresaBean = oGson.fromJson(strJsonFromClient, EmpresaBean.class);
+            oRequest.getSession().setAttribute("ejercicio", oEmpresaBean);
+            oReplyBean = new ReplyBean(200, EncodingHelper.quotate("Empresa seleccionada correctamente"));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
-        } finally {
-            oConnection.close();
-            oUsuarioBean.disposeConnection();
         }
+        return oReplyBean;
     }
 ;
 }

@@ -73,11 +73,11 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
             url: '/json?ob=cliente&op=getpage&ejercicio='+sessionService.getEmpresa()+'&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
+            $scope.ajaxDataCliente = response.data.message;
 
         }, function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+            $scope.ajaxDataCliente = response.data.message || 'Request failed';
         });
 
         $scope.logout = function () {

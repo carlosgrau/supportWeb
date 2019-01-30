@@ -80,7 +80,7 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
         $scope.seleccionar = function (ejercicio) {
            
             var json = {
-                ejercicio: $scope.ajaxDataEmpresa.ejercicio
+                empresa: ejercicio
             }
             $http({
                 method: 'GET',
