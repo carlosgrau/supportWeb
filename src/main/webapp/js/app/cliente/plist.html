@@ -66,7 +66,16 @@
                     </button>
                 </th>
                 <th>
-                    DNI
+                    Codigo
+                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('codigo', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('codigo', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>
+                </th>
+                <th>
+                    NIF/DNI
                     <button type="button" class="btn btn-sm btn-light" ng-click="ordena('dni', 'asc')">
                         <i class="fas fa-long-arrow-alt-up"></i>
                     </button>
@@ -85,7 +94,7 @@
                     </button>
                 </th>
                 <th>
-                    1er apellido
+                    Razon Social
                     <button type="button" class="btn btn-sm btn-light" ng-click="ordena('ape1', 'asc')">
                         <i class="fas fa-long-arrow-alt-up"></i>
                     </button>
@@ -94,16 +103,7 @@
                     </button>
                 </th>
                 <th>
-                    2o apellido
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('ape2', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('ape2', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
-                </th>
-                <th>
-                    Nombre cliente
+                    Telefono
                     <button type="button" class="btn btn-sm btn-light" ng-click="ordena('login', 'asc')">
                         <i class="fas fa-long-arrow-alt-up"></i>
                     </button>
@@ -112,7 +112,7 @@
                     </button>
                 </th>
                 <th>
-                    Tipo de cliente
+                    Dirección
                     <button type="button" class="btn btn-sm btn-light" ng-click="ordena('id_tipocliente', 'asc')">
                         <i class="fas fa-long-arrow-alt-up"></i>
                     </button>
@@ -129,15 +129,13 @@
             </tr>
             <tr ng-repeat="fila in ajaxDataCliente">
                 <td>{{fila.id}}</td>
-                <td>{{fila.dni}}</td>
+                <td>{{fila.codigo}}</td>
+                <td>{{fila.nif}}</td>
                 <td>{{fila.nombre}}</td>
-                <td>{{fila.ape1}}</td>
-                <td>{{fila.ape2}}</td>
+                <td>{{fila.razonsocial}}</td>
+                <td>{{fila.telefono}}</td>
+                <td>{{fila.direccion}}</td>
                 <td>{{fila.login}}</td>
-                <td><a href="tipocliente/view/{{fila.obj_tipocliente.id}}">{{fila.obj_tipocliente.desc}}</a></td>
-                <td><a href="cliente/plistfactura/{{fila.id}}">
-                        <button type="button" class="btn btn-light btn-sm">
-                            <i>{{fila.link_factura}}</i></button></a></td>
                 <td>
                     <a href="cliente/view/{{fila.id}}"> <button type="button" class="btn btn-light btn-sm">
                             <i class="fa fa-eye"></i>

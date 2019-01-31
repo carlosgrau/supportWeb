@@ -39,15 +39,6 @@ public class ClienteDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oClienteBean = new ClienteBean();
-//                oClienteBean.setId(oResultSet.getInt("id_auto"));
-//                oClienteBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                oClienteBean.setCodigo(oResultSet.getInt("clicodigo"));
-//                oClienteBean.setNombre(oResultSet.getString("clinombre"));
-//                oClienteBean.setRazonsocial(oResultSet.getString("clirazonsocial"));
-//                oClienteBean.setTelefono(oResultSet.getString("clitelefono1"));
-//                oClienteBean.setNif(oResultSet.getString("clinif"));
-//                oClienteBean.setDireccion(oResultSet.getString("clidireccion"));
-//                oClienteBean.setEmail(oResultSet.getString("cliemail"));
                 oClienteBean.fill(oResultSet, oConnection);
             } else {
                 oClienteBean = null;
@@ -98,5 +89,29 @@ public class ClienteDao {
         }
         return alClienteBean;
 
+    }
+    public int getcount(int empresa) throws Exception {
+        String strSQL = "SELECT COUNT(id_auto) FROM " + ob+" WHERE id_ejercicio= ?";
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+             oPreparedStatement.setInt(1, empresa);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao get de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return res;
     }
 }

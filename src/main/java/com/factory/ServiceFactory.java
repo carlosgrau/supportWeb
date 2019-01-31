@@ -66,6 +66,9 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oClienteService.getpage();
                         break;
+                    case "getcount":
+                        oReplyBean = oClienteService.getcount();
+                        break;
 
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");

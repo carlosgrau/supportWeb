@@ -37,16 +37,13 @@
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <div>
-                
+<!--            <div>
+
                 <a ng-show="c.ocultar && !c.isAdmin && c.carrito" class="nav-link hvr-bob" href="carrito"><button class="btn btn-warning" style="width: auto"><img src="../../image/carrito.png" >&nbsp{{c.carrito}}</button></a>
-                
-            </div>
-            <div>
-                <a ng-show="c.ocultar && c.isAdmin" style="color: white" href="usuario/view/{{c.idUsuariologeado}}"><img src="../../image/user-login.png"> {{c.usuariologeado| uppercase}}&nbsp;&nbsp;&nbsp;</a>
-            </div>
-            <div>
-                <a ng-show="c.ocultar && c.isUser" style="color: white" href="cliente/view/{{c.idUsuariologeado}}"><img src="../../image/user-login.png"> {{c.usuariologeado| uppercase}}&nbsp;&nbsp;&nbsp;</a>
+
+            </div>-->
+            <div ng-show="c.ocultar" style="color: white">
+                {{c.usuario| uppercase}} &nbsp
             </div>
             <div>
                 <a href="/login"><button ng-show="!c.ocultar"  class="btn btn-outline-success my-2 my-sm-0" type="button" >Login</button></a>

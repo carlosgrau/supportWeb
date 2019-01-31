@@ -2,7 +2,6 @@
 
 moduleCliente.controller('clientePlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        console.log(sessionService.getEmpresa());
         $scope.totalPages = 1;
 
         if (!$routeParams.order) {
@@ -53,7 +52,7 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=usuario&op=getcount'
+            url: '/json?ob=cliente&op=getcount&ejercicio='+sessionService.getEmpresa()
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
