@@ -9,13 +9,14 @@ moduloDirectivas.component('headerComponent', {
 function js(toolService, sessionService, $http, $route, $location) {
 
     var self = this;
-    self.isActive = toolService.isActive;
-    self.ocultar = sessionService.isSessionActive();
+
 
     sessionService.registerObserverCallback(function () {
         self.carrito = sessionService.getCountCarrito();
         self.carrito = sessionService.getCountCarrito();
         self.usuario = sessionService.getUserName();
+        self.isActive = toolService.isActive;
+        self.ocultar = sessionService.isSessionActive();
     });
 
     self.logout = function () {

@@ -10,8 +10,10 @@ import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.dao.ClienteDao;
 import com.google.gson.Gson;
+import com.helper.ParameterCook;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -70,6 +72,7 @@ public class ClienteService {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
 
             usuario = oUsuarioBean.getLoginCli();
@@ -79,13 +82,13 @@ public class ClienteService {
 
             ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
 
-            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa);
+            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa,hmOrder);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
-            oConnection.close();
+           // oConnection.close();
             oUsuarioBean.disposeConnection();
         }
 
@@ -101,7 +104,7 @@ public class ClienteService {
 
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-            
+
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();

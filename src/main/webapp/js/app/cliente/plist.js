@@ -27,32 +27,32 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
                 $scope.page = 1;
             }
         }
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.idUsuariologeado = sessionService.getUserId();
-            $scope.ocultar = true;
-        }
+//        if (sessionService) {
+//            $scope.usuariologeado = sessionService.getUserName();
+//            $scope.idUsuariologeado = sessionService.getUserId();
+//            $scope.ocultar = true;
+//        }
 
         $scope.resetOrder = function () {
             $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page);
-        }
+        };
 
 
         $scope.ordena = function (order, align) {
-            if ($scope.orderURLServidor == "") {
+            if ($scope.orderURLServidor === "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
                 $scope.orderURLCliente = order + "," + align;
             } else {
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
+            $location.url(`cliente/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+        };
 
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=cliente&op=getcount&ejercicio='+sessionService.getEmpresa()
+            url: '/json?ob=cliente&op=getcount&ejercicio=' + sessionService.getEmpresa()
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
@@ -69,7 +69,7 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
 
         $http({
             method: 'GET',
-            url: '/json?ob=cliente&op=getpage&ejercicio='+sessionService.getEmpresa()+'&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=cliente&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataCliente = response.data.message;
@@ -84,16 +84,16 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
                 method: 'GET',
                 url: '/json?ob=usuario&op=logout'
             }).then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     sessionService.setSessionInactive();
                     sessionService.setUserName("");
                 }
-            })
-        }
+            });
+        };
 
         $scope.update = function () {
             $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
-        }
+        };
 
 
 
@@ -119,7 +119,8 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
                     }
                 }
             }
-        };
+        }
+        ;
 
 
         $scope.isActive = toolService.isActive;
