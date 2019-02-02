@@ -8,7 +8,8 @@ var SuportWeb4All = angular.module('MyApp', [
     'empresaControllers',
     'moduleComponent',
     'ngMaterial',
-    'Directives'
+    'Directives',
+    'clienteControllers'
 
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.
@@ -33,7 +34,7 @@ var SuportWeb4All = angular.module('MyApp', [
 var moduleCommon = angular.module('commonControllers', []);
 var moduleService = angular.module('services', []);
 var moduleTipousuario = angular.module('tipousuarioControllers', []);
-var moduleUsuario = angular.module('usuarioControllers', []);
+var moduleCliente = angular.module('clienteControllers', []);
 var moduleProducto = angular.module('productoControllers', []);
 var moduleFactura = angular.module('facturaControllers', []);
 var moduleTipoproducto = angular.module('tipoproductoControllers', []);

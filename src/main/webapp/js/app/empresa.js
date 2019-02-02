@@ -2,12 +2,12 @@
 
 moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        
+
 
         $scope.totalPages = 1;
-        
-            $scope.isAdmin = true;
-        
+
+        $scope.isAdmin = true;
+
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -49,22 +49,22 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
         }
 
         //getcount
-      /*  $http({
-            method: 'GET',
-            url: '/json?ob=producto&op=getcount'
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuariosNumber = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
-            if ($scope.page > $scope.totalPages) {
-                $scope.page = $scope.totalPages;
-                $scope.update();
-            }
-            pagination2();
-        }, function (response) {
-            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
-            $scope.status = response.status;
-        }); */
+        /*  $http({
+         method: 'GET',
+         url: '/json?ob=producto&op=getcount'
+         }).then(function (response) {
+         $scope.status = response.status;
+         $scope.ajaxDataUsuariosNumber = response.data.message;
+         $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
+         if ($scope.page > $scope.totalPages) {
+         $scope.page = $scope.totalPages;
+         $scope.update();
+         }
+         pagination2();
+         }, function (response) {
+         $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+         $scope.status = response.status;
+         }); */
 
         $http({
             method: 'GET',
@@ -72,31 +72,37 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataEmpresa = response.data.message;
-                       
+
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataEmpresa = response.data.message || 'Request failed';
         });
+        $scope.seleccionar = function (ejercicio) {
+           
+            var json = {
+                empresa: ejercicio
+            }
+            $http({
+                method: 'GET',
+                withCredentials: true,
+                url: '/json?ob=empresa&op=select',
+                params: {json: JSON.stringify(json)}
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.mensaje = true;
+            }, function (response) {
+                $scope.ajaxDatoTipoUsuario = response.data.message || 'Request failed';
+                $scope.status = response.status;
+            });
 
+            sessionService.setEmpresa(ejercicio);
+            console.log(sessionService.getEmpresa());
+        };
+        
+        
         $scope.update = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
-        $scope.addProducto = function (id) {
-
-            $http({
-                method: 'GET',
-                url: '/json?ob=carrito&op=add&prod=' + id + '&cant=1'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message;
-
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message || 'Request failed';
-            });
-        };
-
-
 
         //paginacion neighbourhood
         function pagination2() {
@@ -119,7 +125,8 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
                     }
                 }
             }
-        };
+        }
+        ;
 
 
         $scope.isActive = toolService.isActive;

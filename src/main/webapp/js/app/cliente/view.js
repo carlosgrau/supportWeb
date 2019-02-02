@@ -1,10 +1,7 @@
 'use strict'
 
-moduleUsuario.controller('usuarioViewControllerUsr', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
+moduleCliente.controller('clenteViewController', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, toolService, $routeParams, sessionService) {
-        if(parseInt($routeParams.id) === sessionService.getUserId()){
-            
-            $scope.pagina= true;
         $scope.cambioPassword = false;
         if (sessionService.getTipoUserId() === 1) {
             $scope.isAdmin = true;
@@ -33,7 +30,6 @@ moduleUsuario.controller('usuarioViewControllerUsr', ['$scope', '$http', 'toolSe
             });
         };
         $scope.isActive = toolService.isActive;
-        
-    }else{
-    $scope.pagina= false;
-}}]);
+
+
+    }]);

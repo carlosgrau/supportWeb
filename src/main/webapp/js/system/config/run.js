@@ -8,7 +8,12 @@ SuportWeb4All.run(['$rootScope', 'sessionService', '$location', '$http', 'countc
             }).then(function (response) {
                 if (response.data.status === 200) {
                     oSessionService.setSessionActive();
-//                    oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                    oSessionService.setEmpresa(response.data.message[0].empresa);
+                    if (response.data.message[0].loginCli != undefined) {
+                        oSessionService.setUserName(response.data.message[0].loginCli);
+                    } else {
+                        oSessionService.setUserName(response.data.message[1].loginCli);
+                    }
 //                    oSessionService.setUserId(response.data.message.id);
 //                    oSessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
                 } else {

@@ -1,6 +1,6 @@
 'use strict';
 
-moduleUsuario.controller('usuarioEditControllerAdm', ['$scope', '$http', '$routeParams', 'sessionService',
+moduleCliente.controller('clienteEditController', ['$scope', '$http', '$routeParams', 'sessionService',
     function ($scope, $http, $routeParams, sessionService) {
         $scope.idC = $routeParams.id;
         $http({

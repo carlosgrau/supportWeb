@@ -165,4 +165,12 @@ public class UsuarioBean {
             oConnectionPoolCli.close();
         }
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioBean{" + "oConnectionCli=" + oConnectionCli + ", oConnectionPoolCli=" + oConnectionPoolCli + ", id=" + id + ", usuario=" + usuario + ", login=" + login + ", pass=" + pass + ", loginCli=" + loginCli + ", passCli=" + passCli + ", hostCli=" + hostCli + ", portCli=" + portCli + ", databaseCli=" + databaseCli + '}';
+    }
+    
+    
+    
 }

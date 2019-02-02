@@ -1,6 +1,6 @@
 'use strict';
 
-moduleUsuario.controller('usuarioNewControllerAdm', ['$scope', '$http', '$routeParams', 'sessionService',
+moduleCliente.controller('clienteNewController', ['$scope', '$http', '$routeParams', 'sessionService',
     function ($scope, $http, $routeParams, sessionService) {
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
