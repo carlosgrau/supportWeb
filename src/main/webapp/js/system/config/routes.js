@@ -34,12 +34,12 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 //        $routeProvider.when('/tipoproducto/new', {templateUrl: 'js/app/tipoproducto/new.html', controller: 'tipoproductoNewControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //
 //        //PRODUCTO
-//        $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/producto/plist_1/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist_1.html', controller: 'productoPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/producto/edit/:id?', {templateUrl: 'js/app/producto/edit.html', controller: 'productoEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/producto/remove/:id?', {templateUrl: 'js/app/producto/remove.html', controller: 'productoRemoveControllerAdm', resolve: {auth: autenticacionAdministrador}});
-//        $routeProvider.when('/producto/new', {templateUrl: 'js/app/producto/new.html', controller: 'productoNewControllerAdm', resolve: {auth: autenticacionAdministrador}});
+        $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController'});
+        //$routeProvider.when('/producto/plist_1/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist_1.html', controller: 'productoPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
+//        $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewController'});
+//        $routeProvider.when('/producto/edit/:id?', {templateUrl: 'js/app/producto/edit.html', controller: 'productoEditController'});
+//        $routeProvider.when('/producto/remove/:id?', {templateUrl: 'js/app/producto/remove.html', controller: 'productoRemoveController'});
+//        $routeProvider.when('/producto/new', {templateUrl: 'js/app/producto/new.html', controller: 'productoNewController'});
 //
 //        //LINEA
 //        $routeProvider.when('/linea/edit/:id?', {templateUrl: 'js/app/linea/edit.html', controller: 'lineaEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
@@ -49,7 +49,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/usr/cliente/view/:id?', {templateUrl: 'js/app/usr/cliente/view.html', controller: 'clienteViewController'});
         $routeProvider.when('/usr/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/factura/plistlinea.html', controller: 'clienteViewController'});
         $routeProvider.when('/usr/producto/view/:id?', {templateUrl: 'js/app/usr/producto/view.html', controller: 'productoViewController'});
-        $routeProvider.when('/usr/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/producto/plist.html', controller: 'productoPlistUsrController'});
+        $routeProvider.when('/usr/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/producto/plist.html', controller: 'productoPlistController'});
         $routeProvider.when('/usr/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/cliente/plistfactura.html', controller: 'usuarioPlistFacturaController'});
 
 

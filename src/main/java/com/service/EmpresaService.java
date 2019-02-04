@@ -95,7 +95,6 @@ public class EmpresaService {
 
     public ReplyBean select() throws Exception {
         ReplyBean oReplyBean;
-        Connection oConnection = null;
         EmpresaBean oEmpresaBean = null;
         try {
             if (oRequest.getSession().getAttribute("ejercicio") != null) {

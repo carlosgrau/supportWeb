@@ -28,7 +28,7 @@ public class ProductoDao {
         this.ob = ob;
     }
 
-    public ProductoBean get(String id,int expand, int empresa) throws Exception {
+    public ProductoBean get(String id, int expand, int empresa) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE artcodigo = ? and id_ejercicio = ?";
         ProductoBean oProductoBean;
         ResultSet oResultSet = null;
@@ -106,5 +106,31 @@ public class ProductoDao {
         }
         return alProductoBean;
 
+    }
+
+    public int getcount(int empresa) throws Exception {
+        String strSQL = "SELECT COUNT(id_auto) FROM " + ob + " WHERE id_ejercicio= ?";
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, empresa);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao get de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+            
+        }
+        return res;
     }
 }

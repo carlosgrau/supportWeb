@@ -56,8 +56,12 @@ public class ClienteService {
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
-            oConnection.close();
-            oUsuarioBean.disposeConnection();
+            if (oUsuarioBean != null) {
+                oUsuarioBean.disposeConnection();
+            }
+            if (oConnection != null) {
+                oConnection.close();
+            }
         }
 
         return oReplyBean;
@@ -73,23 +77,29 @@ public class ClienteService {
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
             HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
+            
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
 
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
+            
             oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
 
             ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
 
-            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa,hmOrder);
+            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa, hmOrder);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
-           // oConnection.close();
-            oUsuarioBean.disposeConnection();
+            if (oUsuarioBean != null) {
+                oUsuarioBean.disposeConnection();
+            }
+            if (oConnection != null) {
+                oConnection.close();
+            }
         }
 
         return oReplyBean;
@@ -118,8 +128,12 @@ public class ClienteService {
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
-            oConnection.close();
-            oUsuarioBean.disposeConnection();
+             if (oUsuarioBean != null) {
+                oUsuarioBean.disposeConnection();
+            }
+            if (oConnection != null) {
+                oConnection.close();
+            }
         }
 
         return oReplyBean;

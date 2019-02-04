@@ -1,13 +1,7 @@
-'use strict'
+'use strict';
 
-moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        
-
-        $scope.totalPages = 1;
-        if(sessionService.getTipoUserId() === 1){
-            $scope.isAdmin = true;
-        }
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -51,7 +45,7 @@ moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$lo
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=producto&op=getcount'
+            url: '/json?ob=producto&op=getcount&ejercicio=' + sessionService.getEmpresa()
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
@@ -68,12 +62,12 @@ moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$lo
 
         $http({
             method: 'GET',
-            url: '/json?ob=producto&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=producto&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
             $scope.comprar = true;
-             if (($scope.ajaxDataUsuarios.existencias === 0) || ($scope.ajaxDataUsuarios.existencias === null)){
+            if (($scope.ajaxDataUsuarios.existencias === 0) || ($scope.ajaxDataUsuarios.existencias === null)) {
                 $scope.comprar = false;
             }
         }, function (response) {
@@ -122,7 +116,8 @@ moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$lo
                     }
                 }
             }
-        };
+        }
+        ;
 
 
         $scope.isActive = toolService.isActive;

@@ -14,7 +14,8 @@ public class HikariConnectionSpecificImplementation implements ConnectionInterfa
 
     private Connection oConnection;
     private HikariDataSource oConnectionPool;
-    private Boolean clase = false;
+    private Boolean clase = true;
+    
     public Connection newConnection() throws Exception {
 
         HikariConfig config = new HikariConfig();

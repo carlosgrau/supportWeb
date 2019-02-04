@@ -18,9 +18,10 @@ import java.sql.SQLException;
  * @author a021792876p
  */
 public class UsuarioBean {
+
     private Connection oConnectionCli;
     private HikariDataSource oConnectionPoolCli;
-    
+
     @Expose
     private int id;
     @Expose
@@ -124,13 +125,13 @@ public class UsuarioBean {
         this.setDatabaseCli(oResultSet.getString("databasecli"));
         return this;
     }
-    
-    public String newConnectionClient() {
-		return "jdbc:mysql://" + this.getHostCli() + ":" + this.getPortCli() + "/"
-				+ this.getDatabaseCli();
-	}
 
-    public Connection newConnection(String usuario,String password,String conexion) throws Exception {
+    public String newConnectionClient() {
+        return "jdbc:mysql://" + this.getHostCli() + ":" + this.getPortCli() + "/"
+                + this.getDatabaseCli();
+    }
+
+    public Connection newConnection(String usuario, String password, String conexion) throws Exception {
 
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(conexion);
@@ -148,8 +149,7 @@ public class UsuarioBean {
 
         try {
             oConnectionPoolCli = new HikariDataSource(config);
-            oConnectionCli = (Connection) oConnectionPoolCli.getConnection();
-            return oConnectionCli;
+            return (Connection) oConnectionPoolCli.getConnection();
 
         } catch (SQLException ex) {
             String msgError = this.getClass().getName() + ":" + (ex.getStackTrace()[1]).getMethodName();
@@ -157,10 +157,8 @@ public class UsuarioBean {
         }
 
     }
+
     public void disposeConnection() throws Exception {
-        if (oConnectionCli != null) {
-            oConnectionCli.close();
-        }
         if (oConnectionPoolCli != null) {
             oConnectionPoolCli.close();
         }
@@ -170,7 +168,5 @@ public class UsuarioBean {
     public String toString() {
         return "UsuarioBean{" + "oConnectionCli=" + oConnectionCli + ", oConnectionPoolCli=" + oConnectionPoolCli + ", id=" + id + ", usuario=" + usuario + ", login=" + login + ", pass=" + pass + ", loginCli=" + loginCli + ", passCli=" + passCli + ", hostCli=" + hostCli + ", portCli=" + portCli + ", databaseCli=" + databaseCli + '}';
     }
-    
-    
-    
+
 }
