@@ -2,6 +2,7 @@
 
 moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+        $scope.ejercicio = sessionService.getEmpresa();
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -26,13 +27,40 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
                 $scope.page = 1;
             }
         }
+        if (sessionService) {
+
+            $scope.ocultar = true;
+        }
+
+        function pagination2() {
+            $scope.list2 = [];
+            $scope.neighborhood = 1;
+            for (var i = 1; i <= $scope.totalPages; i++) {
+                if (i === $scope.page) {
+                    $scope.list2.push(i);
+                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
+                    if ($scope.page >= 4) {
+                        $scope.list2.push("...");
+                    }
+                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
+                    if ($scope.page <= $scope.totalPages - 3) {
+                        $scope.list2.push("...");
+                    }
+                }
+            }
+        }
+        ;
         $scope.resetOrder = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
-        }
+        };
 
 
         $scope.ordena = function (order, align) {
-            if ($scope.orderURLServidor == "") {
+            if ($scope.orderURLServidor === "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
                 $scope.orderURLCliente = order + "," + align;
             } else {
@@ -40,7 +68,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
+        };
 
         //getcount
         $http({
@@ -65,11 +93,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
             url: '/json?ob=producto&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-            $scope.comprar = true;
-            if (($scope.ajaxDataUsuarios.existencias === 0) || ($scope.ajaxDataUsuarios.existencias === null)) {
-                $scope.comprar = false;
-            }
+            $scope.ajaxDataProducto = response.data.message;
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
@@ -78,47 +102,6 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         $scope.update = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
-        $scope.addProducto = function (id) {
-
-            $http({
-                method: 'GET',
-                url: '/json?ob=carrito&op=add&prod=' + id + '&cant=1'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message;
-
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message || 'Request failed';
-            });
-        };
-
-
-
-        //paginacion neighbourhood
-        function pagination2() {
-            $scope.list2 = [];
-            $scope.neighborhood = 1;
-            for (var i = 1; i <= $scope.totalPages; i++) {
-                if (i === $scope.page) {
-                    $scope.list2.push(i);
-                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
-                    $scope.list2.push(i);
-                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
-                    $scope.list2.push(i);
-                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
-                    if ($scope.page >= 4) {
-                        $scope.list2.push("...");
-                    }
-                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
-                    if ($scope.page <= $scope.totalPages - 3) {
-                        $scope.list2.push("...");
-                    }
-                }
-            }
-        }
-        ;
-
 
         $scope.isActive = toolService.isActive;
 

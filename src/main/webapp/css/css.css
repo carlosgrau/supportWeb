@@ -40,3 +40,7 @@
 .table-striped tbody tr:nth-child(odd) th {
     background-color: #DFF0D8;
 }
+.table th {
+    text-align: center;
+    font-weight: bold
+}
