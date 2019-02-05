@@ -8,8 +8,14 @@ SuportWeb4All.run(['$rootScope', 'sessionService', '$location', '$http', 'countc
             }).then(function (response) {
                 if (response.data.status === 200) {
                     oSessionService.setSessionActive();
-                    oSessionService.setEmpresa(response.data.message[0].empresa);
-                    if (response.data.message[0].loginCli != undefined) {
+                    if (response.data.message[0].empresa !== undefined) {
+                        var pepe= response.data.message[0].empresa;
+                        console.log(pepe);
+                        oSessionService.setEmpresa(response.data.message[0].empresa);
+                    }else{
+                        oSessionService.setEmpresa(0);
+                    }
+                    if (response.data.message[0].loginCli !== undefined) {
                         oSessionService.setUserName(response.data.message[0].loginCli);
                     } else {
                         oSessionService.setUserName(response.data.message[1].loginCli);

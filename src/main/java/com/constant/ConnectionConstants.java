@@ -3,11 +3,7 @@ package com.constant;
 public class ConnectionConstants {
    
 	public static enum EnumConstans  {
-		Hikari,
-		DBCP,
-		BoneCP,
-		C3P0,
-		Vibur
+		Hikari
 	};
         
         

@@ -12,6 +12,7 @@ public class ConnectionFactory {
             case Hikari:
                 oConnectionInterface = new HikariConnectionSpecificImplementation();
                 break;
+
             default:
                 oConnectionInterface = new HikariConnectionSpecificImplementation();
                 break;
