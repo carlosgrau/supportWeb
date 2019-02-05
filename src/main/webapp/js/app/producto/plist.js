@@ -6,10 +6,10 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
-            $scope.orderURLCliente = "";
+            $scope.orderURLProducto = "";
         } else {
             $scope.orderURLServidor = "&order=" + $routeParams.order;
-            $scope.orderURLCliente = $routeParams.order;
+            $scope.orderURLProducto = $routeParams.order;
         }
 
         if (!$routeParams.rpp) {
@@ -62,12 +62,12 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         $scope.ordena = function (order, align) {
             if ($scope.orderURLServidor === "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
-                $scope.orderURLCliente = order + "," + align;
+                $scope.orderURLProducto = order + "," + align;
             } else {
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
-                $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
+                $scope.orderURLProducto = $scope.orderURLProducto + "-" + order + "," + align;
             }
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLProducto);
         };
 
         //getcount
@@ -100,7 +100,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         });
 
         $scope.update = function () {
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLProducto);
         };
 
         $scope.isActive = toolService.isActive;
