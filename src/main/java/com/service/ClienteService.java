@@ -54,6 +54,8 @@ public class ClienteService {
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(oClienteBean));
         } catch (Exception ex) {
+            oUsuarioBean.disposeConnection();
+            oConnection.close();
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             if (oUsuarioBean != null) {
@@ -92,6 +94,8 @@ public class ClienteService {
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
         } catch (Exception ex) {
+            oUsuarioBean.disposeConnection();
+            oConnection.close();
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             if (oUsuarioBean != null) {
@@ -126,6 +130,8 @@ public class ClienteService {
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
+            oUsuarioBean.disposeConnection();
+            oConnection.close();
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
              if (oUsuarioBean != null) {
