@@ -10,7 +10,8 @@ var SuportWeb4All = angular.module('MyApp', [
     'ngMaterial',
     'Directives',
     'clienteControllers',
-    'productoControllers'
+    'productoControllers',
+    'facturaControllers'
 
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.

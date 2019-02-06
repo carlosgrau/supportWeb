@@ -18,7 +18,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 //        $routeProvider.when('/tipousuario/new', {templateUrl: 'js/app/tipousuario/new.html', controller: 'tipousuarioNewControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //
 //        //FACTURA
-//        $routeProvider.when('/factura/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/factura/plist.html', controller: 'facturaPlistControllerAdm', resolve: {auth: autenticacionAdministrador}});
+        $routeProvider.when('/factura/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/factura/plist.html', controller: 'facturaPlistController'});
 //        $routeProvider.when('/factura/edit/:id?', {templateUrl: 'js/app/factura/edit.html', controller: 'facturaEditControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //        $routeProvider.when('/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/factura/plistlinea.html', controller: 'facturaViewControllerAdm', resolve: {auth: autenticacionAdministrador}});
 //        $routeProvider.when('/factura/remove/:id?', {templateUrl: 'js/app/factura/remove.html', controller: 'facturaRemoveControllerAdm', resolve: {auth: autenticacionAdministrador}});

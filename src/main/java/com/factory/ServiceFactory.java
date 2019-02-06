@@ -111,21 +111,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-//            case "lineaalbaran":
-//                LineaAlbaranService oLineaAlbaranService = new LineaAlbaranService(oRequest);
-//                switch (op) {
-//                    case "get":
-//                        oReplyBean = oLineaAlbaranService.get();
-//                        break;
-//                    case "getpage":
-//                        oReplyBean = oLineaAlbaranService.getpage();
-//                        break;
-//
-//                    default:
-//                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
-//                        break;
-//                }
-//                break;
+
             case "presupuesto":
                 PresupuestoService oPresupuestoService = new PresupuestoService(oRequest);
                 switch (op) {
@@ -154,6 +140,9 @@ public class ServiceFactory {
                         break;
                     case "getpagexusuario":
                         oReplyBean = oFacturaService.getpageXusuario();
+                        break;
+                    case "getcount":
+                        oReplyBean = oFacturaService.getcount();
                         break;
 
                     default:
