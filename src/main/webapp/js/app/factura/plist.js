@@ -30,7 +30,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$h
 
         $scope.resetOrder = function () {
             $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page);
-        }
+        };
 
 
         $scope.ordena = function (order, align) {
@@ -42,7 +42,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$h
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
             $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
+        };
 
         //getcount
         $http({
@@ -64,15 +64,10 @@ moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$h
 
         $http({
             method: 'GET',
-            url: '/json?ob=factura&op=getpage&ejercicio=' + sessionService.getEmpresa()+'&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=factura&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFactura = response.data.message;
-            for (var i=0; i<=response.data.message.length;i++){
-                for(var x=0;x<= i.obj_LineaFactura.length;x++){
-                    $scope.cantidad += x.cantidad;
-                }
-            };
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFactura = response.data.message || 'Request failed';
@@ -112,4 +107,4 @@ moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$h
 
 
     }
-])
+]);

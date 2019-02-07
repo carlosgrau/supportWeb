@@ -1,0 +1,88 @@
+<header-component></header-component>
+
+<div class="container">
+    <div class="text-center">
+        <h1>Factura</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <!-- <h3 class="panel-title">Cabecera</h3> -->
+                    <hr>
+                    <div class="row" style="background-color:green;">
+
+                        <div class="col-md-5" style="background-color:white;">
+                            <div class="form-group">
+                                <label for="cliente" class="col-sm-2 control-label">Cliente</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="cliente" placeholder="cliente" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="background-color:white;">
+                            <div class="form-group">
+
+                                <label for="fecha" class="col-sm-5 control-label">Fecha factura</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="fecha" placeholder="fecha factura" type="date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 target" style="background-color:white;">
+                            <div class="form-group">
+                                <label for="id" class="col-sm-3 control-label">Id</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="id" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- row -->
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <address>
+                                <strong class="">BERNARDO GINARD PRATS</strong><br class="">
+                                Carrer Ciutadella nº 26 A<br class="">
+                                07008 Palma<br class="">
+                                Illes Balears<br class="">                          
+                            </address>
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- panel heading -->
+                <div class="panel-body">
+                    <h3 class="panel-title">Detalle</h3>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="">Producto</th>
+                                <th class="">Descripción</th>
+                                <th class="">cantidad</th>
+                                <th class="">precio</th>
+                                <th class="">tipo impuesto</th>
+                                <th class="">importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura">
+                    <td>{{codigo}}</td>
+<!--                    <td>{{fila.obj_LineaFactura.obj_Producto.descripcion}}</td>
+                    <td>{{fila.obj_LineaFactura.cantidad}}</td>
+                    <td>{{fila.obj_LineaFactura.precio}}</td>
+                    <td>{{fila.obj_LineaFactura.cantidad * fila.obj_LineaFactura.precio}}</td>-->
+                </tr>
+
+            </tbody>
+                    </table>
+                </div> <!-- panel body -->
+                <div class="panel-footer">Piefactura
+                </div>
+            </div> <!-- panel -->
+        </div> <!-- col -->
+    </div> <!-- row -->
+    <div class="row text-center">
+        <p class="">peu pagina</p>
+    </div>
+</div>    <!-- container -->

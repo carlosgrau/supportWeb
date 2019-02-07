@@ -28,7 +28,7 @@ public class FacturaDao {
     }
 
     public FacturaBean get(int id, int empresa, int expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id_auto = ? and id_ejercicio = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE factura = ? and id_ejercicio = ?";
         FacturaBean oFacturaBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
