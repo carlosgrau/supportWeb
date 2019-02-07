@@ -23,9 +23,11 @@
                     <td>{{fila.id_cliente}} {{fila.nombre_cliente}}</td>
                     <td>{{fila.total_precio}}</td>
                     <td>{{fila.contabilizada}}</td>
-                    <td><button type="button" class="btn btn-sm active">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </button>
+
+                    <td>
+                        <a href="factura/view/{{fila.factura}}"><button type="button" class="btn btn-sm active">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button></a>
                     </td>
                 </tr>
 

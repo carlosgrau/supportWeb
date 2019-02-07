@@ -2,19 +2,18 @@
 
 moduleFactura.controller('facturaViewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
     function ($scope, toolService, $http, sessionService, $routeParams, $location) {
-
+        $scope.id= $routeParams.id;
         $http({
             method: 'GET',
             url: '/json?ob=factura&op=get&ejercicio=' + sessionService.getEmpresa() + '&id=' + $routeParams.id
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataLineaFactura = response.data.message;
-            for (var i = 0; i <= $scope.ajaxDataLineaFactura.obj_LineaFactura.length - 1; i++) {
-                $scope.codigo =$scope.ajaxDataLineaFactura.obj_LineaFactura[i].obj_Producto.codigo;
-            }
+            $scope.ajaxDataLineaFactura = response.data.message.obj_LineaFactura;
+            $scope.ajaxDataCliente = response.data.message.obj_Cliente;
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataLineaFactura = response.data.message || 'Request failed';
+            $scope.ajaxDataCliente = response.data.message || 'Request failed';
         });
 
         $scope.update = function () {
