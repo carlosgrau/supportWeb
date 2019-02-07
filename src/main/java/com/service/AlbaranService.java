@@ -79,7 +79,9 @@ public class AlbaranService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
+            
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+            
             AlbaranDao oAlbaranDao = new AlbaranDao(oConnection, ob);
             AlbaranBean oAlbaranBean = oAlbaranDao.get(id, empresa, 1);
             Gson oGson = new Gson();
