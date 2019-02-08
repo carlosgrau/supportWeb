@@ -2,6 +2,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         //USUARIO
         $routeProvider.when('/cliente/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
         $routeProvider.when('/cliente/plist', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
+        $routeProvider.when('/cliente/view/:id?', {templateUrl: 'js/app/cliente/view.html', controller: 'clienteViewController'});
 
 //        //FACTURA
         $routeProvider.when('/factura/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/factura/plist.html', controller: 'facturaPlistController'});

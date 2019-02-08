@@ -29,36 +29,39 @@
                     <td>{{fila.telefono}}</td>
                     <td>{{fila.direccion}}</td>
                     <td>{{fila.email}}</td>
-                    <td></td>
+                    <td><a href="cliente/view/{{fila.codigo}}">
+                            <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>
+                    </td>
                 </tr>
 
             </tbody>
         </table>
     </div>
 
-<div class="row">
-    <div class="col-6">
-        <nav aria-label="paginacion">
-            <ul class="pagination">
+    <div class="row">
+        <div class="col-6">
+            <nav aria-label="paginacion">
+                <ul class="pagination">
 
-                <li class="page-item">
-                    <a class="page-link" ng-show="page > 1" href="cliente/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}">Anterior</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" ng-show="page > 2" href="cliente/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
-                </li>
-                <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
-                    <a class="page-link" href="cliente/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="cliente/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" ng-show="page != totalPages" href="cliente/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}">Siguiente</a>
-                </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page > 1" href="cliente/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}">Anterior</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page > 2" href="cliente/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
+                    </li>
+                    <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
+                        <a class="page-link" href="cliente/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="cliente/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page != totalPages" href="cliente/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}">Siguiente</a>
+                    </li>
 
-            </ul>
-        </nav>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
-    </div>
