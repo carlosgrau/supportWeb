@@ -6,6 +6,7 @@
 package com.bean;
 
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -117,5 +118,49 @@ public class ClienteBean {
         this.setRazonsocial(oResultSet.getString("clirazonsocial"));
         this.setTelefono(oResultSet.getString("clitelefono1"));
         return this;
+    }
+
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "clicodigo,";
+        strColumns += "clidireccion,";
+        strColumns += "cliemail,";
+        strColumns += "id_ejercicio,";
+        strColumns += "clinif,";
+        strColumns += "clinombre,";
+        strColumns += "clirazonsocial,";
+        strColumns += "clitelefono1";
+        return strColumns;
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += codigo + ",";
+        strColumns += EncodingHelper.quotate(direccion) + ",";
+        strColumns += EncodingHelper.quotate(email) + ",";
+        strColumns += empresa + ",";
+        strColumns += EncodingHelper.quotate(nif) + ",";
+        strColumns += EncodingHelper.quotate(nombre) + ",";
+        strColumns += EncodingHelper.quotate(razonsocial) + ",";
+        strColumns += EncodingHelper.quotate(telefono);
+
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "clicodigo=" + codigo + ",";
+        strPairs += "clidireccion=" + EncodingHelper.quotate(direccion) + ",";
+        strPairs += "cliemail=" + EncodingHelper.quotate(email) + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "clinif=" + EncodingHelper.quotate(nif) + ",";
+        strPairs += "clinombre=" + EncodingHelper.quotate(nombre) + ",";
+        strPairs += "clirazonsocial=" + EncodingHelper.quotate(razonsocial) + ",";
+        strPairs += "clitelefono1=" + EncodingHelper.quotate(telefono);
+        return strPairs;
+
     }
 }

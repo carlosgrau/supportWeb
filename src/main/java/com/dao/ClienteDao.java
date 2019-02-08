@@ -78,7 +78,7 @@ public class ClienteDao {
                     alClienteBean.add(oClienteBean);
                 }
             } catch (SQLException e) {
-                throw new Exception("Error en Dao getpage de " + ob+"------"+e, e);
+                throw new Exception("Error en Dao getpage de " + ob + "------" + e, e);
             } finally {
                 if (oResultSet != null) {
                     oResultSet.close();
@@ -117,5 +117,35 @@ public class ClienteDao {
             }
         }
         return res;
+    }
+
+    public ClienteBean create(ClienteBean oClienteBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oClienteBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oClienteBean.getValues() + ")";
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.executeUpdate();
+            oResultSet = oPreparedStatement.getGeneratedKeys();
+            if (oResultSet.next()) {
+                oClienteBean.setId(oResultSet.getInt(1));
+            } else {
+                oClienteBean.setId(0);
+                oClienteBean.setCodigo(0);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao create de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oClienteBean;
     }
 }
