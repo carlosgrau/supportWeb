@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
@@ -34,11 +34,11 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
         }
         $scope.resetOrder = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
-        }
+        };
 
 
         $scope.ordena = function (order, align) {
-            if ($scope.orderURLServidor == "") {
+            if ($scope.orderURLServidor === "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
                 $scope.orderURLCliente = order + "," + align;
             } else {
@@ -46,7 +46,7 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
+        };
 
         //getcount
         /*  $http({
@@ -78,10 +78,10 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
             $scope.ajaxDataEmpresa = response.data.message || 'Request failed';
         });
         $scope.seleccionar = function (ejercicio) {
-           
+
             var json = {
                 empresa: ejercicio
-            }
+            };
             $http({
                 method: 'GET',
                 withCredentials: true,
@@ -96,10 +96,9 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
             });
 
             sessionService.setEmpresa(ejercicio);
-            console.log(sessionService.getEmpresa());
         };
-        
-        
+
+
         $scope.update = function () {
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };

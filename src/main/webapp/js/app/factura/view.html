@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="text-center">
-        <h1 style="font-size: 50px;">Factura Nº {{id}}</h1>
+        <h1 style="font-size: 50px;">Factura Nº {{id}}</h1><h3>{{ | date:'dd MMM yyyy'}}</h3>
     </div>
 
     <div class="row">
@@ -13,19 +13,14 @@
                         <div class="col-md-6"> 
                             <address>
                                 <br>
-                                <strong class="">{{ajaxDataCliente.razonsocial}}</strong><br class="">
+                                <strong class="">{{ajaxDataCliente.nombre}}</strong><br class="">
                                 {{ajaxDataCliente.nif}}<br class="">
                                 {{ajaxDataCliente.direccion}}<br class="">
-<!--                                {{ajaxDataCliente.telefono}}<br class="">
-                                {{ajaxDataCliente.email}}<br class="">                          -->
                             </address>
                         </div>
                         <div class="col-md-6"> 
                             <address>
                                 <br>
-<!--                                <strong class="">{{ajaxDataCliente.razonsocial}}</strong><br class="">
-                                {{ajaxDataCliente.nif}}<br class="">
-                                {{ajaxDataCliente.direccion}}<br class="">-->
                                 {{ajaxDataCliente.telefono}}<br class="">
                                 {{ajaxDataCliente.email}}<br class="">                          
                             </address>
@@ -41,7 +36,7 @@
                                 <th class="">Descripción</th>
                                 <th class="">Cantidad</th>
                                 <th class="">Precio</th>
-<!--                                <th class="">tipo impuesto</th>-->
+
                                 <th class="">Importe</th>
                             </tr>
                         </thead>
@@ -51,7 +46,7 @@
                                 <td>{{fila.descripcion}}</td>                    
                                 <td>{{fila.cantidad}}</td>
                                 <td>{{fila.precio}}</td>
-<!--                                <td>{{fila.obj_LineaFactura.precio}}</td>-->
+
                                 <td>{{fila.cantidad * fila.precio}}</td>
                             </tr>
                         </tbody>

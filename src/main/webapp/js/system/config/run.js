@@ -9,10 +9,8 @@ SuportWeb4All.run(['$rootScope', 'sessionService', '$location', '$http', 'countc
                 if (response.data.status === 200) {
                     oSessionService.setSessionActive();
                     if (response.data.message[0].empresa !== undefined) {
-                        var pepe= response.data.message[0].empresa;
-                        console.log(pepe);
                         oSessionService.setEmpresa(response.data.message[0].empresa);
-                    }else{
+                    } else {
                         oSessionService.setEmpresa(0);
                     }
                     if (response.data.message[0].loginCli !== undefined) {
@@ -24,13 +22,13 @@ SuportWeb4All.run(['$rootScope', 'sessionService', '$location', '$http', 'countc
 //                    oSessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
                 } else {
                     oSessionService.setSessionInactive;
-                    if (nextUrl != '/' && nextUrl != '/home' && nextUrl != '/login') {
+                    if (nextUrl !== '/' && nextUrl !== '/home' && nextUrl !== '/login') {
                         $location.path("/");
                     }
                 }
             }, function (response) {
                 oSessionService.setSessionInactive;
-                if (nextUrl != '/' && nextUrl != '/home' && nextUrl != '/login') {
+                if (nextUrl !== '/' && nextUrl !== '/home' && nextUrl !== '/login') {
                     $location.path("/");
                 }
 

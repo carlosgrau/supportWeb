@@ -1,9 +1,61 @@
+#botones{
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 20px;
+}
+
+@media only screen and (min-width: 950px) and (max-width:1300px) {
+    #pagina{
+        padding-top: 1%;
+    }
+    nav{
+        max-height: 120px;
+    }
+    .container-fluid{
+        padding-top: 8%;
+    }
+}
+@media only screen and (min-width: 600px) and (max-width:950px) {
+    #pagina{
+        padding-top: 1%;
+    }
+    nav{
+        max-height: 100px;
+    }
+    .container-fluid{
+        padding-top: 12%;
+    }
+}
+@media only screen and (min-width: 1300px)and (max-width:2000px){
+    #pagina{
+        margin-top: 0;  
+        background-color: white;
+    }
+    body{
+        background-color: red;
+    }
+    .container-fluid{
+        padding-top: 8%;
+    }
+
+}
+
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th {
+    background-color: #DFF0D8;
+}
+.table th {
+    text-align: center;
+    font-weight: bold
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(300px,300px));     
     grid-auto-rows: 500px;
     grid-gap: 40px 5%;
-    padding: 10px;    
+    padding: 10px; 
+    padding-top: 10%;
     justify-content: center;    
 }
 
@@ -23,24 +75,4 @@
 .grid-contenido {
     align-items: center;
 
-}
-#botones{
-    margin-left: 0%;
-    margin-right: 0%;
-    padding: 20px;
-}
-
-@media only screen and (min-width: 800px) {
-    nav{
-        max-height: 14%;
-    }
-}
-
-.table-striped tbody tr:nth-child(odd) td,
-.table-striped tbody tr:nth-child(odd) th {
-    background-color: #DFF0D8;
-}
-.table th {
-    text-align: center;
-    font-weight: bold
 }
