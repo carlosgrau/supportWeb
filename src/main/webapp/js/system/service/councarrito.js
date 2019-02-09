@@ -4,7 +4,7 @@ moduleService.service('countcarritoService', ['$http', 'sessionService', functio
             updateCarrito: function () {
                 $http({
                     method: "GET",
-                    url: "/json?ob=carrito&op=show"
+                    url: "/json?ob=usuario&op=check"
                 }).then(function (response) {
                     var cantidad = 0;
                     if (response.data.message !== null) {

@@ -1,20 +1,15 @@
-'use strict'
+'use strict';
 
-moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        
-
-        $scope.totalPages = 1;
-        if(sessionService.getTipoUserId() === 1){
-            $scope.isAdmin = true;
-        }
+        $scope.ejercicio = sessionService.getEmpresa();
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
-            $scope.orderURLCliente = "";
+            $scope.orderURLProducto = "";
         } else {
             $scope.orderURLServidor = "&order=" + $routeParams.order;
-            $scope.orderURLCliente = $routeParams.order;
+            $scope.orderURLProducto = $routeParams.order;
         }
 
         if (!$routeParams.rpp) {
@@ -32,76 +27,11 @@ moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$lo
                 $scope.page = 1;
             }
         }
-        $scope.resetOrder = function () {
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
+        if (sessionService) {
+
+            $scope.ocultar = true;
         }
 
-
-        $scope.ordena = function (order, align) {
-            if ($scope.orderURLServidor == "") {
-                $scope.orderURLServidor = "&order=" + order + "," + align;
-                $scope.orderURLCliente = order + "," + align;
-            } else {
-                $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
-                $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
-            }
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
-
-        //getcount
-        $http({
-            method: 'GET',
-            url: '/json?ob=producto&op=getcount'
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuariosNumber = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
-            if ($scope.page > $scope.totalPages) {
-                $scope.page = $scope.totalPages;
-                $scope.update();
-            }
-            pagination2();
-        }, function (response) {
-            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
-            $scope.status = response.status;
-        });
-
-        $http({
-            method: 'GET',
-            url: '/json?ob=producto&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-            $scope.comprar = true;
-             if (($scope.ajaxDataUsuarios.existencias === 0) || ($scope.ajaxDataUsuarios.existencias === null)){
-                $scope.comprar = false;
-            }
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-        });
-
-        $scope.update = function () {
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
-        };
-        $scope.addProducto = function (id) {
-
-            $http({
-                method: 'GET',
-                url: '/json?ob=carrito&op=add&prod=' + id + '&cant=1'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message;
-
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.ajaxCarrito = response.data.message || 'Request failed';
-            });
-        };
-
-
-
-        //paginacion neighbourhood
         function pagination2() {
             $scope.list2 = [];
             $scope.neighborhood = 1;
@@ -122,8 +52,56 @@ moduleProducto.controller('productoPlistControllerAdm', ['$scope', '$http', '$lo
                     }
                 }
             }
+        }
+        ;
+        $scope.resetOrder = function () {
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
         };
 
+
+        $scope.ordena = function (order, align) {
+            if ($scope.orderURLServidor === "") {
+                $scope.orderURLServidor = "&order=" + order + "," + align;
+                $scope.orderURLProducto = order + "," + align;
+            } else {
+                $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
+                $scope.orderURLProducto = $scope.orderURLProducto + "-" + order + "," + align;
+            }
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLProducto);
+        };
+
+        //getcount
+        $http({
+            method: 'GET',
+            url: '/json?ob=producto&op=getcount&ejercicio=' + sessionService.getEmpresa()
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataUsuariosNumber = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
+            if ($scope.page > $scope.totalPages) {
+                $scope.page = $scope.totalPages;
+                $scope.update();
+            }
+            pagination2();
+        }, function (response) {
+            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+            $scope.status = response.status;
+        });
+
+        $http({
+            method: 'GET',
+            url: '/json?ob=producto&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataProducto = response.data.message;
+        }, function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+        });
+
+        $scope.update = function () {
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLProducto);
+        };
 
         $scope.isActive = toolService.isActive;
 

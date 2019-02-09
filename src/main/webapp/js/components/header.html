@@ -9,40 +9,21 @@
             <li class="nav-item" ng-class="{'active': c.isActive('/home')}">
                 <a class="nav-link hvr-bob" href="home"><img src="../../image/house.png">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item" ng-class="{'active': c.isActive('/empresa')}">
+            <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/empresa')}">
                 <a class="nav-link hvr-bob" href="empresa"><img src="../../image/factory.png">Empresa <span class="sr-only">(current)</span></a>
-            </li>
-
-            <li class="nav-item" ng-show="c.isAdmin" ng-class="{'active': c.isActive('/tipousuario')}">
-                <a class="nav-link hvr-bob" href="tipousuario/plist"><img src="../../image/boss.png"> Tipousuario</a>
             </li>
             <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/cliente')}">
                 <a class="nav-link hvr-bob" href="cliente/plist"><img src="../../image/user.png"> Clientes</a>
             </li>
-            <li class="nav-item " ng-show="c.isAdmin" ng-class="{'active': c.isActive('/factura')}">
-                <a class="nav-link hvr-bob" href="factura/plist"><img src="../../image/bill.png"> Factura</a>
-            </li>
             <li class="nav-item " ng-show="c.ocultar" ng-class="{'active': c.isActive('/usr/usuario')}">
-                <a class="nav-link hvr-bob" href="usr/cliente/plistfactura/{{c.idUsuariologeado}}"><img src="../../image/bill.png">Mis Facturas</a>
+                <a class="nav-link hvr-bob" href="factura/plist"><img src="../../image/bill.png"> Facturas</a>
             </li>
-            <li class="nav-item" ng-show="c.ocultar && !c.isAdmin" ng-class="{'active': c.isActive('/usr/producto')}">
-                <a class="nav-link hvr-bob" href="usr/producto/plist"><img src="../../image/pack.png"> Producto</a>
-            <li class="nav-item" ng-show="c.isAdmin" ng-class="{'active': c.isActive('/producto')}">
-                <a class="nav-link hvr-bob" href="producto/plist_1"><img src="../../image/pack.png"> Producto</a>
-            </li>
-            <li class="nav-item" ng-show="c.isAdmin" ng-class="{'active': c.isActive('/tipoproducto')}">
-                <a class="nav-link hvr-bob" href="tipoproducto/plist"><img src="../../image/warehouse.png"> Tipoproducto</a>
-            </li>
-
+            <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/usr/producto')}">
+                <a class="nav-link hvr-bob" href="/producto/plist"><img src="../../image/pack.png"> Artículos</a>
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-<!--            <div>
-
-                <a ng-show="c.ocultar && !c.isAdmin && c.carrito" class="nav-link hvr-bob" href="carrito"><button class="btn btn-warning" style="width: auto"><img src="../../image/carrito.png" >&nbsp{{c.carrito}}</button></a>
-
-            </div>-->
-            <div ng-show="c.ocultar" style="color: white">
+            <div ng-show="c.ocultar">
                 {{c.usuario| uppercase}} &nbsp
             </div>
             <div>

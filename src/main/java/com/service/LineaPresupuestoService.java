@@ -8,6 +8,7 @@ package com.service;
 import com.bean.LineaPresupuestoBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.connection.specificimplementation.HikariConnectionForUser;
 import com.dao.LineaPresupuestoDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class LineaPresupuestoService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
@@ -45,8 +47,7 @@ public class LineaPresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) new HikariConnectionForUser().newConnectionParams(usuario, password, conexion);
             LineaPresupuestoDao oLineaPresupuestoDao = new LineaPresupuestoDao(oConnection, ob);
             LineaPresupuestoBean oLineaPresupuestoBean = oLineaPresupuestoDao.get(id.toString(), empresa, 1);
             Gson oGson = new Gson();
@@ -55,7 +56,7 @@ public class LineaPresupuestoService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -66,6 +67,7 @@ public class LineaPresupuestoService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -76,8 +78,7 @@ public class LineaPresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) new HikariConnectionForUser().newConnectionParams(usuario, password, conexion);
             LineaPresupuestoDao oLineaPresupuestoDao = new LineaPresupuestoDao(oConnection, ob);
 
             ArrayList<LineaPresupuestoBean> alLineaPresupuestoBean = oLineaPresupuestoDao.getpage(iRpp, iPage, empresa, Presupuesto);
@@ -87,7 +88,7 @@ public class LineaPresupuestoService {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;

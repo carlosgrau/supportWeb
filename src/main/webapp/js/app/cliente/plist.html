@@ -1,158 +1,46 @@
 <header-component></header-component>
-<main role="main" class="col-12" style="margin-top: 50px">
-    <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Clientes</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group" style="width:400px;">
-                <p class="mt-2" style="width:200px;">Selecciona RPP: </p>
-                <select class="form-control" ng-change="update()" ng-model="rpp">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <nav aria-label="paginacion">
-                <ul class="pagination">
-
-                    <li class="page-item">
-                        <a class="page-link" ng-show="page > 1" href="cliente/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}">Anterior</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" ng-show="page > 2" href="cliente/plist/{{rpp}}/1/{{orderURLCliente}}">1</a>
-                    </li>
-                    <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
-                        <a class="page-link" href="cliente/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="cliente/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">{{totalPages}}</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" ng-show="page != totalPages" href="cliente/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}">Siguiente</a>
-                    </li>
-
-                </ul>
-            </nav>
-        </div>
-        <div class="col-3">
-            <p>Resetear ordenado<button type="button" class="btn btn-sm btn-light" ng-click="resetOrder()">
-                    <i class="fa fa-power-off"></i>
-                </button>
-            </p>
-        </div>
-        <div class="col-3">
-            <a href="/cliente/new"><p>Añadir cliente</p></a>
-        </div>
-    </div>
 
 
+<div class="container-fluid">
 
+    <h3>CLIENTES EMPRESA EJERCICIO {{ejercicio}}</h3>
+    <button class="btn"><a href="/cliente/create"> <i class="fa fa-plus-square"></i> AÑADIR CLIENTE</a></button>
+    <div class="table-responsive-md">
 
+        <table class="datatable table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>NIF</th>
+                    <th>Nombre</th>
+                    <th>Razon Social</th>
+                    <th>Teléfono</th>
+                    <th>Direcció</th>
+                    <th>Email</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX" ng-repeat="fila in ajaxDataCliente">
+                    <td>{{fila.id}}</td>
+                    <td>{{fila.codigo}}</td>
+                    <td>{{fila.nif}}</td>
+                    <td>{{fila.nombre}}</td>
+                    <td>{{fila.razonsocial}}</td>
+                    <td>{{fila.telefono}}</td>
+                    <td>{{fila.direccion}}</td>
+                    <td>{{fila.email}}</td>
+                    <td><a href="cliente/view/{{fila.codigo}}">
+                            <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>
+                    </td>
+                </tr>
 
-    <div class="table-responsive">
-        <table class="table table-dark">
-            <tr>
-                <th>
-                    <button type="button" class="btn btn-light" ng-click="ordena('id_auto', 'desc')">ID</button>
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('id', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('id', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Codigo
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('codigo', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('codigo', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    NIF/DNI
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('dni', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('dni', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Nombre
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('nombre', 'asc')">
-                        <a class="fas fa-long-arrow-alt-up"></a>
-
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('nombre', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Razon Social
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('ape1', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('ape1', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Telefono
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('login', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                   </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('login', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Dirección
-<!--                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('id_tipocliente', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-light" ng-click="ordena('id_tipocliente', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>-->
-                </th>
-                <th>
-                    Facturas
-                </th>
-                <th>
-                    Acciones
-                </th>
-            </tr>
-            <tr ng-repeat="fila in ajaxDataCliente">
-                <td>{{fila.id}}</td>
-                <td>{{fila.codigo}}</td>
-                <td>{{fila.nif}}</td>
-                <td>{{fila.nombre}}</td>
-                <td>{{fila.razonsocial}}</td>
-                <td>{{fila.telefono}}</td>
-                <td>{{fila.direccion}}</td>
-                <td>{{fila.login}}</td>
-                <td>
-                    <a href="cliente/view/{{fila.id}}"> <button type="button" class="btn btn-light btn-sm">
-                            <i class="fa fa-eye"></i>
-                        </button></a>
-
-                    <a href="cliente/edit/{{fila.id}}"><button type="button" class="btn btn-light btn-sm">
-                            <i class="fa fa-edit"></i>
-                        </button></a>
-
-                    <a href="cliente/remove/{{fila.id}}"><button type="button" class="btn btn-light btn-sm">
-                            <i class="fa fa-times"></i>
-                        </button></a>
-                </td>
-            </tr>
+            </tbody>
         </table>
-
     </div>
+
     <div class="row">
         <div class="col-6">
             <nav aria-label="paginacion">
@@ -178,5 +66,4 @@
             </nav>
         </div>
     </div>
-</main>
-<footer class="footer" ng-include="'js/app/footer.html'"></footer>
+</div>

@@ -1,28 +1,24 @@
 'use strict';
+moduleCliente.controller('clienteCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
-moduleCliente.controller('clienteCreateControllerAdm', ['$scope', '$http', 'sessionService',
-    function ($scope, $http, sessionService) {
-        
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.idUsuariologeado = sessionService.getUserId();
-            $scope.ocultar = true;
-        }
-        
+        $scope.ejercicio = sessionService.getEmpresa();
+
         $scope.crear = function () {
             var json = {
-                id: $scope.ajaxDatoUsuario.id,
-                dni: $scope.ajaxDatoUsuario.dni,
+                codigo: $scope.ajaxDatoUsuario.codigo,
+                direccion: $scope.ajaxDatoUsuario.direccion,
+                email: $scope.ajaxDatoUsuario.email,
+                empresa: sessionService.getEmpresa(),
+                nif: $scope.ajaxDatoUsuario.nif,
                 nombre: $scope.ajaxDatoUsuario.nombre,
-                ape1: $scope.ajaxDatoUsuario.ape1,
-                ape2: $scope.ajaxDatoUsuario.ape2,
-                login: $scope.ajaxDatoUsuario.login,
-                id_tipoUsuario: $scope.ajaxDatoUsuario.obj_tipoUsuario.id
-            }
+                razonsocial: $scope.ajaxDatoUsuario.razonsocial,
+                telefono: $scope.ajaxDatoUsuario.telefono
+            };
             $http({
                 method: 'GET',
                 withCredentials: true,
-                url: '/json?ob=usuario&op=create',
+                url: '/json?ob=cliente&op=create',
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
@@ -32,16 +28,10 @@ moduleCliente.controller('clienteCreateControllerAdm', ['$scope', '$http', 'sess
                 $scope.status = response.status;
             });
         };
-        $scope.logout = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=usuario&op=logout'
-            }).then(function (response) {
-                if (response.status === 200) {
-                    sessionService.setSessionInactive();
-                    sessionService.setUserName("");
-                }
-            });
-        };
 
+
+
+
+        $scope.isActive = toolService.isActive;
     }]);
+

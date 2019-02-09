@@ -1,12 +1,10 @@
 package com.factory;
 
 import com.bean.ReplyBean;
-import com.bean.UsuarioBean;
 import com.service.AlbaranService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
 import com.service.FacturaService;
-import com.service.LineaAlbaranService;
 import com.service.PresupuestoService;
 import com.service.ProductoService;
 import com.service.UsuarioService;
@@ -63,6 +61,9 @@ public class ServiceFactory {
                     case "get":
                         oReplyBean = oClienteService.get();
                         break;
+                    case "create":
+                        oReplyBean = oClienteService.create();
+                        break;
                     case "getpage":
                         oReplyBean = oClienteService.getpage();
                         break;
@@ -83,6 +84,9 @@ public class ServiceFactory {
                         break;
                     case "getpage":
                         oReplyBean = oProductoService.getpage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oProductoService.getcount();
                         break;
 
                     default:
@@ -110,21 +114,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-//            case "lineaalbaran":
-//                LineaAlbaranService oLineaAlbaranService = new LineaAlbaranService(oRequest);
-//                switch (op) {
-//                    case "get":
-//                        oReplyBean = oLineaAlbaranService.get();
-//                        break;
-//                    case "getpage":
-//                        oReplyBean = oLineaAlbaranService.getpage();
-//                        break;
-//
-//                    default:
-//                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
-//                        break;
-//                }
-//                break;
+
             case "presupuesto":
                 PresupuestoService oPresupuestoService = new PresupuestoService(oRequest);
                 switch (op) {
@@ -153,6 +143,9 @@ public class ServiceFactory {
                         break;
                     case "getpagexusuario":
                         oReplyBean = oFacturaService.getpageXusuario();
+                        break;
+                    case "getcount":
+                        oReplyBean = oFacturaService.getcount();
                         break;
 
                     default:

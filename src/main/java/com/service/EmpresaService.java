@@ -8,6 +8,7 @@ package com.service;
 import com.bean.EmpresaBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.connection.specificimplementation.HikariConnectionForUser;
 import com.dao.EmpresaDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,6 +39,7 @@ public class EmpresaService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
@@ -46,8 +48,7 @@ public class EmpresaService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             EmpresaDao oEmpresaDao = new EmpresaDao(oConnection, ob);
             EmpresaBean oEmpresaBean = oEmpresaDao.get(id);
             Gson oGson = new Gson();
@@ -56,7 +57,7 @@ public class EmpresaService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -67,6 +68,7 @@ public class EmpresaService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -75,8 +77,7 @@ public class EmpresaService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             EmpresaDao oEmpresaDao = new EmpresaDao(oConnection, ob);
 
             ArrayList<EmpresaBean> alEmpresaBean = oEmpresaDao.getpage(iRpp, iPage);
@@ -86,7 +87,7 @@ public class EmpresaService {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -95,7 +96,6 @@ public class EmpresaService {
 
     public ReplyBean select() throws Exception {
         ReplyBean oReplyBean;
-        Connection oConnection = null;
         EmpresaBean oEmpresaBean = null;
         try {
             if (oRequest.getSession().getAttribute("ejercicio") != null) {

@@ -1,71 +1,131 @@
 <header-component></header-component>
-<main style="margin-top:50px;" role="main" class="container">
+<div class="container" style="margin-top: 7%;">
+    <form class="form-horizontal" role="form" method="POST" action="/register">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>REGISTRAR NUEVO CLIENTE</h2>
+                <hr>
+            </div>
+        </div>
+        <!--        CODIGO EMPRESA-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">CÓDIGO</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="number" name="name" class="form-control" id="name"
+                               placeholder="4500" required autofocus ng-model="ajaxDatoUsuario.codigo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        NOMBRE EMPRESA-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">NOMBRE</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-building"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="GADE S.L" required ng-model="ajaxDatoUsuario.nombre">
+                    </div>
+                </div>
+            </div>
 
-    <div class="primeraParte"></div>
-        
-    <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
-        <h3 style="text-align: center">Editar usuario</h3>
-        <div class="form-group">
-            <!--ID-->
-            <label>ID</label>
-            <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="ajaxDatoUsuario.id" />
         </div>
-        <!--DNI-->
-        <div class="form-group" ng-class="{ 'has-error' : userForm.dni.$invalid && !userForm.dni.$pristine }">
-            <label>DNI</label>
-            <input type="text" class="form-control" id="dni" name="dni" ng-model="ajaxDatoUsuario.dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
-                   />
-            <div ng-show="userForm.dni.$error.pattern" class="alert alert-danger" role="alert">
-                Formato dni no valido
+        <!--RAZON SOCIAL-->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">RAZON SOCIAL</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="GRUPO ASESOR DE EMPRESA GADE S.L" required ng-model="ajaxDatoUsuario.razonsocial">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--        cif-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">CIF / NIF</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-address-card"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="X12345678" required ng-model="ajaxDatoUsuario.nif">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--        direccio-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">DIRECCIÓN</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marked-alt"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Avenida Del Oeste, Nº 28 " required ng-model="ajaxDatoUsuario.direccion">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--        email-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-MAIL</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="mail" name="email" class="form-control" id="email"
+                               placeholder="informatica@gadesl.com" required ng-model="ajaxDatoUsuario.email">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password" >TELÉFONO</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
+                        <input type="text" name="telefono" class="form-control" id="telefono"
+                               placeholder="963920606" required ng-model="ajaxDatoUsuario.telefono">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-success" ng-click="crear()"><i class="fa fa-user-plus" ></i> Registrar</button>
             </div>
         </div>
-        <!-- NOMBRE-->
-        <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" ng-model="ajaxDatoUsuario.nombre" ng-required="true" />
-            <div ng-show="!userForm.nombre.$valid" class="alert alert-danger" role="alert">
-                Nombre obligatorio
-            </div>
-        </div>
-        <!--APE 1-->
-        <div class="form-group">
-            <label>1er apellido</label>
-            <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ajaxDatoUsuario.ape1" ng-required="true" />
-            <div ng-show="!userForm.ape1.$valid" class="alert alert-danger" role="alert">
-                Primer apellido obligatorio
-            </div>
-        </div>
-        <!--APE 2-->
-        <div class="form-group">
-            <label>2º apellido</label>
-            <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ajaxDatoUsuario.ape2" ng-required="true" />
-            <div ng-show="!userForm.ape2.$valid" class="alert alert-danger" role="alert">
-                Segundo apellido obligatorio
-            </div>
-        </div>
-        <!--LOGIN-->
-        <div class="form-group">
-            <label>Login</label>
-            <input type="text" class="form-control" id="login" name="login" ng-model="ajaxDatoUsuario.login" ng-minlength="6" ng-required="true" />
-            <div ng-show="userForm.login.$error.minlength" class="alert alert-danger" role="alert">
-                La longitud del login es demasiado corta
-            </div>
-            <div ng-show="!userForm.login.$valid" class="alert alert-danger" role="alert">
-                Login obligatorio
-            </div>
-        </div>
-        <!--TIPO USUARIO-->
-        <div class="form-group">
-            <label>Tipo usuario</label>
-            <input type="text" class="form-control" id="obj_tipoUsuario_desc" name="obj_tipoUsuario_desc" ng-model="ajaxDatoUsuario.obj_tipoUsuario.id"/>
-        </div>
-        <button ng-click="crear()" type="button" class="btn btn-success" ng-disabled="userForm.$invalid">Enviar</button>
     </form>
-    <a href="javascript:window.history.back();"> <button class="btn btn-danger">Volver</button> </a>
-    <div class="alert alert-success" ng-model="resultado" ng-show="mensaje">
-        Datos actualizados correctamente.
-    </div>
-    <div class="alert alert-danger" ng-show="mensajeError">
-        Datos erroneos.
-    </div>
-</main>
+</div>

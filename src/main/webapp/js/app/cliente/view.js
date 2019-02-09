@@ -1,17 +1,11 @@
-'use strict'
+'use strict';
 
-moduleCliente.controller('clenteViewController', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
+moduleCliente.controller('clienteViewController', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, toolService, $routeParams, sessionService) {
-        $scope.cambioPassword = false;
-        if (sessionService.getTipoUserId() === 1) {
-            $scope.isAdmin = true;
-        } else {
-            $scope.isAdmin = false;
-        }
         $http({
             method: 'GET',
             withCredentials: true,
-            url: 'json?ob=usuario&op=get&id=' + $routeParams.id
+            url: 'json?ob=cliente&op=get&ejercicio=' + sessionService.getEmpresa() + '&id=' + $routeParams.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
@@ -19,16 +13,7 @@ moduleCliente.controller('clenteViewController', ['$scope', '$http', 'toolServic
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
-        $scope.cambiarPass = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=usuario&op=changepassword&id=' + $routeParams.id + '&pass=' + forge_sha256($scope.ajaxDataUsuarios.password)
-            }).then(function (response) {
-                if (response.status === 200) {
-                    $scope.cambioPassword = true;
-                }
-            });
-        };
+
         $scope.isActive = toolService.isActive;
 
 

@@ -18,9 +18,9 @@ import java.sql.SQLException;
  * @author a021792876p
  */
 public class UsuarioBean {
-    private Connection oConnectionCli;
-    private HikariDataSource oConnectionPoolCli;
+
     
+
     @Expose
     private int id;
     @Expose
@@ -124,53 +124,16 @@ public class UsuarioBean {
         this.setDatabaseCli(oResultSet.getString("databasecli"));
         return this;
     }
-    
+
     public String newConnectionClient() {
-		return "jdbc:mysql://" + this.getHostCli() + ":" + this.getPortCli() + "/"
-				+ this.getDatabaseCli();
-	}
-
-    public Connection newConnection(String usuario,String password,String conexion) throws Exception {
-
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(conexion);
-        config.setUsername(usuario);
-        config.setPassword(password);
-        config.setMaximumPoolSize(ConnectionConstants.getDatabaseMaxPoolSize);
-        config.setMinimumIdle(ConnectionConstants.getDatabaseMinPoolSize);
-
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        config.setLeakDetectionThreshold(15000);
-        config.setConnectionTestQuery("SELECT 1");
-        config.setConnectionTimeout(2000);
-
-        try {
-            oConnectionPoolCli = new HikariDataSource(config);
-            oConnectionCli = (Connection) oConnectionPoolCli.getConnection();
-            return oConnectionCli;
-
-        } catch (SQLException ex) {
-            String msgError = this.getClass().getName() + ":" + (ex.getStackTrace()[1]).getMethodName();
-            throw new Exception(msgError, ex);
-        }
-
+        return "jdbc:mysql://" + this.getHostCli() + ":" + this.getPortCli() + "/"
+                + this.getDatabaseCli();
     }
-    public void disposeConnection() throws Exception {
-        if (oConnectionCli != null) {
-            oConnectionCli.close();
-        }
-        if (oConnectionPoolCli != null) {
-            oConnectionPoolCli.close();
-        }
-    }
+
 
     @Override
     public String toString() {
-        return "UsuarioBean{" + "oConnectionCli=" + oConnectionCli + ", oConnectionPoolCli=" + oConnectionPoolCli + ", id=" + id + ", usuario=" + usuario + ", login=" + login + ", pass=" + pass + ", loginCli=" + loginCli + ", passCli=" + passCli + ", hostCli=" + hostCli + ", portCli=" + portCli + ", databaseCli=" + databaseCli + '}';
+        return "UsuarioBean{ id=" + id + ", usuario=" + usuario + ", login=" + login + ", pass=" + pass + ", loginCli=" + loginCli + ", passCli=" + passCli + ", hostCli=" + hostCli + ", portCli=" + portCli + ", databaseCli=" + databaseCli + '}';
     }
-    
-    
-    
+
 }

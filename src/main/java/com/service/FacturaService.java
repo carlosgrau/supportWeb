@@ -8,6 +8,7 @@ package com.service;
 import com.bean.FacturaBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.connection.specificimplementation.HikariConnectionForUser;
 import com.dao.FacturaDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class FacturaService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
@@ -45,8 +47,7 @@ public class FacturaService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
             FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 1);
             Gson oGson = new Gson();
@@ -55,7 +56,7 @@ public class FacturaService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -66,6 +67,7 @@ public class FacturaService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -75,8 +77,7 @@ public class FacturaService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
 
             ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpage(iRpp, iPage, empresa, 1);
@@ -86,7 +87,7 @@ public class FacturaService {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -97,6 +98,7 @@ public class FacturaService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -107,8 +109,7 @@ public class FacturaService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
 
             ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpageXusuario(iRpp, iPage, empresa, 1, cliente);
@@ -118,9 +119,40 @@ public class FacturaService {
             throw new Exception("ERROR: Service level: getLineaFactura method: " + ob + " object" + ex.getMessage(), ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
         return oReplyBean;
+    }
 
+    public ReplyBean getcount() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+        try {
+
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+
+            FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
+
+            int registros = oFacturaDao.getcount(empresa);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
     }
 }

@@ -9,6 +9,7 @@ import com.bean.LineaAlbaranBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.connection.publicinterface.ConnectionInterface;
+import com.connection.specificimplementation.HikariConnectionForUser;
 import com.dao.LineaAlbaranDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
@@ -37,6 +38,7 @@ public class LineaAlbaranService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
@@ -46,8 +48,7 @@ public class LineaAlbaranService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             LineaAlbaranDao oLineaAlbaranDao = new LineaAlbaranDao(oConnection, ob);
             LineaAlbaranBean oLineaAlbaranBean = oLineaAlbaranDao.get(id, empresa, 1);
             Gson oGson = new Gson();
@@ -56,7 +57,7 @@ public class LineaAlbaranService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -67,6 +68,7 @@ public class LineaAlbaranService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -77,18 +79,17 @@ public class LineaAlbaranService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
-
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             LineaAlbaranDao oLineaAlbaranDao = new LineaAlbaranDao(oConnection, ob);
 
-            ArrayList<LineaAlbaranBean> alLineaAlbaranBean = oLineaAlbaranDao.getpage(iRpp, iPage, empresa,albaran);
+            ArrayList<LineaAlbaranBean> alLineaAlbaranBean = oLineaAlbaranDao.getpage(iRpp, iPage, empresa, albaran);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaAlbaranBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;

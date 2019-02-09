@@ -15,13 +15,13 @@ import java.sql.ResultSet;
  */
 public class EmpresaBean {
 
-    @Expose
+    @Expose(serialize = false)
     private int id;
     @Expose
     private Integer empresa;
-    @Expose
+    @Expose(serialize = false)
     private String nombre;
-    @Expose
+    @Expose(serialize = false)
     private String nif;
     @Expose
     private Integer ejercicio;

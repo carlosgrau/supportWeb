@@ -1,7 +1,7 @@
 'use strict'
 
-moduleFactura.controller('facturaPlistControllerAdm', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams','$location',
-    function ($scope, toolService, $http, sessionService, $routeParams,$location) {
+moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
+    function ($scope, toolService, $http, sessionService, $routeParams, $location) {
         $scope.totalPages = 1;
 
         if (!$routeParams.order) {
@@ -30,7 +30,7 @@ moduleFactura.controller('facturaPlistControllerAdm', ['$scope', 'toolService', 
 
         $scope.resetOrder = function () {
             $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page);
-        }
+        };
 
 
         $scope.ordena = function (order, align) {
@@ -42,49 +42,36 @@ moduleFactura.controller('facturaPlistControllerAdm', ['$scope', 'toolService', 
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
             $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-        }
+        };
 
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=factura&op=getcount'
+            url: '/json?ob=factura&op=getcount&ejercicio=' + sessionService.getEmpresa()
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuariosNumber = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
+            $scope.ajaxDataFactura = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxDataFactura / $scope.rpp);
             if ($scope.page > $scope.totalPages) {
                 $scope.page = $scope.totalPages;
                 $scope.update();
             }
             pagination2();
         }, function (response) {
-            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+            $scope.ajaxDataFactura = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
 
         $http({
             method: 'GET',
-            url: '/json?ob=factura&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=factura&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-
+            $scope.ajaxDataFactura = response.data.message;
         }, function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+            $scope.ajaxDataFactura = response.data.message || 'Request failed';
         });
-
-        $scope.logout = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=usuario&op=logout'
-            }).then(function (response) {
-                if (response.status === 200) {
-                    sessionService.setSessionInactive();
-                    sessionService.setUserName("");
-                }
-            });
-        };
 
         $scope.update = function () {
             $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
@@ -111,7 +98,8 @@ moduleFactura.controller('facturaPlistControllerAdm', ['$scope', 'toolService', 
                     }
                 }
             }
-        };
+        }
+        ;
 
 
         $scope.isActive = toolService.isActive;
@@ -119,4 +107,4 @@ moduleFactura.controller('facturaPlistControllerAdm', ['$scope', 'toolService', 
 
 
     }
-])
+]);

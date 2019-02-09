@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.service;
 
 import com.bean.EmpresaBean;
@@ -10,9 +5,7 @@ import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.sql.Connection;
-
 import com.connection.publicinterface.ConnectionInterface;
 import com.constant.ConnectionConstants;
 import com.dao.UsuarioDao;
@@ -38,7 +31,6 @@ public class UsuarioService {
 
     public ReplyBean login() throws Exception {
         ReplyBean oReplyBean;
-        UsuarioBean oUsuarioBean = null;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection = null;
         String strLogin = oRequest.getParameter("user");
@@ -48,7 +40,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
 
-            oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
+            UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
             if (oUsuarioBean.getId() > 0) {
                 oRequest.getSession().setAttribute("user", oUsuarioBean);
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
@@ -61,7 +53,6 @@ public class UsuarioService {
         } finally {
             oConnectionPool.disposeConnection();
             oConnection.close();
-            oUsuarioBean.disposeConnection();
         }
         return oReplyBean;
     }
@@ -90,8 +81,6 @@ public class UsuarioService {
         } else {
             oReplyBean = new ReplyBean(401, "No active session");
         }
-        oUsuarioBean.disposeConnection();
-        
         return oReplyBean;
     }
 

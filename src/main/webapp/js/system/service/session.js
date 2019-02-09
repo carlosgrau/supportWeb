@@ -12,18 +12,12 @@ moduleService.service('sessionService', ['$location', function ($location) {
                 return userName;
             },
             setUserName: function (name) {
-                angular.forEach(observerCallbacks, function (callback) {
-                    callback();
-                });
                 userName = name;
             },
             getEmpresa: function () {
                 return empresaEjercicio;
             },
             setEmpresa: function (empresa) {
-                angular.forEach(observerCallbacks, function (callback) {
-                    callback();
-                });
                 empresaEjercicio = empresa;
             },
             isSessionActive: function () {
@@ -31,15 +25,9 @@ moduleService.service('sessionService', ['$location', function ($location) {
                 return isSessionActive;
             },
             setSessionActive: function (name) {
-                angular.forEach(observerCallbacks, function (callback) {
-                    callback();
-                });
                 isSessionActive = true;
             },
             setSessionInactive: function (name) {
-                angular.forEach(observerCallbacks, function (callback) {
-                    callback();
-                });
                 isSessionActive = false;
             },
             getUserId: function () {

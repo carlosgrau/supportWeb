@@ -8,6 +8,7 @@ package com.service;
 import com.bean.PresupuestoBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
+import com.connection.specificimplementation.HikariConnectionForUser;
 import com.dao.PresupuestoDao;
 import com.google.gson.Gson;
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class PresupuestoService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
@@ -45,7 +47,7 @@ public class PresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
             PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
             PresupuestoBean oPresupuestoBean = oPresupuestoDao.get(id, empresa, 1);
@@ -55,7 +57,7 @@ public class PresupuestoService {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
@@ -66,6 +68,7 @@ public class PresupuestoService {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -75,7 +78,7 @@ public class PresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
             PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
 
@@ -86,17 +89,18 @@ public class PresupuestoService {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
 
         return oReplyBean;
 
     }
-    
+
     public ReplyBean getpageXusuario() throws Exception {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
@@ -107,7 +111,7 @@ public class PresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
-            oConnection = oUsuarioBean.newConnection(usuario, password, conexion);
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
             PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
 
@@ -118,11 +122,10 @@ public class PresupuestoService {
             throw new Exception("ERROR: Service level: getLineaPresupuesto method: " + ob + " object" + ex.getMessage(), ex);
         } finally {
             oConnection.close();
-            oUsuarioBean.disposeConnection();
+            oHikariConectio.disposeConnection();
         }
         return oReplyBean;
 
     }
-    
-    
+
 }

@@ -1,0 +1,58 @@
+<header-component></header-component>
+<div class="container">
+    <div class="text-center">
+        <h1 style="font-size: 50px;">Factura Nº {{id}}</h1><h3>{{ajaxDataFactura.fecha}}</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <address>
+                                <br>
+                                <strong class="">{{ajaxDataCliente.nombre}}</strong><br class="">
+                                {{ajaxDataCliente.nif}}<br class="">
+                                {{ajaxDataCliente.direccion}}<br class="">
+                            </address>
+                        </div>
+                        <div class="col-md-6"> 
+                            <address>
+                                <br>
+                                {{ajaxDataCliente.telefono}}<br class="">
+                                {{ajaxDataCliente.email}}<br class="">                          
+                            </address>
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- panel heading -->
+                <div class="panel-body">
+                    <h3 class="panel-title">Detalle</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="">Producto</th>
+                                <th class="">Descripción</th>
+                                <th class="">Cantidad</th>
+                                <th class="">Precio</th>
+
+                                <th class="">Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
+                                <td>{{fila.obj_Producto.codigo}}</td>
+                                <td>{{fila.descripcion}}</td>                    
+                                <td>{{fila.cantidad}}</td>
+                                <td>{{fila.precio}}</td>
+
+                                <td>{{fila.cantidad * fila.precio}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+
+            </div> 
+        </div> 
+
+    </div> 
