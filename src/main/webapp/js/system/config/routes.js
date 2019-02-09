@@ -3,6 +3,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/cliente/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
         $routeProvider.when('/cliente/plist', {templateUrl: 'js/app/cliente/plist.html', controller: 'clientePlistController'});
         $routeProvider.when('/cliente/view/:id?', {templateUrl: 'js/app/cliente/view.html', controller: 'clienteViewController'});
+        $routeProvider.when('/cliente/update/:id?', {templateUrl: 'js/app/cliente/update.html', controller: 'clienteEditController'});
         $routeProvider.when('/cliente/create', {templateUrl: 'js/app/cliente/create.html', controller: 'clienteCreateController'});
 
 //        //FACTURA
@@ -11,13 +12,6 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 
 //        //PRODUCTO
         $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController'});
-
-        //USUARIOS
-        $routeProvider.when('/usr/cliente/view/:id?', {templateUrl: 'js/app/usr/cliente/view.html', controller: 'clienteViewController'});
-        $routeProvider.when('/usr/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/factura/plistlinea.html', controller: 'clienteViewController'});
-        $routeProvider.when('/usr/producto/view/:id?', {templateUrl: 'js/app/usr/producto/view.html', controller: 'productoViewController'});
-        $routeProvider.when('/usr/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/producto/plist.html', controller: 'productoPlistController'});
-        $routeProvider.when('/usr/cliente/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usr/cliente/plistfactura.html', controller: 'usuarioPlistFacturaController'});
 
 
         //LOGIN

@@ -151,4 +151,26 @@ public class ClienteDao {
         }
         return oClienteBean;
     }
+
+    public int update(ClienteBean oClienteBean) throws Exception {
+        int iResult = 0;
+        String strSQL = "UPDATE " + ob + " SET ";
+        strSQL += oClienteBean.getPairs();
+        strSQL = strSQL + " WHERE dat001a.CliCodigo = " + oClienteBean.getCodigo()
+                + " AND dat001a.id_ejercicio=" + oClienteBean.getEmpresa()
+                + " AND dat001a.id_auto=" + oClienteBean.getId();
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            iResult = oPreparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao update de " + ob, e);
+        } finally {
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
+    }
 }

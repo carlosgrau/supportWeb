@@ -150,7 +150,7 @@ public class ClienteService {
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             ClienteBean oClienteBean = new ClienteBean();
             oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
-            
+
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
@@ -160,6 +160,39 @@ public class ClienteService {
 
             oClienteBean = oClienteDao.create(oClienteBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+    }
+
+    public ReplyBean update() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+
+        try {
+            String strJsonFromClient = oRequest.getParameter("json");
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            ClienteBean oClienteBean = new ClienteBean();
+            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+
+            int registros = oClienteDao.update(oClienteBean);
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
         } finally {

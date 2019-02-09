@@ -64,6 +64,9 @@ public class ServiceFactory {
                     case "create":
                         oReplyBean = oClienteService.create();
                         break;
+                    case "update":
+                        oReplyBean = oClienteService.update();
+                        break;
                     case "getpage":
                         oReplyBean = oClienteService.getpage();
                         break;
