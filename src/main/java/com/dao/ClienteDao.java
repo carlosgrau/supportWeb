@@ -55,6 +55,7 @@ public class ClienteDao {
                 oPreparedStatement.close();
             }
         }
+
         return oClienteBean;
     }
 
@@ -78,7 +79,7 @@ public class ClienteDao {
                     alClienteBean.add(oClienteBean);
                 }
             } catch (SQLException e) {
-                throw new Exception("Error en Dao getpage de " + ob+"------"+e, e);
+                throw new Exception("Error en Dao getpage de " + ob + "------" + e, e);
             } finally {
                 if (oResultSet != null) {
                     oResultSet.close();
@@ -90,6 +91,7 @@ public class ClienteDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
+        //oConnection.close();
         return alClienteBean;
 
     }
@@ -116,6 +118,7 @@ public class ClienteDao {
                 oPreparedStatement.close();
             }
         }
+        //oConnection.close();
         return res;
     }
 }

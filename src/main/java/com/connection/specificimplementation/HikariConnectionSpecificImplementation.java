@@ -15,21 +15,22 @@ public class HikariConnectionSpecificImplementation implements ConnectionInterfa
     private Connection oConnection;
     private HikariDataSource oConnectionPool;
     private Boolean clase = false;
+
     public Connection newConnection() throws Exception {
 
         HikariConfig config = new HikariConfig();
-        if(clase){
-        config.setJdbcUrl(ConnectionConstantsClase.getConnectionChain());
-        config.setUsername(ConnectionConstantsClase.databaseLogin);
-        config.setPassword(ConnectionConstantsClase.databasePassword);
-        config.setMaximumPoolSize(ConnectionConstantsClase.getDatabaseMaxPoolSize);
-        config.setMinimumIdle(ConnectionConstantsClase.getDatabaseMinPoolSize);
-        }else{
-        config.setJdbcUrl(ConnectionConstants.getConnectionChain());
-        config.setUsername(ConnectionConstants.databaseLogin);
-        config.setPassword(ConnectionConstants.databasePassword);
-        config.setMaximumPoolSize(ConnectionConstants.getDatabaseMaxPoolSize);
-        config.setMinimumIdle(ConnectionConstants.getDatabaseMinPoolSize);
+        if (clase) {
+            config.setJdbcUrl(ConnectionConstantsClase.getConnectionChain());
+            config.setUsername(ConnectionConstantsClase.databaseLogin);
+            config.setPassword(ConnectionConstantsClase.databasePassword);
+            config.setMaximumPoolSize(ConnectionConstantsClase.getDatabaseMaxPoolSize);
+            config.setMinimumIdle(ConnectionConstantsClase.getDatabaseMinPoolSize);
+        } else {
+            config.setJdbcUrl(ConnectionConstants.getConnectionChain());
+            config.setUsername(ConnectionConstants.databaseLogin);
+            config.setPassword(ConnectionConstants.databasePassword);
+            config.setMaximumPoolSize(ConnectionConstants.getDatabaseMaxPoolSize);
+            config.setMinimumIdle(ConnectionConstants.getDatabaseMinPoolSize);
         }
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

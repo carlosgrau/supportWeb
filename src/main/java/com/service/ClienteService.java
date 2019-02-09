@@ -88,8 +88,8 @@ public class ClienteService {
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
-           // oConnection.close();
             oUsuarioBean.disposeConnection();
+            oConnection.close();
         }
 
         return oReplyBean;
@@ -118,6 +118,7 @@ public class ClienteService {
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
+            
             oConnection.close();
             oUsuarioBean.disposeConnection();
         }

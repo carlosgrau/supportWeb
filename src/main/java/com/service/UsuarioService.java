@@ -38,6 +38,7 @@ public class UsuarioService {
 
     public ReplyBean login() throws Exception {
         ReplyBean oReplyBean;
+        UsuarioBean oUsuarioBean = null;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection = null;
         String strLogin = oRequest.getParameter("user");
@@ -47,7 +48,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
 
-            UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
+            oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
             if (oUsuarioBean.getId() > 0) {
                 oRequest.getSession().setAttribute("user", oUsuarioBean);
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
@@ -60,6 +61,7 @@ public class UsuarioService {
         } finally {
             oConnectionPool.disposeConnection();
             oConnection.close();
+            oUsuarioBean.disposeConnection();
         }
         return oReplyBean;
     }
@@ -88,6 +90,8 @@ public class UsuarioService {
         } else {
             oReplyBean = new ReplyBean(401, "No active session");
         }
+        oUsuarioBean.disposeConnection();
+        
         return oReplyBean;
     }
 
