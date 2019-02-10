@@ -25,7 +25,14 @@
                     <td>{{fila.pvp1}}</td>
                     <td>{{fila.pvp2}}</td>
                     <td>{{fila.pvp3}}</td>
-                    <td></td>
+                    <td>
+                        <a href="producto/view/{{fila.id}}">
+                            <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>&nbsp
+                        <a href="producto/update/{{fila.id}}">
+                            <i class="fa fa-user-edit hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>
+                    </td>
                 </tr>
 
             </tbody>

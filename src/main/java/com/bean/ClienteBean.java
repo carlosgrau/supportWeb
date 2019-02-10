@@ -34,6 +34,12 @@ public class ClienteBean {
     private String direccion;
     @Expose
     private String email;
+    @Expose
+    private String iban;
+    @Expose
+    private String codigopostal;
+    @Expose
+    private String poblacion;
 
     public int getId() {
         return id;
@@ -105,6 +111,30 @@ public class ClienteBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getCodigopostal() {
+        return codigopostal;
+    }
+
+    public void setCodigopostal(String codigopostal) {
+        this.codigopostal = codigopostal;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public void setPoblacion(String poblacion) {
+        this.poblacion = poblacion;
     }
 
     public ClienteBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {

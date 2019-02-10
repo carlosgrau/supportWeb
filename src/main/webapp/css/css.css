@@ -6,7 +6,7 @@
 
 @media only screen and (min-width: 950px) and (max-width:1300px) {
     #pagina{
-        padding-top: 1%;
+        margin-top:1%;
     }
     nav{
         max-height: 120px;
@@ -17,7 +17,7 @@
 }
 @media only screen and (min-width: 600px) and (max-width:950px) {
     #pagina{
-        padding-top: 1%;
+       margin-top: 1%;
     }
     nav{
         max-height: 100px;

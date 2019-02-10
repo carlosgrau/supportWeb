@@ -6,7 +6,6 @@
 package com.dao;
 
 import com.bean.ProductoBean;
-import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +28,7 @@ public class ProductoDao {
     }
 
     public ProductoBean get(String id, int expand, int empresa) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE artcodigo = ? and id_ejercicio = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_auto = ? and id_ejercicio = ?";
         ProductoBean oProductoBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;

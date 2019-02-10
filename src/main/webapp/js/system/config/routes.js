@@ -12,6 +12,7 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 
 //        //PRODUCTO
         $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController'});
+        $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewController'});
 
 
         //LOGIN

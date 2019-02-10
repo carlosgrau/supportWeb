@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var SuportWeb4All = angular.module('MyApp', [
     'ngRoute',

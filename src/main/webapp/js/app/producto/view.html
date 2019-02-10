@@ -1,0 +1,45 @@
+<header-component></header-component>
+<main role="main" class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ajaxDataUsuarios.nombre}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                    <img alt="User Pic" src="https://assets.prestashop2.com/sites/default/files/styles/blog_750x320/public/blog/2018/03/fichas-de-producto.png?itok=z3_rWSqa" class="img-circle img-responsive" width="100%" height="100%">
+                </div>
+
+                <div class=" col-md-9 col-md-9 "> 
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>NIF / CIF</td>
+                                <td>{{ajaxDataUsuarios.nif}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dirección</td>
+                                <td>{{ajaxDataUsuarios.direccion}}</td>
+                            </tr>
+                            <tr>
+                                <td>Teléfono de contacto</td>
+                                <td>{{ajaxDataUsuarios.telefono}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><a href="mailto:{{ajaxDataUsuarios.email}}" target="_top">{{ajaxDataUsuarios.email}}</a></td>
+
+                            </tr>
+
+                            <tr ng-if="ajaxDataUsuarios.obj_tipoUsuario.id > 1">
+                                <td>Cambiar Contraseña</td>
+                                <td> <input type="password" class="form-control" ng-model="ajaxDataUsuarios.password" ng-re id="password" placeholder="Contraseña" ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
