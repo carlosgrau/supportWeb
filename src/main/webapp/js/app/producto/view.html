@@ -2,7 +2,7 @@
 <main role="main" class="container">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ajaxDataUsuarios.nombre}}</h3>
+            <h3 class="panel-title">{{ajaxDataUsuarios.codigo}}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -14,16 +14,18 @@
                     <table class="table table-user-information">
                         <tbody>
                             <tr>
-                                <td>NIF / CIF</td>
-                                <td>{{ajaxDataUsuarios.nif}}</td>
+                                <td>Descripción</td>
+                                <td>{{ajaxDataUsuarios.descripcion}}</td>
                             </tr>
                             <tr>
-                                <td>Dirección</td>
-                                <td>{{ajaxDataUsuarios.direccion}}</td>
+                                <td>Existencias</td>
+                                <td>{{ajaxDataUsuarios.existencias}}</td>
                             </tr>
                             <tr>
-                                <td>Teléfono de contacto</td>
-                                <td>{{ajaxDataUsuarios.telefono}}</td>
+                                <td>Precios</td>
+                                <td>PVP1 - {{ajaxDataUsuarios.pvp1}}</td>
+                                <td>PVP2 - {{ajaxDataUsuarios.pvp2}}</td>
+                                <td>PVP3 - {{ajaxDataUsuarios.pvp3}}</td>
 
                             </tr>
                             <tr>
