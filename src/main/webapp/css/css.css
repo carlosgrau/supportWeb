@@ -12,24 +12,19 @@
         max-height: 120px;
     }
     .container-fluid{
-        padding-top: 8%;
+        margin-top: 8%;
     }
 }
 @media only screen and (min-width: 600px) and (max-width:950px) {
     #pagina{
-       margin-top: 1%;
-    }
-    nav{
-        max-height: 100px;
+        margin-top: 1%;
     }
     .container-fluid{
-        padding-top: 12%;
+        margin-top: 12%;
     }
 }
 @media only screen and (min-width: 1300px)and (max-width:2000px){
-    #pagina{
-        margin-top: 0;  
-        background-color: white;
+    #pagina{        background-color: white;
     }
     body{
         background-color: red;

@@ -40,6 +40,8 @@ public class ClienteBean {
     private String codigopostal;
     @Expose
     private String poblacion;
+    @Expose
+    private String provincia;
 
     public int getId() {
         return id;
@@ -137,6 +139,14 @@ public class ClienteBean {
         this.poblacion = poblacion;
     }
 
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
     public ClienteBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setCodigo(oResultSet.getInt("clicodigo"));
@@ -147,6 +157,10 @@ public class ClienteBean {
         this.setNombre(oResultSet.getString("clinombre"));
         this.setRazonsocial(oResultSet.getString("clirazonsocial"));
         this.setTelefono(oResultSet.getString("clitelefono1"));
+        this.setIban(oResultSet.getString("iban"));
+        this.setCodigopostal(oResultSet.getString("clicodpostal"));
+        this.setPoblacion(oResultSet.getString("clipoblacion"));
+        this.setProvincia(oResultSet.getString("cliprovincia"));
         return this;
     }
 
@@ -160,7 +174,11 @@ public class ClienteBean {
         strColumns += "clinif,";
         strColumns += "clinombre,";
         strColumns += "clirazonsocial,";
-        strColumns += "clitelefono1";
+        strColumns += "clitelefono1,";
+        strColumns += "iban,";
+        strColumns += "clicodpostal,";
+        strColumns += "clipoblacion,";
+        strColumns += "cliprovincia";
         return strColumns;
     }
 
@@ -174,7 +192,11 @@ public class ClienteBean {
         strColumns += EncodingHelper.quotate(nif) + ",";
         strColumns += EncodingHelper.quotate(nombre) + ",";
         strColumns += EncodingHelper.quotate(razonsocial) + ",";
-        strColumns += EncodingHelper.quotate(telefono);
+        strColumns += EncodingHelper.quotate(telefono) + ",";
+        strColumns += EncodingHelper.quotate(iban) + ",";
+        strColumns += EncodingHelper.quotate(codigopostal) + ",";
+        strColumns += EncodingHelper.quotate(poblacion) + ",";
+        strColumns += EncodingHelper.quotate(provincia);
 
         return strColumns;
     }
@@ -189,7 +211,11 @@ public class ClienteBean {
         strPairs += "clinif=" + EncodingHelper.quotate(nif) + ",";
         strPairs += "clinombre=" + EncodingHelper.quotate(nombre) + ",";
         strPairs += "clirazonsocial=" + EncodingHelper.quotate(razonsocial) + ",";
-        strPairs += "clitelefono1=" + EncodingHelper.quotate(telefono);
+        strPairs += "clitelefono1=" + EncodingHelper.quotate(telefono) + ",";
+        strPairs += "iban=" + EncodingHelper.quotate(iban) + ",";
+        strPairs += "clicodpostal=" + EncodingHelper.quotate(codigopostal) + ",";
+        strPairs += "clipoblacion=" + EncodingHelper.quotate(poblacion) + ",";
+        strPairs += "cliprovincia=" + EncodingHelper.quotate(provincia);
         return strPairs;
 
     }

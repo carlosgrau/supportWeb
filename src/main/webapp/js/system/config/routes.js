@@ -13,6 +13,8 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
 //        //PRODUCTO
         $routeProvider.when('/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/producto/plist.html', controller: 'productoPlistController'});
         $routeProvider.when('/producto/view/:id?', {templateUrl: 'js/app/producto/view.html', controller: 'productoViewController'});
+        $routeProvider.when('/producto/create/:id?', {templateUrl: 'js/app/producto/create.html', controller: 'productoCreateController'});
+        $routeProvider.when('/producto/update/:id?', {templateUrl: 'js/app/producto/update.html', controller: 'productoEditController'});
 
 
         //LOGIN

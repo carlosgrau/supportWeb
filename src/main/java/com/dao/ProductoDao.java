@@ -132,4 +132,52 @@ public class ProductoDao {
         }
         return res;
     }
+    public ProductoBean create(ProductoBean oProductoBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oProductoBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oProductoBean.getValues() + ")";
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.executeUpdate();
+            oResultSet = oPreparedStatement.getGeneratedKeys();
+            if (oResultSet.next()) {
+                oProductoBean.setId(oResultSet.getInt(1));
+            } else {
+                oProductoBean.setId(0);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao create de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oProductoBean;
+    }
+
+    public int update(ProductoBean oProductoBean) throws Exception {
+        int iResult = 0;
+        String strSQL = "UPDATE " + ob + " SET ";
+        strSQL += oProductoBean.getPairs();
+        strSQL = strSQL + " WHERE dat001a.id_auto=" + oProductoBean.getId();
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            iResult = oPreparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao update de " + ob, e);
+        } finally {
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
+    }
 }

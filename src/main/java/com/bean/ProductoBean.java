@@ -6,6 +6,7 @@
 package com.bean;
 
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -107,16 +108,59 @@ public class ProductoBean {
     }
 
     public ProductoBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setCodigo(oResultSet.getString("codigo"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        this.setEmpresa(oResultSet.getInt("empresa"));
-        this.setExistencia_albaran(oResultSet.getInt("existencias_albaran"));
-        this.setExistencias(oResultSet.getInt("existencias"));
-        this.setPvp1(oResultSet.getInt("pvp1"));
-        this.setPvp2(oResultSet.getInt("pvp2"));
-        this.setPvp3(oResultSet.getInt("pvp3"));
+        this.setId(oResultSet.getInt("id_auto"));
+        this.setCodigo(oResultSet.getString("artcodigo"));
+        this.setDescripcion(oResultSet.getString("artdescripcion"));
+        this.setEmpresa(oResultSet.getInt("id_ejercicio"));
+        this.setExistencia_albaran(oResultSet.getInt("artalbaranes"));
+        this.setExistencias(oResultSet.getInt("artexistencias"));
+        this.setPvp1(oResultSet.getInt("artpvp1"));
+        this.setPvp2(oResultSet.getInt("artpvp2"));
+        this.setPvp3(oResultSet.getInt("artpvp3"));
         return this;
     }
 
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "artcodigo,";
+        strColumns += "artdescripcion,";
+        strColumns += "id_ejercicio,";
+        strColumns += "artalbaranes,";
+        strColumns += "artexistencias,";
+        strColumns += "artpvp1,";
+        strColumns += "artpvp2,";
+        strColumns += "artpvp3";
+        return strColumns;
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += EncodingHelper.quotate(codigo) + ",";
+        strColumns += EncodingHelper.quotate(descripcion) + ",";
+        strColumns += empresa + ",";
+        strColumns += existencia_albaran + ",";
+        strColumns += existencias + ",";
+        strColumns += pvp1 + ",";
+        strColumns += pvp2 + ",";
+        strColumns += pvp3;
+
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "artcodigo=" + EncodingHelper.quotate(codigo) + ",";
+        strPairs += "artdescripcion=" + EncodingHelper.quotate(descripcion) + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "artalbaranes=" + existencia_albaran + ",";
+        strPairs += "artexistencias=" + existencias + ",";
+        strPairs += "artpvp1=" + pvp1 + ",";
+        strPairs += "artpvp2=" + pvp2 + ",";
+        strPairs += "artpvp3=" + pvp3;
+        return strPairs;
+
+    }
 }
