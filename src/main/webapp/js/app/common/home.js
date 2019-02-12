@@ -2,7 +2,7 @@
 
 moduleCommon.controller('homeController', ['$scope', '$location', 'toolService', 'sessionService', '$http',
     function ($scope, $location, toolService, sessionService, $http) {
-        
+
         $http({
             method: 'GET',
             url: '/json?ob=usuario&op=check'
@@ -27,7 +27,37 @@ moduleCommon.controller('homeController', ['$scope', '$location', 'toolService',
                 }
             }
         })
+        $scope.validar = function () {
+            $scope.ob = "usuario";
+            $http({
+                method: 'GET',
+                url: 'json?ob=' + $scope.ob + '&op=login&user=' + $scope.login + '&pass=' + forge_sha256($scope.password)
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDataUsuarios = response.data.message;
+                if (response.status === 200) {
+                    if (response.data.status === 401) {
+                        $scope.mensaje = false;
+                        $scope.mensajeError = true;
+                    } else {
+                        $scope.mensajeError = false;
+                        /* sessionService.setSessionActive();
+                         sessionService.setUserName(response.data.message.nombre + ' ' + response.data.message.ape1);
+                         sessionService.setUserId(response.data.message.id);
+                         $scope.idUsuariologeado= sessionService.getUserId();
+                         $scope.usuariologeado = sessionService.getUserName();
+                         sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);*/
+                        $scope.mensaje = true;
+                    }
+                }
+                $location.url('/empresa');
+            }, function (response) {
+                $scope.mensajeError = true;
+                $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+                $scope.status = response.status;
+            });
 
+        };
 
         $scope.ruta = $location.path();
 

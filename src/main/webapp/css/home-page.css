@@ -29,7 +29,7 @@ nav li {
     line-height: 100px;
     width: 20vw;
     text-align: center;
-    color: #555;
+    color: white;
     transition: background-color 0.5s 0.2s ease, color 0.3s ease;
     cursor: pointer;
     font-size: 15px;
@@ -37,6 +37,9 @@ nav li {
     letter-spacing: 1.5px;
     font-weight: 800;
     transform: translateY(100%);
+}
+.vertical-text{
+    color: white;
 }
 nav li.active {
     background-color: #151515;
@@ -227,61 +230,25 @@ section .title span a::after {
     100% {
         width: 30px;
     }
-}
-.carousel {
-    position: relative;
-    overflow: hidden;
-    z-index: 10001;
+}.carousel {
+  background: #FAFAFA;
 }
 
-.carousel-content {
-    display: flex;
-    margin: 150px 0 70px;
-    transition: 500ms;
+.carousel-cell {
+  width: 66%;
+  height: 200px;
+  margin-right: 10px;
+  background: #8C8;
+  border-radius: 5px;
+  counter-increment: carousel-cell;
 }
 
-@media(max-width: 1024px) {
-    .carousel-content {
-        margin: 100px 0 50px;
-    }
-}
-
-@media(max-width: 800px) {
-    .carousel-content {
-        margin: 70px 0 30px;
-    }
-}
-
-.carousel-content img {
-    height: 110vh;
-    min-width: 100vw;
-    max-width: 100vw;
-    object-fit: cover;
-}
-
-.carousel-content video {
-    min-width: 100vw;
-    max-width: 100vw;
-    min-height: 100vh;
-    object-fit: fill;
-}
-
-.carousel .carousel-control-left {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 10%;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.carousel .carousel-control-right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 10%;
-    cursor: pointer;
-    z-index: 1;
+/* cell number */
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(carousel-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;
 }
