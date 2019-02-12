@@ -4,7 +4,6 @@ moduleCliente.controller('clienteEditController', ['$scope', '$http', '$location
 
         $scope.ejercicio = sessionService.getEmpresa();
         var id = $routeParams.id;
-
         $http({
             method: 'GET',
             withCredentials: true,
@@ -41,6 +40,7 @@ moduleCliente.controller('clienteEditController', ['$scope', '$http', '$location
             }, function (response) {
                 $scope.ajaxDataUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;
+                $scope.mensajeError = true;
             });
         };
 

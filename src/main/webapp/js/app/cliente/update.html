@@ -1,6 +1,6 @@
 <header-component></header-component>
-<div class="container" style="margin-top: 7%;">
-    <form class="form-horizontal" role="form" method="POST" action="/register">
+<div class="container" ng-show="!mensaje">
+    <form class="form-horizontal" role="form" method="POST" >
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -18,7 +18,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="number" name="name" class="form-control" id="name"
-                               placeholder="Ejemplo: 4500" required autofocus ng-model="ajaxDatoUsuario.codigo">
+                               placeholder="Ejemplo: 4500" ng-required autofocus ng-model="ajaxDatoUsuario.codigo">
                     </div>
                 </div>
             </div>
@@ -121,12 +121,22 @@
 
         </div>
 
+
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-success" ng-click="crear()"><i class="fa fa-user-plus" ></i> Guardar</button>
-                <button type="button" class="btn btn-danger" ng-click="crear()"><i class="fa fa-ban" ></i> Cancelar</button>
+            <div class="col-md-3 field-label-responsive">
+
             </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <button type="button" class="btn btn-success" ng-click="crear()" style="width: 40%"><i class="fa fa-user-plus"></i> Guardar</button>
+                        <a href="javascript:window.history.back();"> <button type="button" style="width: 40%; margin-left: 10%" class="btn btn-danger"><i class="fa fa-ban" ></i> Cancelar</button></a>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </form>
 </div>

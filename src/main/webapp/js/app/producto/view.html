@@ -2,7 +2,7 @@
 <main role="main" class="container">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ajaxDataUsuarios.codigo}}</h3>
+            <h3 class="panel-title">{{ajaxDataProducto.codigo}}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -15,26 +15,26 @@
                         <tbody>
                             <tr>
                                 <td>Descripción</td>
-                                <td>{{ajaxDataUsuarios.descripcion}}</td>
+                                <td>{{ajaxDataProducto.descripcion}}</td>
                             </tr>
                             <tr>
                                 <td>Existencias</td>
-                                <td>{{ajaxDataUsuarios.existencias}}</td>
+                                <td>{{ajaxDataProducto.existencias}}</td>
                             </tr>
                             <tr>
                                 <td>Precios</td>
-                                <td>PVP1 - {{ajaxDataUsuarios.pvp1}}</td>
-                                <td>PVP2 - {{ajaxDataUsuarios.pvp2}}</td>
-                                <td>PVP3 - {{ajaxDataUsuarios.pvp3}}</td>
+                                <td>PVP1 - {{ajaxDataProducto.pvp1}}</td>
+                                <td>PVP2 - {{ajaxDataProducto.pvp2}}</td>
+                                <td>PVP3 - {{ajaxDataProducto.pvp3}}</td>
 
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td><a href="mailto:{{ajaxDataUsuarios.email}}" target="_top">{{ajaxDataUsuarios.email}}</a></td>
+                                <td><a href="mailto:{{ajaxDataProducto.email}}" target="_top">{{ajaxDataProducto.email}}</a></td>
 
                             </tr>
 
-                            <tr ng-if="ajaxDataUsuarios.obj_tipoUsuario.id > 1">
+                            <tr ng-if="ajaxDataProducto.obj_tipoUsuario.id > 1">
                                 <td>Cambiar Contraseña</td>
                                 <td> <input type="password" class="form-control" ng-model="ajaxDataUsuarios.password" ng-re id="password" placeholder="Contraseña" ></td>
                             </tr>

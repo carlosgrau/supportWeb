@@ -12,7 +12,7 @@ moduleProducto.controller('productoViewController', ['$scope', '$http', '$locati
             $scope.ajaxDataProducto = response.data.message;
         }, function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+            $scope.ajaxDataProducto = response.data.message || 'Request failed';
         });
 
         $scope.isActive = toolService.isActive;

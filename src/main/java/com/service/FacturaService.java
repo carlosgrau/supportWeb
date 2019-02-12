@@ -48,6 +48,7 @@ public class FacturaService {
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+            
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
             FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 1);
             Gson oGson = new Gson();
