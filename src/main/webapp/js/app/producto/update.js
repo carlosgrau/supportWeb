@@ -36,14 +36,19 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
-                $scope.mensaje = true;
+                swal("Datos actualizados", "Los datos han sido actualizados correctamente", "success");
+                $location.path('/cliente/plist');
             }, function (response) {
                 $scope.ajaxDataUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;
+                swal("Error al actualizar", "Los datos no han sido actualizados debido a un error", "error")
             });
         };
 
 
+        $scope.atras = function () {
+            window.history.back();
+        };
 
 
         $scope.isActive = toolService.isActive;
