@@ -39,13 +39,34 @@
                                 <td><a href="mailto:{{ajaxDataUsuarios.email}}" target="_top">{{ajaxDataUsuarios.email}}</a></td>
 
                             </tr>
-
-                            <tr ng-if="ajaxDataUsuarios.obj_tipoUsuario.id > 1">
-                                <td>Cambiar Contraseña</td>
-                                <td> <input type="password" class="form-control" ng-model="ajaxDataUsuarios.password" ng-re id="password" placeholder="Contraseña" ></td>
-                            </tr>
                         </tbody>
+
                     </table>
+                    <div class="row" >
+                        <div class="col-md-3" >
+
+                        </div>
+                        <div class="col-md-6" >
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <button type="button" class="btn btn-warning" ng-click="editar(ajaxDataUsuarios.codigo)">
+                                    <i class="fa fa-user-plus"></i> Editar
+                                </button>
+
+
+                                <button type="button"  class="btn btn-danger" ng-click="atras()">
+                                    <i class="fa fa-ban" ></i> Cancelar
+                                </button>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-3" ></div>
+                        <button type="button"  class="btn btn-danger" ng-click="borrar(ajaxDataUsuarios.id)">
+                            <i class="fa fa-ban" ></i> BORRAR
+                        </button>
+
+                    </div>
                 </div>
             </div>
         </div>
