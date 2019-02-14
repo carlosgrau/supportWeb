@@ -1,9 +1,9 @@
 'use strict';
 moduleCliente.controller('clientePlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        
+
         $scope.ejercicio = sessionService.getEmpresa();
-        
+
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -32,6 +32,13 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
             $scope.ocultar = true;
         }
 
+        $scope.maps = function (variable) {
+            var direccio = variable.replace("/", "");
+            var direccio = direccio.replace(/ /g,'%20');
+            window.location.replace("https://www.google.com/maps/place/" + direccio);
+        };
+
+
 
         function pagination2() {
             $scope.list2 = [];
@@ -53,12 +60,13 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
                     }
                 }
             }
-        };       
-                //getcount
-                $http({
-                    method: 'GET',
-                    url: '/json?ob=cliente&op=getcount&ejercicio=' + sessionService.getEmpresa()
-                }).then(function (response) {
+        }
+        ;
+        //getcount
+        $http({
+            method: 'GET',
+            url: '/json?ob=cliente&op=getcount&ejercicio=' + sessionService.getEmpresa()
+        }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
             $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);

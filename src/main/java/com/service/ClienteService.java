@@ -204,4 +204,37 @@ public class ClienteService {
 
         return oReplyBean;
     }
+    public ReplyBean remove() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+
+        try {
+            Integer id = Integer.parseInt(oRequest.getParameter("id"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            int registros = oClienteDao.remove(id, empresa);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+
+    }
 }

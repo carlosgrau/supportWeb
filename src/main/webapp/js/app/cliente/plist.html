@@ -26,7 +26,7 @@
                         <td>{{fila.nombre}}</td>
                         <td>{{fila.razonsocial}}</td>
                         <td>{{fila.telefono}}</td>
-                        <td>{{fila.direccion}}</td>
+                        <td><a ng-click="maps(fila.direccion)" style="color: blue; text-decoration: underline;">{{fila.direccion}}</a></td>
                         <td>{{fila.email}}</td>
                         <td><a href="cliente/view/{{fila.codigo}}">
                                 <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>

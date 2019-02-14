@@ -23,6 +23,9 @@ function js(toolService, sessionService, $http, $route, $location) {
             url: '/json?ob=usuario&op=logout'
         }).then(function (response) {
             if (response.status === 200) {
+                swal({title: "Hasta pronto!",
+                    imageUrl: ""
+                });
                 sessionService.setTipoUserId('');
                 sessionService.setUserId('');
                 sessionService.setSessionInactive();

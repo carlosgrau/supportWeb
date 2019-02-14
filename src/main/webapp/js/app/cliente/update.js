@@ -49,8 +49,6 @@ moduleCliente.controller('clienteEditController', ['$scope', '$http', '$location
             window.history.back();
         };
 
-
-
         $scope.isActive = toolService.isActive;
     }]);
 
