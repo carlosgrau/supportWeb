@@ -5,7 +5,6 @@
  */
 package com.connection.specificimplementation;
 
-import com.connection.publicinterface.ConnectionInterface;
 import com.constant.ConnectionConstants;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
