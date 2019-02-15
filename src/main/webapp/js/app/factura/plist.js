@@ -50,15 +50,15 @@ moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$h
             url: '/json?ob=factura&op=getcount&ejercicio=' + sessionService.getEmpresa()
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataFactura = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataFactura / $scope.rpp);
+            $scope.ajaxCountFactura = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxCountFactura / $scope.rpp);
             if ($scope.page > $scope.totalPages) {
                 $scope.page = $scope.totalPages;
                 $scope.update();
             }
             pagination2();
         }, function (response) {
-            $scope.ajaxDataFactura = response.data.message || 'Request failed';
+            $scope.ajaxCountFactura = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
 

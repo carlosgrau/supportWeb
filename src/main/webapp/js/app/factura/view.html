@@ -50,6 +50,28 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="">Base Imponible</th>
+                                <th class="">Descuento</th>
+                                <th class="">IVA</th>
+                                <th class="">%</th>
+                                <th class="">Total Factura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
+                                <td>{{fila.obj_Producto.codigo}}</td>
+                                <td>{{fila.descripcion}}</td>                    
+                                <td>{{fila.cantidad}}</td>
+                                <td>{{fila.precio}}</td>
+
+                                <td>{{fila.cantidad * fila.precio}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div> 
 
             </div> 
