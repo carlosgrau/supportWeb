@@ -3,7 +3,7 @@
 moduleFactura.controller('facturaPlistController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
     function ($scope, toolService, $http, sessionService, $routeParams, $location) {
         $scope.totalPages = 1;
-
+        $scope.ejercicio = sessionService.getEmpresa();
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
