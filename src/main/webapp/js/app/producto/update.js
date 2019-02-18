@@ -22,9 +22,9 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
             var json = {
                 id: $scope.ajaxDatoUsuario.id,
                 codigo: $scope.ajaxDatoUsuario.codigo,
-                descripcion: $scope.ajaxDatoUsuario.direccion,
+                descripcion: $scope.ajaxDatoUsuario.descripcion,
                 empresa: sessionService.getEmpresa(),
-                nif: $scope.ajaxDatoUsuario.nif,
+                existencias: $scope.ajaxDatoUsuario.existencias,
                 pvp1: $scope.ajaxDatoUsuario.pvp1,
                 pvp2: $scope.ajaxDatoUsuario.pvp2,
                 pvp3: $scope.ajaxDatoUsuario.pvp3
@@ -32,12 +32,12 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
             $http({
                 method: 'GET',
                 withCredentials: true,
-                url: '/json?ob=cliente&op=update',
+                url: '/json?ob=producto&op=update',
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
                 swal("Datos actualizados", "Los datos han sido actualizados correctamente", "success");
-                $location.path('/cliente/plist');
+                $location.path('/producto/plist');
             }, function (response) {
                 $scope.ajaxDataUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;

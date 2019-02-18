@@ -128,10 +128,11 @@ public class ProductoDao {
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
             }
-            
+
         }
         return res;
     }
+
     public ProductoBean create(ProductoBean oProductoBean) throws Exception {
         String strSQL = "INSERT INTO " + ob;
         strSQL += "(" + oProductoBean.getColumns() + ")";
@@ -165,7 +166,7 @@ public class ProductoDao {
         int iResult = 0;
         String strSQL = "UPDATE " + ob + " SET ";
         strSQL += oProductoBean.getPairs();
-        strSQL = strSQL + " WHERE dat001a.id_auto=" + oProductoBean.getId();
+        strSQL = strSQL + " WHERE " + ob + ".id_auto=" + oProductoBean.getId();
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -179,5 +180,23 @@ public class ProductoDao {
             }
         }
         return iResult;
+    }
+
+    public int remove(int id, int empresa) throws Exception {
+        int iRes = 0;
+        String strSQL = "DELETE FROM " + ob + " WHERE id_auto=?";
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, id);
+            iRes = oPreparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao remove de " + ob, e);
+        } finally {
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iRes;
     }
 }
