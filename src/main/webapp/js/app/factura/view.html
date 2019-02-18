@@ -33,9 +33,9 @@
                             <tr>
                                 <th class="">Producto</th>
                                 <th class="">Descripción</th>
-                                <th class="">Cantidad</th>
                                 <th class="">Precio</th>
-
+                                <th class="">Cantidad</th>
+                                <th class="">Descuento</th>
                                 <th class="">Importe</th>
                             </tr>
                         </thead>
@@ -43,14 +43,15 @@
                             <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
                                 <td>{{fila.obj_Producto.codigo}}</td>
                                 <td>{{fila.descripcion}}</td>                    
-                                <td>{{fila.cantidad}}</td>
                                 <td>{{fila.precio}}</td>
+                                <td>{{fila.cantidad}}</td>
+                                <td>{{fila.descuento}}</td>
 
-                                <td>{{fila.cantidad * fila.precio}}</td>
+                                <td>{{fila.precio_Total}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-condensed">
+                    <table class="table table-condensed" style="margin-top: 12%;">
                         <thead>
                             <tr>
                                 <th class="">Base Imponible</th>
@@ -61,13 +62,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
-                                <td>{{fila.obj_Producto.codigo}}</td>
-                                <td>{{fila.descripcion}}</td>                    
-                                <td>{{fila.cantidad}}</td>
-                                <td>{{fila.precio}}</td>
+                            <tr class="gradeX">
+                                <td>{{ajaxDataFactura.total_bruto}}</td>
+                                <td>{{ajaxDataFactura.descuento}}</td>                    
+                                <td>{{ajaxDataFactura.total_Iva}}</td>
+                                <td>{{ajaxDataFactura.iva}}</td>
 
-                                <td>{{fila.cantidad * fila.precio}}</td>
+                                <td>{{ajaxDataFactura.total_precio}}</td>
                             </tr>
                         </tbody>
                     </table>

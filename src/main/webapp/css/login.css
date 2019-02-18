@@ -128,11 +128,11 @@ html{
 .wrapper.form-success .container h1 {
     transform: translateY(85px);
 }
-.container {
+#formlogin {
     text-align: center;
     margin-top: 10%;
 }
-.container h1 {
+#formlogin h1 {
     font-size: 40px;
     transition-duration: 1s;
     transition-timing-function: ease-in-put;

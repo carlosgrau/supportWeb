@@ -39,6 +39,8 @@ public class LineaFacturaBean {
     @Expose
     private int albaran;
     @Expose
+    private double descuento;
+    @Expose
     private Date fecha_albaran;
     @Expose
     private ProductoBean obj_Producto;
@@ -139,6 +141,14 @@ public class LineaFacturaBean {
         this.obj_Producto = obj_Producto;
     }
 
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
     public LineaFacturaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setEmpresa(oResultSet.getInt("id_ejercicio"));
@@ -151,7 +161,7 @@ public class LineaFacturaBean {
         this.setPrecio_Total(oResultSet.getFloat("total"));
         this.setAlbaran(oResultSet.getInt("albaran"));
         this.setFecha_albaran(oResultSet.getDate("fechaalbaran"));
-
+        this.setDescuento(oResultSet.getDouble("dto"));
         if (expand > 0) {
             ProductoDao oProductoDao = new ProductoDao(oConnection, "dat004a");
             this.setObj_Producto(oProductoDao.get(oResultSet.getString("referencia"), expand - 1, this.getEmpresa()));
