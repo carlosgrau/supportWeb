@@ -87,7 +87,7 @@ moduleCliente.controller('clientePlistController', ['$scope', '$http', '$locatio
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataCliente = response.data.message;
-
+//            console.log($scope.ajaxDataCliente[1].direccion);
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataCliente = response.data.message || 'Request failed';
