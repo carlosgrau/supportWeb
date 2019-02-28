@@ -26,7 +26,7 @@ moduleCommon.controller('homeController', ['$scope', '$location', 'toolService',
                     }
                 }
             }
-        })
+        });
         $scope.validar = function () {
             $scope.ob = "usuario";
             $http({

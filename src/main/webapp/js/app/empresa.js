@@ -77,6 +77,8 @@ moduleEmpresa.controller('empresaController', ['$scope', '$http', '$location', '
             $scope.status = response.status;
             $scope.ajaxDataEmpresa = response.data.message || 'Request failed';
         });
+        
+        
         $scope.seleccionar = function (ejercicio) {
 
             var json = {
