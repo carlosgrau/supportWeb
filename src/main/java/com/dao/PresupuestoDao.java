@@ -39,13 +39,6 @@ public class PresupuestoDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oPresupuestoBean = new PresupuestoBean();
-//                oPresupuestoBean.setId(oResultSet.getInt("id_auto"));
-//                oPresupuestoBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                oPresupuestoBean.setEstado(oResultSet.getInt("estado"));
-//                oPresupuestoBean.setFactura(oResultSet.getInt("id_dat140a"));
-//                oPresupuestoBean.setFecha(oResultSet.getDate("fecha"));
-//                oPresupuestoBean.setId_cliente(oResultSet.getInt("cliente"));
-//                oPresupuestoBean.setNombre_cliente(oResultSet.getString("nombre"));
                 oPresupuestoBean.fill(oResultSet, oConnection, expand);
             } else {
                 oPresupuestoBean = null;
@@ -77,14 +70,6 @@ public class PresupuestoDao {
                 alPresupuestoBean = new ArrayList<PresupuestoBean>();
                 while (oResultSet.next()) {
                     PresupuestoBean oPresupuestoBean = new PresupuestoBean();
-//                    oPresupuestoBean = new PresupuestoBean();
-//                    oPresupuestoBean.setId(oResultSet.getInt("id_auto"));
-//                    oPresupuestoBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-//                    oPresupuestoBean.setEstado(oResultSet.getInt("estado"));
-//                    oPresupuestoBean.setFactura(oResultSet.getInt("id_dat140a"));
-//                    oPresupuestoBean.setFecha(oResultSet.getDate("fecha"));
-//                    oPresupuestoBean.setId_cliente(oResultSet.getInt("cliente"));
-//                    oPresupuestoBean.setNombre_cliente(oResultSet.getString("nombre"));
                     oPresupuestoBean.fill(oResultSet, oConnection, expand);
                     alPresupuestoBean.add(oPresupuestoBean);
                 }

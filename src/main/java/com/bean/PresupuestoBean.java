@@ -22,25 +22,37 @@ public class PresupuestoBean {
 
     @Expose
     private int id;
+    
     @Expose
     private int empresa;
+    
     @Expose
     private int presupuesto;
+    
     @Expose
     private int id_cliente;
+    
     @Expose
     private String nombre;
+    
     @Expose
     private Date fecha;
+    
     @Expose
     private float precio_Bruto;
+    
     @Expose
     private float total_Precio;
+    
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
+    
     @Expose(deserialize = false)
     private ArrayList<LineaPresupuestoBean> obj_LineaPresupuesto;
 
+    
+    
+    
     public int getId() {
         return id;
     }

@@ -58,7 +58,7 @@ public class LineaPresupuestoDao {
     }
 
     public ArrayList<LineaPresupuestoBean> getpage(int iRpp, int iPage, int empresa, int presupuesto) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " where id_ejercicio= " + empresa + " and id_dat032a = " + presupuesto;
+        String strSQL = "SELECT * FROM " + ob + " where id_ejercicio= " + empresa + " and presupuestos = " + presupuesto;
         ArrayList<LineaPresupuestoBean> alLineaPresupuestoBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;

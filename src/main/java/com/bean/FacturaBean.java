@@ -65,6 +65,8 @@ public class FacturaBean {
     @Expose(deserialize = false)
     private ArrayList<LineaFacturaBean> obj_LineaFactura;
     
+    
+    
     public int getId() {
         return id;
     }
