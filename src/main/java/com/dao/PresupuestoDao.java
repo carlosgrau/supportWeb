@@ -5,6 +5,7 @@
  */
 package com.dao;
 
+import com.bean.FacturaBean;
 import com.bean.PresupuestoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -89,6 +90,7 @@ public class PresupuestoDao {
         return alPresupuestoBean;
 
     }
+
     public ArrayList<PresupuestoBean> getpageXusuario(int iRpp, int iPage, int empresa, Integer expand, Integer cliente) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ? and cliente= ?";
         ArrayList<PresupuestoBean> alPresupuestoBean;
@@ -131,4 +133,35 @@ public class PresupuestoDao {
         return alPresupuestoBean;
 
     }
+
+    public PresupuestoBean create(PresupuestoBean oPresupuestoBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oPresupuestoBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oPresupuestoBean.getValues() + ")";
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.executeUpdate();
+            oResultSet = oPreparedStatement.getGeneratedKeys();
+            if (oResultSet.next()) {
+                oPresupuestoBean.setId(oResultSet.getInt(1));
+            } else {
+                oPresupuestoBean.setId(0);
+                oPresupuestoBean.setPresupuesto(0);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao create de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oPresupuestoBean;
+    }
+
 }
