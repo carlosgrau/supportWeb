@@ -1,0 +1,200 @@
+/* 
+    Created on : 23-ene-2019, 10:51:43
+    Author     : GADE
+*/
+@charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
+}
+
+input {
+    border: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 0;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+after { clear: both; }
+
+#titulo{
+    color: whitesmoke;   
+}
+
+#login {
+    align:center;
+    width: 50%;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: whitesmoke;
+} 
+#password{
+    align:center;
+    width: 50%;
+
+
+}
+
+#login form {
+    margin: auto;
+    padding: 22px 22px 22px 22px;
+    width: 100%;
+    border-radius: 5px;
+    background: #282e33;
+    border-top: 3px solid #434a52;
+    border-bottom: 3px solid #434a52;
+}
+
+#login form span {
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+    border-right: 3px solid #434a52;
+    color: #606468;
+    display: block;
+    float: left;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+}
+
+#login form input[type="text"] {
+    background-color: #3b4148;
+    border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 235px;
+    height: 50px;
+}
+
+#login form input[type="password"] {
+    background-color: #3b4148;
+    border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 235px;
+    height: 50px;
+}
+
+#login form input[type="submit"] {
+    background: #b5cd60;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+#login form input[type="submit"]:hover {
+    background: #16aa56;
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Source Sans Pro ExtraLight'), local('SourceSansPro-ExtraLight'), url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xKydSBYKcSV-LCoeQqfX1RYOo3i94_wlxdr.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zwlxdr.ttf) format('truetype');
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
+html{
+    height: 100%;
+
+}
+.wrapper {
+    left: 0;
+    width: 100%;
+    height: 95%;
+    overflow: hidden;
+}
+.wrapper.form-success .container h1 {
+    transform: translateY(85px);
+}
+#formlogin {
+    text-align: center;
+    margin-top: 10%;
+}
+#formlogin h1 {
+    font-size: 40px;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-put;
+    font-weight: 200;
+}
+form {
+    padding: 20px 0;
+    position: relative;
+    z-index: 2;
+}
+form input {
+    appearance: none;
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 250px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    transition-duration: 0.25s;
+    font-weight: 300;
+}
+form input:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+form input:focus {
+    background-color: white;
+    width: 300px;
+    color: #8EAECE;
+}
+#fondo{
+    background: linear-gradient(to bottom right, #8EAECE 0%, #FF3A3A 100%) ;
+    width: 100wh;
+    height: 100vh;
+}
+form button {
+    appearance: none;
+    outline: 0;
+    background-color: white;
+    border: 0;
+    padding: 10px 15px;
+    color: #8EAECE;
+    border-radius: 3px;
+    width: 250px;
+    cursor: pointer;
+    font-size: 18px;
+    transition-duration: 0.25s;
+}
+form button:hover {
+    background-color: #f5f7f9;
+}
+@keyframes square {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-700px) rotate(600deg);
+        transform: translateY(-700px) rotate(600deg);
+    }
+}

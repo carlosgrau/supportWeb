@@ -1,0 +1,148 @@
+<header-component></header-component>
+<div class="container">
+    <form class="form-horizontal" role="form" method="POST" >
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>REGISTRAR NUEVO CLIENTE</h2>
+                <hr>
+            </div>
+        </div>
+        <!--        CODIGO EMPRESA-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">CÓDIGO</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="number" name="name" class="form-control" id="name"
+                               placeholder="Ejemplo: 4500" ng-required autofocus ng-model="ajaxDatoUsuario.codigo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        NOMBRE EMPRESA-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">NOMBRE</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-building"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Ejemplo: GADE S.L" required ng-model="ajaxDatoUsuario.nombre">{{ajaxDataCliente.nombre}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--RAZON SOCIAL-->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">RAZON SOCIAL</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Ejemplo: GRUPO ASESOR DE EMPRESA GADE S.L" required ng-model="ajaxDatoUsuario.razonsocial">{{ajaxDataCliente.razonsocial}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--        cif-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">CIF / NIF</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-address-card"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Ejemplo: X12345678" required ng-model="ajaxDatoUsuario.nif">{{ajaxDataCliente.nif}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--        direccio-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">DIRECCIÓN</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marked-alt"></i></div>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Ejemplo: Avenida Del Oeste, Nº 28 " required ng-model="ajaxDatoUsuario.direccion">{{ajaxDataCliente.direccion}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--        email-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-MAIL</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="mail" name="email" class="form-control" id="email"
+                               placeholder="Ejemplo: informatica@gadesl.com" required ng-model="ajaxDatoUsuario.email">{{ajaxDataCliente.email}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password" >TELÉFONO</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
+                        <input type="text" name="telefono" class="form-control" id="telefono"
+                               placeholder="Ejemplo: 963920606" required ng-model="ajaxDatoUsuario.telefono">{{ajaxDataCliente.telefono}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row" >
+            <div class="col-md-3" >
+
+            </div>
+            <div class="col-md-6" >
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <button type="button" class="btn btn-success" ng-click="crear()">
+                        <i class="fa fa-user-plus"></i> Guardar
+                    </button>
+
+
+                    <button type="button"  class="btn btn-danger" ng-click="atras()">
+                        <i class="fa fa-ban" ></i> Cancelar
+                    </button>
+
+                </div>
+
+            </div>
+            <div class="col-md-3" ></div>
+
+        </div>
+
+    </form>
+</div>

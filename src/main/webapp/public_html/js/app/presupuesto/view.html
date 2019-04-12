@@ -1,0 +1,84 @@
+<header-component></header-component>
+<div class="container" style="padding-top: 4%;">
+        <button type="button" class="btn btn-info" ng-click="atras()"><i class="fas fa-undo"></i> Atrás</button>
+    <div class="text-center">
+        <h1 style="font-size: 50px;">Factura Nº {{id}}</h1>
+        <br>
+        <h3>{{ajaxDataFactura.fecha}}</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <address>
+                                <br>
+                                <strong class="">{{ajaxDataCliente.nombre}}</strong><br class="">
+                                {{ajaxDataCliente.nif}}<br class="">
+                                {{ajaxDataCliente.direccion}}<br class="">
+                            </address>
+                        </div>
+                        <div class="col-md-6"> 
+                            <address>
+                                <br>
+                                {{ajaxDataCliente.telefono}}<br class="">
+                                {{ajaxDataCliente.email}}<br class="">                          
+                            </address>
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- panel heading -->
+                <div class="panel-body">
+                    <h3 class="panel-title">Detalle</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="">Producto</th>
+                                <th class="">Descripción</th>
+                                <th class="">Precio</th>
+                                <th class="">Cantidad</th>
+                                <th class="">Descuento</th>
+                                <th class="">Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
+                                <td>{{fila.obj_Producto.codigo}}</td>
+                                <td>{{fila.descripcion}}</td>                    
+                                <td>{{fila.precio}}</td>
+                                <td>{{fila.cantidad}}</td>
+                                <td>{{fila.descuento}}</td>
+
+                                <td>{{fila.precio_Total}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed" style="margin-top: 12%;">
+                        <thead>
+                            <tr>
+                                <th class="">Base Imponible</th>
+                                <th class="">Descuento</th>
+                                <th class="">IVA</th>
+                                <th class="">%</th>
+                                <th class="">Total Factura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX">
+                                <td>{{ajaxDataFactura.total_bruto}}</td>
+                                <td>{{ajaxDataFactura.descuento}}</td>                    
+                                <td>{{ajaxDataFactura.total_Iva}}</td>
+                                <td>{{ajaxDataFactura.iva}}</td>
+
+                                <td>{{ajaxDataFactura.total_precio}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div> 
+
+            </div> 
+        </div> 
+
+    </div> 
