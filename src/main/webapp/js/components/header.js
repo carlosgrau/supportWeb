@@ -24,7 +24,7 @@ function js(toolService, sessionService, $http, $route, $location) {
         }).then(function (response) {
             if (response.status === 200) {
                 swal({title: "Hasta pronto!",
-                    imageUrl: ""
+                    imageUrl: "http://www.gifsanimados.org/data/media/81/mano-imagen-animada-0080.gif"
                 });
                 sessionService.setTipoUserId('');
                 sessionService.setUserId('');

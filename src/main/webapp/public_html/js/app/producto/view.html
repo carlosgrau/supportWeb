@@ -1,0 +1,47 @@
+<header-component></header-component>
+<main role="main" class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ajaxDataProducto.codigo}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                    <img alt="User Pic" src="https://assets.prestashop2.com/sites/default/files/styles/blog_750x320/public/blog/2018/03/fichas-de-producto.png?itok=z3_rWSqa" class="img-circle img-responsive" width="100%" height="100%">
+                </div>
+
+                <div class=" col-md-9 col-md-9 "> 
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Descripción</td>
+                                <td>{{ajaxDataProducto.descripcion}}</td>
+                            </tr>
+                            <tr>
+                                <td>Existencias</td>
+                                <td>{{ajaxDataProducto.existencias}}</td>
+                            </tr>
+                            <tr>
+                                <td>Precios</td>
+                                <td>PVP1 - {{ajaxDataProducto.pvp1}}</td>
+                                <td>PVP2 - {{ajaxDataProducto.pvp2}}</td>
+                                <td>PVP3 - {{ajaxDataProducto.pvp3}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><a href="mailto:{{ajaxDataProducto.email}}" target="_top">{{ajaxDataProducto.email}}</a></td>
+
+                            </tr>
+
+                            <tr ng-if="ajaxDataProducto.obj_tipoUsuario.id > 1">
+                                <td>Cambiar Contraseña</td>
+                                <td> <input type="password" class="form-control" ng-model="ajaxDataUsuarios.password" ng-re id="password" placeholder="Contraseña" ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

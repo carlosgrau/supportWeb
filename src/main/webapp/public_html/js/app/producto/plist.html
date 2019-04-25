@@ -1,0 +1,67 @@
+<header-component></header-component>
+<div class="container-fluid">
+
+    <h3>PRODUCTOS EMPRESA EJERCICIO {{ejercicio}}</h3>
+    <div class="table-responsive-md">
+        <table class="datatable table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Existencias</th>
+                    <th>PVP 1</th>
+                    <th>PVP 2</th>
+                    <th>PVP 3</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX" ng-repeat="fila in ajaxDataProducto">
+                    <td>{{fila.id}}</td>
+                    <td>{{fila.codigo}}</td>
+                    <td>{{fila.descripcion}}</td>
+                    <td>{{fila.existencias}}</td>
+                    <td>{{fila.pvp1}}</td>
+                    <td>{{fila.pvp2}}</td>
+                    <td>{{fila.pvp3}}</td>
+                    <td>
+                        <a href="producto/view/{{fila.id}}">
+                            <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>&nbsp
+                        <a href="producto/update/{{fila.id}}">
+                            <i class="fa fa-user-edit hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <nav aria-label="paginacion">
+                <ul class="pagination">
+
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page > 1" href="producto/plist/{{rpp}}/{{page - 1}}/{{orderURLProducto}}">Anterior</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page > 2" href="producto/plist/{{rpp}}/1/{{orderURLProducto}}">1</a>
+                    </li>
+                    <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
+                        <a class="page-link" href="producto/plist/{{rpp}}/{{p}}/{{orderURLProducto}}">{{p}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="producto/plist/{{rpp}}/{{totalPages}}/{{orderURLProducto}}">{{totalPages}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page != totalPages" href="producto/plist/{{rpp}}/{{page--1}}/{{orderURLProducto}}">Siguiente</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

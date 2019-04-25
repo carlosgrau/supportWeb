@@ -8,6 +8,7 @@ package com.bean;
 import com.dao.ClienteDao;
 import com.dao.LineaFacturaDao;
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -46,6 +47,18 @@ public class FacturaBean {
 
     @Expose
     private float total_precio;
+
+    @Expose
+    private double descuento;
+
+    @Expose
+    private double iva;
+
+    @Expose
+    private double total_Iva;
+
+    @Expose
+    private double total_bruto;
 
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
@@ -141,6 +154,38 @@ public class FacturaBean {
         this.obj_LineaFactura = obj_LineaFactura;
     }
 
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+    public double getIva() {
+        return iva;
+    }
+
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    public double getTotal_Iva() {
+        return total_Iva;
+    }
+
+    public void setTotal_Iva(double total_Iva) {
+        this.total_Iva = total_Iva;
+    }
+
+    public double getTotal_bruto() {
+        return total_bruto;
+    }
+
+    public void setTotal_bruto(double total_bruto) {
+        this.total_bruto = total_bruto;
+    }
+
     public FacturaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setEmpresa(oResultSet.getInt("id_ejercicio"));
@@ -151,7 +196,10 @@ public class FacturaBean {
         this.setNombre_cliente(oResultSet.getString("nombre"));
         this.setContabilizada(oResultSet.getString("contabilizada"));
         this.setTotal_precio(oResultSet.getFloat("totalfactura"));
-
+        this.setDescuento(oResultSet.getDouble("descuento"));
+        this.setIva(oResultSet.getDouble("iva2"));
+        this.setTotal_Iva(oResultSet.getDouble("totaliva2"));
+        this.setTotal_bruto(oResultSet.getDouble("totalbruto"));
         if (expand > 0) {
             ClienteDao oClienteDao = new ClienteDao(oConnection, "dat001a");
             LineaFacturaDao oLineaFacturaDao = new LineaFacturaDao(oConnection, "dat141a");
@@ -161,4 +209,61 @@ public class FacturaBean {
         return this;
 
     }
+
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "factura,";
+        strColumns += "numalbaran,";
+        strColumns += "fecha,";
+        strColumns += "id_ejercicio,";
+        strColumns += "cliente,";
+        strColumns += "nombre,";
+        strColumns += "contabilizada,";
+        strColumns += "totalfactura,";
+        strColumns += "descuento,";
+        strColumns += "iva2,";
+        strColumns += "totaliva2,";
+        strColumns += "totalbruto";
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "factura=" + factura + ",";
+        strPairs += "numalbaran=" + num_albaran + ",";
+        strPairs += "fecha=" + fecha + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "cliente=" + id_cliente + ",";
+        strPairs += "nombre=" + EncodingHelper.quotate(nombre_cliente) + ",";
+        strPairs += "contabilizada=" + EncodingHelper.quotate(contabilizada) + ",";
+        strPairs += "totalfactura=" + total_precio + ",";
+        strPairs += "descuento=" + descuento + ",";
+        strPairs += "iva2=" + iva + ",";
+        strPairs += "totaliva2=" + total_Iva + ",";
+        strPairs += "totalbruto=" + total_bruto;
+        return strPairs;
+
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += factura + ",";
+        strColumns += num_albaran + ",";
+        strColumns += fecha + ",";
+        strColumns += empresa + ",";
+        strColumns += id_cliente + ",";
+        strColumns += EncodingHelper.quotate(nombre_cliente) + ",";
+        strColumns += EncodingHelper.quotate(contabilizada) + ",";
+        strColumns += total_precio + ",";
+        strColumns += descuento + ",";
+        strColumns += iva + ",";
+        strColumns += total_Iva + ",";
+        strColumns += total_bruto;
+
+        return strColumns;
+    }
+
 }

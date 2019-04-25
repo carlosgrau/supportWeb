@@ -1,0 +1,16 @@
+<header-component></header-component>
+<h1 class="circle bounce-in">SELECCIONE UNA EMPRESA</h1>
+<div class="grid-container">
+    <div class="grid-item" ng-repeat="fila in ajaxDataEmpresa track by $index">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="http://www.themailcompany.es/wp-content/uploads/header_01.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{(fila.nombre).toUpperCase()}}</h5>
+                <p class="card-text">EMPRESA:{{fila.empresa}}</p>
+                <p class="card-text">NIF:{{fila.nif}}</p>
+                <p class="card-text">EJERCICIO:{{fila.ejercicio}}</p>
+                <a href="/suportWebClient/public_html/home" class="btn btn-success" ng-click="seleccionar(fila.empresa)">Seleccionar</a>
+            </div>
+        </div>
+    </div>
+</div>

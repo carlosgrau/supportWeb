@@ -1,0 +1,57 @@
+<!--
+<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/"><img src="../../image/project.png">GADES S.L.</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" ng-class="{'active': c.isActive('/home')}">
+                <a class="nav-link hvr-bob" href="home"><img src="../../image/house.png">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/empresa')}">
+                <a class="nav-link hvr-bob" href="empresa"><img src="../../image/factory.png">Empresa <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/cliente')}">
+                <a class="nav-link hvr-bob" href="cliente/plist"><img src="../../image/user.png"> Clientes</a>
+            </li>
+            <li class="nav-item " ng-show="c.ocultar" ng-class="{'active': c.isActive('/usr/usuario')}">
+                <a class="nav-link hvr-bob" href="factura/plist"><img src="../../image/bill.png"> Facturas</a>
+            </li>
+            <li class="nav-item" ng-show="c.ocultar" ng-class="{'active': c.isActive('/usr/producto')}">
+                <a class="nav-link hvr-bob" href="/producto/plist"><img src="../../image/pack.png"> Artículos</a>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <div ng-show="c.ocultar">
+                {{c.usuario| uppercase}} &nbsp
+            </div>
+            <div>
+                <a href="/login"><button ng-show="!c.ocultar"  class="btn btn-outline-success my-2 my-sm-0" type="button" >Login</button></a>
+                <a href="/home"><button ng-show="c.ocultar" ng-click="c.logout()" class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button></a>
+            </div>
+        </form>
+    </div>
+</nav>
+-->
+<head>
+    <script src="javascrip/barra.js"></script>
+
+</head>
+<div class="topNav">
+    <p class="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <div class="navLinks">
+        <a href="home"><i class="fas fa-home"></i> INICIO</a>
+        <a href="cliente/plist"> <i class="fas fa-users"></i> CLIENTES</a>
+        <a href="producto/plist"><i class="fas fa-box"></i> ARTÍCULOS</a>
+        <a href="factura/plist"><i class="fas fa-file-alt"></i> FACTURAS</a>    
+        <a href="home"><i class="fas fa-file-invoice-dollar"></i> ALBARANES</a>
+        <!--        <a href="home">PRESUPUESTOS</a>    -->
+        <a href="/home"><button ng-click="c.logout()" class="btn btn-outline-danger my-2 my-sm-0" type="button"><i class="fas fa-sign-out-alt"></i>  Logout  </button></a>
+    </div>
+</div>
+

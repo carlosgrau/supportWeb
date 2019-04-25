@@ -8,6 +8,7 @@ package com.bean;
 import com.dao.ClienteDao;
 import com.dao.LineaPresupuestoDao;
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -22,22 +23,31 @@ public class PresupuestoBean {
 
     @Expose
     private int id;
+
     @Expose
     private int empresa;
+
     @Expose
     private int presupuesto;
+
     @Expose
     private int id_cliente;
+
     @Expose
     private String nombre;
+
     @Expose
     private Date fecha;
+
     @Expose
     private float precio_Bruto;
+
     @Expose
     private float total_Precio;
+
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
+
     @Expose(deserialize = false)
     private ArrayList<LineaPresupuestoBean> obj_LineaPresupuesto;
 
@@ -139,6 +149,49 @@ public class PresupuestoBean {
         }
         return this;
 
+    }
+
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "fecha,";
+        strColumns += "id_ejercicio,";
+        strColumns += "presupuesto,";
+        strColumns += "cliente,";
+        strColumns += "nombre,";
+        strColumns += "totalbruto,";
+        strColumns += "total";
+
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "fecha=" + fecha + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "presupuesto=" + presupuesto + ",";
+        strPairs += "cliente=" + id_cliente + ",";
+        strPairs += "nombre=" + EncodingHelper.quotate(nombre) + ",";
+        strPairs += "totalfactura=" + total_Precio + ",";
+        strPairs += "totalbruto=" + precio_Bruto;
+
+        return strPairs;
+
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += fecha + ",";
+        strColumns += empresa + ",";
+        strColumns += presupuesto + ",";
+        strColumns += id_cliente + ",";
+        strColumns += EncodingHelper.quotate(nombre) + ",";
+        strColumns += total_Precio + ",";
+        strColumns += precio_Bruto;
+
+        return strColumns;
     }
 
 }

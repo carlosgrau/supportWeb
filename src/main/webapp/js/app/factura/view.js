@@ -23,7 +23,9 @@ moduleFactura.controller('facturaViewController', ['$scope', 'toolService', '$ht
         };
         $scope.isActive = toolService.isActive;
 
-
+$scope.atras = function () {
+            window.history.back();
+        };
 
     }
 ]);
