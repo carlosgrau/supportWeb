@@ -1,6 +1,6 @@
 'use strict';
-moduleComponent.component('clienteSelection', {
-    templateUrl: 'js/app/cliente/selection.html',
+moduleComponent.component('tarifaSelection', {
+    templateUrl: 'js/app/otros/selection-pago.html',
     controllerAs: 'c',
     controller: cController,
     bindings: {
@@ -9,21 +9,20 @@ moduleComponent.component('clienteSelection', {
     },
 });
 
-function cController($http,sessionService) {
+function cController($http) {
     var self = this;
     self.ob = "cliente";
     self.page = "1";
     self.totalPages = 1;
     self.orderURLServidor = "";
     self.rpp = "5";
-    var host = 'http://localhost:8081/';
 
 
     self.update = function (p) {
         self.page = p;
         $http({
             method: 'GET',
-            url: host+'json?ob=' + self.ob + '&op=getcount&ejercicio='+sessionService.getEmpresa()
+            url: 'json?ob=' + self.ob + '&op=getcount'
         }).then(function (response) {
             self.status = response.status;
             self.ajaxDataUsuariosNumber = response.data.message;
@@ -39,7 +38,7 @@ function cController($http,sessionService) {
 
         $http({
             method: 'GET',
-            url: host+'json?ob=' + self.ob + '&op=getpage&ejercicio='+sessionService.getEmpresa()+'&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
+            url: 'json?ob=' + self.ob + '&op=getpage&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;
@@ -73,7 +72,7 @@ function cController($http,sessionService) {
         $http({
             method: "GET",
             withCredential: true,
-            url: host+'json?ob=' + self.ob + '&op=getpage&rpp=10&page=1'
+            url: 'json?ob=' + self.ob + '&op=getpage&rpp=10&page=1'
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;

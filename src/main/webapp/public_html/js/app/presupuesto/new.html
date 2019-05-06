@@ -3,11 +3,11 @@
     <form style="display:contents;" id="cabecera">
         <h3> Cabecera Presupuesto</h3>
 
-            <div class="form-group">
-                <label>Fecha</label>
-                <md-datepicker ng-model="myDate" md-placeholder="Fecha" ng-change="cambiofecha(myDate)" class="fecha">
-                </md-datepicker>
-            </div>
+        <div class="form-group">
+            <label>Fecha</label>
+            <md-datepicker ng-model="myDate" md-placeholder="Fecha" ng-change="cambiofecha(myDate)" class="fecha">
+            </md-datepicker>
+        </div>
 
         <div class="form-group">
             <div class="col-12">
@@ -37,40 +37,30 @@
                     <input type="text" class="form-control" placeholder="Nombre Pago"></label>
             </div>
 
-            <div class="form-group ">
-
-                <div class="form-group col-md-6">
-                    <label>Representante</label>
-                    <input type="text" class="form-control" placeholder="Representante">
-                    <representante-selection class="modal fade" id="cadd-location-modal">
-                        <span class="input-group-text fa fa-search" data-toggle="modal"
-                            data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
-                        </span>
-                    </representante-selection>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label>Nombre Repre</label>
-                    <input type="text" class="form-control" placeholder="Nombre Representante">
-                </div>
+            <div class="col-12">
+                <label>Representante <span class="input-group-text fa fa-search" data-toggle="modal"
+                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                    </span></label>
+                <label>
+                    <input type="text" class="form-control" placeholder="Código Representante">
+                    <representante-selection class="modal fade" id="cadd-location-modal"></representante-selection>
+                </label>
+                &nbsp
+                <label for="">&nbsp
+                    <input type="text" class="form-control" placeholder="Nombre Representante"></label>
             </div>
 
-            <div class="form-group row">
-
-                <div class="form-group col-md-6">
-                    <label>Tarifa</label>
-                    <input type="text" class="form-control" placeholder="Forma Pago">
-                    <pago-selection class="modal fade" id="cadd-location-modal">
-                        <span class="input-group-text fa fa-search" data-toggle="modal"
-                            data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
-                        </span>
-                    </pago-selection>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label>Nombre Pago</label>
-                    <input type="text" class="form-control" placeholder="Nombre Pago">
-                </div>
+            <div class="col-12">
+                <label>Tarifa <span class="input-group-text fa fa-search" data-toggle="modal"
+                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                    </span></label>
+                <label>
+                    <input type="text" class="form-control" placeholder="Tarifa">
+                    <tarifa-selection class="modal fade" id="cadd-location-modal"></tarifa-selection>
+                </label>
+                &nbsp
+                <label for="">&nbsp
+                    <input type="text" class="form-control" placeholder="Nombre Pago"></label>
             </div>
 
             <div class="form-group row">
