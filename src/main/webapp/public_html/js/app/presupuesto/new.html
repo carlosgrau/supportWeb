@@ -1,67 +1,59 @@
 <!-- PASO 1 -->
-<div >
-    <form >
-        <div class="form-inline">
-            <div class="form-group col-md-6">
+<div>
+    <form style="display:contents;" id="cabecera">
+        <h3> Cabecera Presupuesto</h3>
+
+            <div class="form-group">
                 <label>Fecha</label>
                 <md-datepicker ng-model="myDate" md-placeholder="Fecha" ng-change="cambiofecha(myDate)" class="fecha">
                 </md-datepicker>
             </div>
-        </div>
-        <div class="form-group row">
 
-            <div class="form-group col-md-6">
-                <label>Cliente</label>
-                <input type="text" class="form-control" placeholder="Código Cliente">
-                <cliente-selection class="modal fade" id="cadd-location-modal">
-                    <span class="input-group-text fa fa-search" data-toggle="modal" data-target="#cadd-location-modal"
-                        ng-click='seleccionar(fila.cliente)'>
-                    </span>
-                </cliente-selection>
+        <div class="form-group">
+            <div class="col-12">
+                <label for=""> Cliente <span class="input-group-text fa fa-search" data-toggle="modal"
+                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                    </span></label>
+                <label>
+                    <input type="text" class="form-control" placeholder="Código Cliente">
+
+                    <cliente-selection class="modal fade" id="cadd-location-modal"></cliente-selection>
+                </label>
+                &nbsp
+                <label for="">&nbsp
+                    <input type="text" class="form-control" placeholder="Nombre Cliente"></label>
             </div>
 
-            <div class="form-group col-md-6">
-                <label>Nombre Cliente</label>
-                <input type="text" class="form-control" placeholder="Nombre Cliente">
+            <div class="col-12">
+                <label>Forma Pago <span class="input-group-text fa fa-search" data-toggle="modal"
+                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                    </span></label>
+                <label>
+                    <input type="text" class="form-control" placeholder="Forma Pago">
+                    <pago-selection class="modal fade" id="cadd-location-modal"></pago-selection>
+                </label>
+                &nbsp
+                <label for="">&nbsp
+                    <input type="text" class="form-control" placeholder="Nombre Pago"></label>
             </div>
 
-        </div>
+            <div class="form-group ">
 
-        <div class="form-group row">
+                <div class="form-group col-md-6">
+                    <label>Representante</label>
+                    <input type="text" class="form-control" placeholder="Representante">
+                    <representante-selection class="modal fade" id="cadd-location-modal">
+                        <span class="input-group-text fa fa-search" data-toggle="modal"
+                            data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                        </span>
+                    </representante-selection>
+                </div>
 
-            <div class="form-group col-md-6">
-                <label>Forma Pago</label>
-                <input type="text" class="form-control" placeholder="Forma Pago">
-                <pago-selection class="modal fade" id="cadd-location-modal">
-                    <span class="input-group-text fa fa-search" data-toggle="modal" data-target="#cadd-location-modal"
-                        ng-click='seleccionar(fila.cliente)'>
-                    </span>
-                </pago-selection>
+                <div class="form-group col-md-6">
+                    <label>Nombre Repre</label>
+                    <input type="text" class="form-control" placeholder="Nombre Representante">
+                </div>
             </div>
-
-            <div class="form-group col-md-6">
-                <label>Nombre Pago</label>
-                <input type="text" class="form-control" placeholder="Nombre Pago">
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="form-group col-md-6">
-                <label>Representante</label>
-                <input type="text" class="form-control" placeholder="Representante">
-                <representante-selection class="modal fade" id="cadd-location-modal">
-                    <span class="input-group-text fa fa-search" data-toggle="modal" data-target="#cadd-location-modal"
-                        ng-click='seleccionar(fila.cliente)'>
-                    </span>
-                </representante-selection>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Nombre Repre</label>
-                <input type="text" class="form-control" placeholder="Nombre Representante">
-            </div>
-        </div>
 
             <div class="form-group row">
 
@@ -83,21 +75,72 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-success" ng-click='formulario(1)'>SIGUIENTE</button>
+                    <button type="submit" class="btn btn-success" ng-click='formulario(2)'>SIGUIENTE</button>
                 </div>
             </div>
     </form>
-    
+
 </div>
 
 <!-- PASO 2 -->
 
-<div>
-
+<div class="row setup-content" id="lineas" style="display:none;">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h3> Lineas Presupuesto</h3>
+            <div class="container">
+                <section class="row">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>DTO</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in invoice.items">
+                                <div>
+                                    <producto-selection class="modal fade" id="cadd-location-modal">
+                                        <span class="input-group-text fa fa-search" data-toggle="modal"
+                                            data-target="#cadd-location-modal" ng-click='seleccionar(fila.producto)'>
+                                        </span>
+                                </div>
+                                <td><input type="text" ng-model="item.referencia" class="form-control" /></td>
+                                <td><input type="text" ng-model="item.description" class="form-control" /></td>
+                                <td><input type="number" ng-model="item.qty" class="form-control" /></td>
+                                <td><input type="number" ng-model="item.price" class="form-control" /></td>
+                                <td><input type="number" ng-model="item.price" class="form-control" /></td>
+                                <td>{{item.qty * item.price}} €</td>
+                                <td><button type="button" class="btn btn-danger"
+                                        ng-click="remove($index)">Borrar</button></td>
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="btn btn-primary" ng-click="add()">Add item</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>Total : </td>
+                                <td>{{total()}} €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <button class="btn btn-light btn-block nextBtn pull-right" type="button"
+                ng-click='formulario(1)'>Atras</button>
+            <button class="btn btn-light btn-block nextBtn pull-right" type="button"
+                ng-click='formulario(3)'>Next</button>
+        </div>
+    </div>
 </div>
 
 <!-- PASO 3 -->
 
-<div>
-
+<div id="final" style="display:none;">
+    <h1>HOLA</h1>
 </div>

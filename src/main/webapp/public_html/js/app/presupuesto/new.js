@@ -97,25 +97,21 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     return total;
                 }
             $scope.formulario = function (paso) {
-                var paso1 = true;
-                var paso2 = false;
-                var paso3 = false;
                 if (paso === 1) {
-                    paso1 === true;
-                    paso2 === false;
-                    paso3 === false
+                    cabecera.style = 'display:content;;';
+                    lineas.style = 'display:none;';
+                    final.style = 'display:none;';
                 } else if (paso === 2) {
-                    paso1 === false;
-                    paso2 === true;
-                    paso3 === false
+                    cabecera.style = 'display:none;';
+                    lineas.style = 'display:content;';
+                    final.style = 'display:none;';
                 } else if (paso === 3) {
-                    paso1 === false;
-                    paso2 === false;
-                    paso3 === true;}
-
-                    return paso;
+                    cabecera.style = 'display:none;';
+                    lineas.style = 'display:none;';
+                    final.style = 'display:content;';
                 }
+            }
 
-            })
+        })
     }
 ]);

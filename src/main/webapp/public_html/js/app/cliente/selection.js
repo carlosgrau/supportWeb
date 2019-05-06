@@ -16,13 +16,14 @@ function cController($http) {
     self.totalPages = 1;
     self.orderURLServidor = "";
     self.rpp = "5";
+    var host = 'http://localhost:8081/';
 
 
     self.update = function (p) {
         self.page = p;
         $http({
             method: 'GET',
-            url: 'json?ob=' + self.ob + '&op=getcount'
+            url: host+'json?ob=' + self.ob + '&op=getcount'
         }).then(function (response) {
             self.status = response.status;
             self.ajaxDataUsuariosNumber = response.data.message;
