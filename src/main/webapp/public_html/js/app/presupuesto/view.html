@@ -1,10 +1,10 @@
 <header-component></header-component>
 <div class="container" style="padding-top: 4%;">
-        <button type="button" class="btn btn-info" ng-click="atras()"><i class="fas fa-undo"></i> Atrás</button>
+    <button type="button" class="btn btn-info" ng-click="atras()"><i class="fas fa-undo"></i> Atrás</button>
     <div class="text-center">
-        <h1 style="font-size: 50px;">Factura Nº {{id}}</h1>
+        <h1 style="font-size: 50px;">Presupuesto Nº {{id}}</h1>
         <br>
-        <h3>{{ajaxDataFactura.fecha}}</h3>
+        <h3>{{ajaxDataPresupuesto.fecha}}</h3>
     </div>
 
     <div class="row">
@@ -12,19 +12,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <address>
                                 <br>
-                                <strong class="">{{ajaxDataCliente.nombre}}</strong><br class="">
-                                {{ajaxDataCliente.nif}}<br class="">
+                                <strong class="">{{ajaxDataCliente.obj_Cliente.nombre}}</strong><br class="">
+                                {{ajaxDataCliente.obj_Cliente.nif}}<br class="">
                                 {{ajaxDataCliente.direccion}}<br class="">
                             </address>
                         </div>
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <address>
                                 <br>
                                 {{ajaxDataCliente.telefono}}<br class="">
-                                {{ajaxDataCliente.email}}<br class="">                          
+                                {{ajaxDataCliente.email}}<br class="">
                             </address>
                         </div>
                     </div> <!-- row -->
@@ -43,42 +43,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
+                            <tr class="gradeX" ng-repeat="fila in ajaxDataLineaPresupuesto track by $index">
                                 <td>{{fila.obj_Producto.codigo}}</td>
-                                <td>{{fila.descripcion}}</td>                    
+                                <td>{{fila.descripcion}}</td>
                                 <td>{{fila.precio}}</td>
                                 <td>{{fila.cantidad}}</td>
                                 <td>{{fila.descuento}}</td>
 
-                                <td>{{fila.precio_Total}}</td>
+                                <td ng-show='fila.descuento > 0'>
+                                    {{(fila.precio_Total/((fila.descuento/100)+1)).toFixed(2)}}</td>
+                                <td ng-show='fila.descuento == 0'>{{fila.precio_Total}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-condensed" style="margin-top: 12%;">
+                    <table class="table table-condensed" style="margin-top: 12%; text-align: center;">
                         <thead>
                             <tr>
                                 <th class="">Base Imponible</th>
                                 <th class="">Descuento</th>
                                 <th class="">IVA</th>
                                 <th class="">%</th>
-                                <th class="">Total Factura</th>
+                                <th class="">Total Presupuesto</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="gradeX">
-                                <td>{{ajaxDataFactura.total_bruto}}</td>
-                                <td>{{ajaxDataFactura.descuento}}</td>                    
-                                <td>{{ajaxDataFactura.total_Iva}}</td>
-                                <td>{{ajaxDataFactura.iva}}</td>
+                                <td>{{ajaxDataPresupuesto.precio_Bruto}}</td>
+                                <td>{{ajaxDataPresupuesto.descuento}}</td>
+                                <td>{{ajaxDataPresupuesto.total_Iva}}</td>
+                                <td>{{ajaxDataPresupuesto.iva}}</td>
 
-                                <td>{{ajaxDataFactura.total_precio}}</td>
+                                <td>{{ajaxDataPresupuesto.total_Precio}}</td>
                             </tr>
                         </tbody>
                     </table>
 
-                </div> 
+                </div>
 
-            </div> 
-        </div> 
+            </div>
+        </div>
 
-    </div> 
+    </div>
+</div>

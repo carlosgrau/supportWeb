@@ -1,6 +1,6 @@
 'use strict';
 
-moduleFactura.controller('presupuestoViewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
+modulePresupuesto.controller('presupuestoViewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
     function ($scope, toolService, $http, sessionService, $routeParams, $location) {
         $scope.id = $routeParams.id;
         var host ='http://localhost:8081/';
@@ -9,14 +9,14 @@ moduleFactura.controller('presupuestoViewController', ['$scope', 'toolService', 
             url: host+'json?ob=presupuesto&op=get&ejercicio=' + sessionService.getEmpresa() + '&id=' + $routeParams.id
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataFactura = response.data.message;
-            $scope.ajaxDataLineaFactura = response.data.message.obj_LineaFactura;
+            $scope.ajaxDataPresupuesto = response.data.message;
+            $scope.ajaxDataLineaPresupuesto = response.data.message.obj_LineaPresupuesto;
             $scope.ajaxDataCliente = response.data.message.obj_Cliente;
         }, function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataLineaFactura = response.data.message || 'Request failed';
+            $scope.ajaxDataLineaPresupuesto = response.data.message || 'Request failed';
             $scope.ajaxDataCliente = response.data.message || 'Request failed';
-            $scope.ajaxDataFactura = response.data.message || 'Request failed';
+            $scope.ajaxDataPresupuesto = response.data.message || 'Request failed';
         });
 
         $scope.update = function () {

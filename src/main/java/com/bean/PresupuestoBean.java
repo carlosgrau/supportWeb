@@ -45,6 +45,15 @@ public class PresupuestoBean {
     @Expose
     private float total_Precio;
 
+     @Expose
+    private double descuento;
+     
+    @Expose
+    private double iva;
+
+    @Expose
+    private double total_Iva;
+
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
 
@@ -131,6 +140,30 @@ public class PresupuestoBean {
         this.obj_LineaPresupuesto = obj_LineaPresupuesto;
     }
 
+    public double getIva() {
+        return iva;
+    }
+
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    public double getTotal_Iva() {
+        return total_Iva;
+    }
+
+    public void setTotal_Iva(double total_Iva) {
+        this.total_Iva = total_Iva;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
     public PresupuestoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setFecha(oResultSet.getDate("fecha"));
@@ -140,6 +173,9 @@ public class PresupuestoBean {
         this.setNombre(oResultSet.getString("nombre"));
         this.setPrecio_Bruto(oResultSet.getFloat("totalbruto"));
         this.setTotal_Precio(oResultSet.getFloat("total"));
+        this.setDescuento(oResultSet.getDouble("descuento"));
+        this.setIva(oResultSet.getDouble("iva2"));
+        this.setTotal_Iva(oResultSet.getDouble("totaliva2"));
 
         if (expand > 0) {
             ClienteDao oClienteDao = new ClienteDao(oConnection, "dat001a");
@@ -160,7 +196,10 @@ public class PresupuestoBean {
         strColumns += "cliente,";
         strColumns += "nombre,";
         strColumns += "totalbruto,";
-        strColumns += "total";
+        strColumns += "descuento,";
+        strColumns += "total,";
+        strColumns += "iva2,";
+        strColumns += "totaliva2";
 
         return strColumns;
     }
@@ -173,7 +212,10 @@ public class PresupuestoBean {
         strPairs += "presupuesto=" + presupuesto + ",";
         strPairs += "cliente=" + id_cliente + ",";
         strPairs += "nombre=" + EncodingHelper.quotate(nombre) + ",";
-        strPairs += "totalfactura=" + total_Precio + ",";
+        strPairs += "total=" + total_Precio + ",";
+        strPairs += "descuento=" + descuento + ",";
+        strPairs += "iva2=" + iva + ",";
+        strPairs += "totaliva2=" + total_Iva + ",";
         strPairs += "totalbruto=" + precio_Bruto;
 
         return strPairs;
@@ -189,6 +231,9 @@ public class PresupuestoBean {
         strColumns += id_cliente + ",";
         strColumns += EncodingHelper.quotate(nombre) + ",";
         strColumns += total_Precio + ",";
+        strColumns += descuento + ",";
+        strColumns += iva + ",";
+        strColumns += total_Iva + ",";
         strColumns += precio_Bruto;
 
         return strColumns;

@@ -5,32 +5,34 @@
  */
 package com.service;
 
-import com.bean.PresupuestoBean;
+import com.bean.ClienteBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.connection.specificimplementation.HikariConnectionForUser;
-import com.dao.PresupuestoDao;
+import com.dao.ClienteDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.helper.ParameterCook;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author a021792876p
  */
-public class PresupuestoService {
+public class FormaPagoService {
 
     HttpServletRequest oRequest;
     String ob = null;
     String usuario, password, conexion;
 
-    public PresupuestoService(HttpServletRequest oRequest) {
+    public FormaPagoService(HttpServletRequest oRequest) {
         super();
         this.oRequest = oRequest;
-        if ("presupuesto".equals(oRequest.getParameter("ob"))) {
-            ob = "dat032a";
+        if ("formapago".equals(oRequest.getParameter("ob"))) {
+            ob = "dat006a";
         };
     }
 
@@ -48,16 +50,19 @@ public class PresupuestoService {
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
+
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
-            PresupuestoBean oPresupuestoBean = oPresupuestoDao.get(id, empresa, 1);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            ClienteBean oClienteBean = oClienteDao.get(id, empresa, 1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oPresupuestoBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oClienteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
-            oConnection.close();
+            if (oConnection != null) {
+                oConnection.close();
+            }
             oHikariConectio.disposeConnection();
         }
 
@@ -74,84 +79,23 @@ public class PresupuestoService {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
+
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
 
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
+
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
 
-            ArrayList<PresupuestoBean> alPresupuestoBean = oPresupuestoDao.getpage(iRpp, iPage, empresa, 1);
+            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa, hmOrder);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alPresupuestoBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
-        } finally {
-            oConnection.close();
-            oHikariConectio.disposeConnection();
-        }
-
-        return oReplyBean;
-
-    }
-
-    public ReplyBean getpageXusuario() throws Exception {
-        ReplyBean oReplyBean;
-        Connection oConnection = null;
-        UsuarioBean oUsuarioBean = null;
-        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
-        try {
-            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
-            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
-
-            usuario = oUsuarioBean.getLoginCli();
-            password = oUsuarioBean.getPassCli();
-            conexion = oUsuarioBean.newConnectionClient();
-            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-
-            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
-
-            ArrayList<PresupuestoBean> alPresupuestoBean = oPresupuestoDao.getpageXusuario(iRpp, iPage, empresa, 1, cliente);
-            Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alPresupuestoBean));
-        } catch (Exception ex) {
-            throw new Exception("ERROR: Service level: getLineaPresupuesto method: " + ob + " object" + ex.getMessage(), ex);
-        } finally {
-            oConnection.close();
-            oHikariConectio.disposeConnection();
-        }
-        return oReplyBean;
-
-    }
-
-    public ReplyBean create() throws Exception {
-        ReplyBean oReplyBean;
-        Connection oConnection = null;
-        UsuarioBean oUsuarioBean = null;
-        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
-
-        try {
-            String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            PresupuestoBean oPresupuestoBean = new PresupuestoBean();
-            oPresupuestoBean = oGson.fromJson(strJsonFromClient, PresupuestoBean.class);
-
-            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-            usuario = oUsuarioBean.getLoginCli();
-            password = oUsuarioBean.getPassCli();
-            conexion = oUsuarioBean.newConnectionClient();
-            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
-
-            oPresupuestoBean = oPresupuestoDao.create(oPresupuestoBean);
-            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
-        } catch (Exception ex) {
-            throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
         } finally {
             if (oConnection != null) {
                 oConnection.close();
@@ -160,8 +104,10 @@ public class PresupuestoService {
         }
 
         return oReplyBean;
+
     }
-     public ReplyBean getcount() throws Exception {
+
+    public ReplyBean getcount() throws Exception {
         ReplyBean oReplyBean;
         Connection oConnection = null;
         UsuarioBean oUsuarioBean = null;
@@ -176,9 +122,9 @@ public class PresupuestoService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            PresupuestoDao oPresupuestoDao = new PresupuestoDao(oConnection, ob);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
 
-            int registros = oPresupuestoDao.getcount(empresa);
+            int registros = oClienteDao.getcount(empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
@@ -193,4 +139,102 @@ public class PresupuestoService {
         return oReplyBean;
     }
 
+    public ReplyBean create() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+
+        try {
+            String strJsonFromClient = oRequest.getParameter("json");
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            ClienteBean oClienteBean = new ClienteBean();
+            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+
+            oClienteBean = oClienteDao.create(oClienteBean);
+            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+    }
+
+    public ReplyBean update() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+
+        try {
+            String strJsonFromClient = oRequest.getParameter("json");
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            ClienteBean oClienteBean = new ClienteBean();
+            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+
+            int registros = oClienteDao.update(oClienteBean);
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+    }
+    public ReplyBean remove() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+
+        try {
+            Integer id = Integer.parseInt(oRequest.getParameter("id"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+
+            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            int registros = oClienteDao.remove(id, empresa);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+
+    }
 }

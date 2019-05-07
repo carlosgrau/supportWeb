@@ -37,6 +37,8 @@ public class LineaPresupuestoBean {
     private float precio_Total;
     @Expose
     private ProductoBean obj_Producto;
+    @Expose
+    private double descuento;
 
     public int getId() {
         return id;
@@ -118,6 +120,14 @@ public class LineaPresupuestoBean {
         this.obj_Producto = obj_Producto;
     }
 
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
     public LineaPresupuestoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setCantidad(oResultSet.getInt("cantidad"));
@@ -127,7 +137,7 @@ public class LineaPresupuestoBean {
         this.setId_presupuesto(oResultSet.getInt("presupuestos"));
         this.setPrecio(oResultSet.getFloat("preciounitario"));
         this.setReferencia(oResultSet.getString("referencia"));
-
+        this.setDescuento(oResultSet.getDouble("d"));
         if (expand > 0) {
             ProductoDao oProductoDao = new ProductoDao(oConnection, "dat004a");
             this.setObj_Producto(oProductoDao.get(oResultSet.getString("referencia"), expand - 1, this.getEmpresa()));

@@ -29,7 +29,7 @@ public class PresupuestoDao {
     }
 
     public PresupuestoBean get(int id, int empresa, int expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id_auto = ? and id_ejercicio = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE presupuesto = ? and id_ejercicio = ?";
         PresupuestoBean oPresupuestoBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
@@ -162,6 +162,31 @@ public class PresupuestoDao {
             }
         }
         return oPresupuestoBean;
+    }
+    public int getcount(int empresa) throws Exception {
+        String strSQL = "SELECT COUNT(id_auto) FROM " + ob + " WHERE id_ejercicio= ?";
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, empresa);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao get de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        //oConnection.close();
+        return res;
     }
 
 }

@@ -1,7 +1,7 @@
 <header-component></header-component>
 <div class="container-fluid">
-
-    <h1>FACTURAS EMPRESA EJERCICIO {{ejercicio}}</h1>
+<button><a href="presupuesto/new">Crear</a></button>  
+  <h1>FACTURAS EMPRESA EJERCICIO {{ejercicio}}</h1>
     <div class="table-responsive-md">
         <table class="datatable table table-striped table-bordered">
             <thead>
@@ -10,20 +10,18 @@
                     <th>Fecha</th>
                     <th>Cliente</th>
                     <th>Precio</th>
-                    <th>Contabilizada</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="gradeX" ng-repeat="fila in ajaxDataFactura">
-                    <td>{{fila.factura}}</td>
+                    <td>{{fila.presupuesto}}</td>
                     <td>{{fila.fecha}}</td>
-                    <td>{{fila.id_cliente}} {{fila.nombre_cliente}}</td>
-                    <td>{{fila.total_precio}}</td>
-                    <td>{{fila.contabilizada}}</td>
+                    <td>{{fila.obj_Cliente.id}} - {{fila.obj_Cliente.nombre}}</td>
+                    <td>{{fila.total_Precio}} € </td>
 
                     <td>
-                        <a href="factura/view/{{fila.factura}}">
+                        <a href="presupuesto/view/{{fila.presupuesto}}">
                             <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true" onclick="window.scrollTo(0, 0)"></i>
                         </a>
                     </td>

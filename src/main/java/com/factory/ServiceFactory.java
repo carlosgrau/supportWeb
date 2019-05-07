@@ -5,8 +5,10 @@ import com.service.AlbaranService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
 import com.service.FacturaService;
+import com.service.FormaPagoService;
 import com.service.PresupuestoService;
 import com.service.ProductoService;
+import com.service.RepresentanteService;
 import com.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
 
@@ -139,6 +141,9 @@ public class ServiceFactory {
                     case "getpagexusuario":
                         oReplyBean = oPresupuestoService.getpageXusuario();
                         break;
+                    case "getcount":
+                        oReplyBean = oPresupuestoService.getcount();
+                        break;
                     case "create":
                         oReplyBean = oPresupuestoService.create();
                         break;
@@ -161,6 +166,42 @@ public class ServiceFactory {
                         break;
                     case "getcount":
                         oReplyBean = oFacturaService.getcount();
+                        break;
+
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
+            case "formapago":
+                FormaPagoService oFormaPagoService = new FormaPagoService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oFormaPagoService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oFormaPagoService.getpage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oFormaPagoService.getcount();
+                        break;
+
+                    default:
+                        oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                        break;
+                }
+                break;
+            case "representante":
+                RepresentanteService oRepresentanteService = new RepresentanteService(oRequest);
+                switch (op) {
+                    case "get":
+                        oReplyBean = oRepresentanteService.get();
+                        break;
+                    case "getpage":
+                        oReplyBean = oRepresentanteService.getpage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oRepresentanteService.getcount();
                         break;
 
                     default:
