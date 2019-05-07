@@ -26,11 +26,11 @@
 
             <div class="col-12">
                 <label>Forma Pago <span class="input-group-text fa fa-search" data-toggle="modal"
-                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                        data-target="#padd-location-modal" ng-click='seleccionar(fila.cliente)'>
                     </span></label>
                 <label>
-                    <input type="text" class="form-control" placeholder="Forma Pago">
-                    <pago-selection class="modal fade" id="cadd-location-modal"></pago-selection>
+                    <input type="text" class="form-control" placeholder="Forma Pago" ng-model="ajaxDatoProducto.obj_tipoProducto.id">
+                    <pago-selection class="modal fade" id="padd-location-modal"></pago-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp

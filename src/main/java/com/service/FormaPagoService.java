@@ -5,11 +5,11 @@
  */
 package com.service;
 
-import com.bean.ClienteBean;
+import com.bean.FormaPagoBean;
 import com.bean.ReplyBean;
 import com.bean.UsuarioBean;
 import com.connection.specificimplementation.HikariConnectionForUser;
-import com.dao.ClienteDao;
+import com.dao.FormaPagoDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.helper.ParameterCook;
@@ -53,10 +53,10 @@ public class FormaPagoService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
-            ClienteBean oClienteBean = oClienteDao.get(id, empresa, 1);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
+            FormaPagoBean oFormaPagoBean = oFormaPagoDao.get(id, empresa, 1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oFormaPagoBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
@@ -89,11 +89,11 @@ public class FormaPagoService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
 
-            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa, hmOrder);
+            ArrayList<FormaPagoBean> alFormaPagoBean = oFormaPagoDao.getpage(iRpp, iPage, empresa, hmOrder);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alFormaPagoBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
@@ -122,9 +122,9 @@ public class FormaPagoService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
 
-            int registros = oClienteDao.getcount(empresa);
+            int registros = oFormaPagoDao.getcount(empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
@@ -148,17 +148,17 @@ public class FormaPagoService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            ClienteBean oClienteBean = new ClienteBean();
-            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+            FormaPagoBean oFormaPagoBean = new FormaPagoBean();
+            oFormaPagoBean = oGson.fromJson(strJsonFromClient, FormaPagoBean.class);
 
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
 
-            oClienteBean = oClienteDao.create(oClienteBean);
+            oFormaPagoBean = oFormaPagoDao.create(oFormaPagoBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -181,17 +181,17 @@ public class FormaPagoService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            ClienteBean oClienteBean = new ClienteBean();
-            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+            FormaPagoBean oFormaPagoBean = new FormaPagoBean();
+            oFormaPagoBean = oGson.fromJson(strJsonFromClient, FormaPagoBean.class);
 
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
 
-            int registros = oClienteDao.update(oClienteBean);
+            int registros = oFormaPagoDao.update(oFormaPagoBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -221,8 +221,8 @@ public class FormaPagoService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
-            int registros = oClienteDao.remove(id, empresa);
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, ob);
+            int registros = oFormaPagoDao.remove(id, empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {

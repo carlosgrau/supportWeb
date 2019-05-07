@@ -9,7 +9,7 @@ moduleComponent.component('pagoSelection', {
     },
 });
 
-function cController($http) {
+function cController($http,sessionService) {
     var self = this;
     self.ob = "formapago";
     self.page = "1";
@@ -23,7 +23,7 @@ function cController($http) {
         self.page = p;
         $http({
             method: 'GET',
-            url: host+'json?ob=' + self.ob + '&op=getcount'
+            url: host+'json?ob=' + self.ob + '&op=getcount&ejercicio='+sessionService.getEmpresa()
         }).then(function (response) {
             self.status = response.status;
             self.ajaxDataUsuariosNumber = response.data.message;
@@ -39,7 +39,7 @@ function cController($http) {
 
         $http({
             method: 'GET',
-            url:host+ 'json?ob=' + self.ob + '&op=getpage&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
+            url:host+ 'json?ob=' + self.ob + '&op=getpage&ejercicio='+sessionService.getEmpresa()+'&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;
