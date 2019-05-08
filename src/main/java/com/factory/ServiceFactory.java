@@ -2,6 +2,7 @@ package com.factory;
 
 import com.bean.ReplyBean;
 import com.service.AlbaranService;
+import com.service.CarritoService;
 import com.service.ClienteService;
 import com.service.EmpresaService;
 import com.service.FacturaService;
@@ -209,6 +210,29 @@ public class ServiceFactory {
                         break;
                 }
                 break;
+                case "carrito":
+                        CarritoService oCarritoService = new CarritoService(oRequest);
+                        switch (op) {
+                            case "add":
+                                oReplyBean = oCarritoService.add();
+                                break;
+                            case "empty":
+                                oReplyBean = oCarritoService.empty();
+                                break;
+                            case "reduce":
+                                oReplyBean = oCarritoService.reduce();
+                                break;
+                            case "show":
+                                oReplyBean = oCarritoService.show();
+                                break;
+                            case "buyfactura":
+                                oReplyBean = oCarritoService.buyFactura();
+                                break;
+                            default:
+                                oReplyBean = new ReplyBean(500, "Operation doesn't exist");
+                                break;
+                        }
+                        break;
             default:
                 oReplyBean = new ReplyBean(500, "Object doesn't exist");
                 break;

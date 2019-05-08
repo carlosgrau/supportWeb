@@ -91,4 +91,33 @@ public class LineaFacturaDao {
         return alLineaFacturaBean;
 
     }
+public LineaFacturaBean create(LineaFacturaBean oLineaFacturaBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oLineaFacturaBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oLineaFacturaBean.getValues() + ")";
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.executeUpdate();
+            oResultSet = oPreparedStatement.getGeneratedKeys();
+            if (oResultSet.next()) {
+                oLineaFacturaBean.setId(oResultSet.getInt(1));
+            } else {
+                oLineaFacturaBean.setId(0);
+                oLineaFacturaBean.setId_dat140a(0);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao create de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oLineaFacturaBean;
+    }
 }

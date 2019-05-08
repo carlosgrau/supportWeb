@@ -7,6 +7,7 @@ package com.bean;
 
 import com.dao.ProductoDao;
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -169,4 +170,58 @@ public class LineaFacturaBean {
         return this;
 
     }
+
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "id_ejercicio,";
+        strColumns += "factura,";
+        strColumns += "id_dat140a,";
+        strColumns += "referencia,";
+        strColumns += "descripcion,";
+        strColumns += "importe,";
+        strColumns += "cantidad,";
+        strColumns += "total,";
+        strColumns += "albaran,";
+        strColumns += "fechaalbaran,";
+        strColumns += "dto";
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "factura=" + id_factura + ",";
+        strPairs += "id_dat140a=" + id_dat140a + ",";
+        strPairs += "referencia=" + EncodingHelper.quotate(referencia) + ",";
+        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
+        strPairs += "importe=" + precio + ",";
+        strPairs += "cantidad=" + cantidad + ",";
+        strPairs += "total=" + precio_Total + ",";
+        strPairs += "albaran=" + albaran + ",";
+        strPairs += "fechaalbaran=" + fecha_albaran + ",";
+        strPairs += "dto=" + descuento;
+        return strPairs;
+
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += empresa + ",";
+        strColumns += id_factura + ",";
+        strColumns += id_dat140a + ",";
+        strColumns += EncodingHelper.quotate(referencia) + ",";
+        strColumns += EncodingHelper.quotate(descripcion) + ",";
+        strColumns += precio + ",";
+        strColumns += cantidad + ",";
+        strColumns += precio_Total + ",";
+        strColumns += albaran + ",";
+        strColumns += fecha_albaran + ",";
+        strColumns += descuento;
+
+        return strColumns;
+    }
+
 }
