@@ -5,11 +5,13 @@
  */
 package com.service;
 
-import com.bean.ClienteBean;
+import com.bean.RepresentanteBean;
 import com.bean.ReplyBean;
+import com.bean.RepresentanteBean;
 import com.bean.UsuarioBean;
 import com.connection.specificimplementation.HikariConnectionForUser;
-import com.dao.ClienteDao;
+import com.dao.RepresentanteDao;
+import com.dao.RepresentanteDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.helper.ParameterCook;
@@ -31,8 +33,8 @@ public class RepresentanteService {
     public RepresentanteService(HttpServletRequest oRequest) {
         super();
         this.oRequest = oRequest;
-        if ("formapago".equals(oRequest.getParameter("ob"))) {
-            ob = "dat00a";
+        if ("representante".equals(oRequest.getParameter("ob"))) {
+            ob = "dat005a";
         };
     }
 
@@ -53,10 +55,10 @@ public class RepresentanteService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
-            ClienteBean oClienteBean = oClienteDao.get(id, empresa, 1);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
+            RepresentanteBean oRepresentanteBean = oRepresentanteDao.get(id, empresa, 1);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oRepresentanteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: get method: " + ob + " object", ex);
         } finally {
@@ -89,11 +91,11 @@ public class RepresentanteService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
 
-            ArrayList<ClienteBean> alClienteBean = oClienteDao.getpage(iRpp, iPage, empresa, hmOrder);
+            ArrayList<RepresentanteBean> alRepresentanteBean = oRepresentanteDao.getpage(iRpp, iPage, empresa, hmOrder);
             Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alClienteBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alRepresentanteBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
@@ -122,9 +124,9 @@ public class RepresentanteService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
 
-            int registros = oClienteDao.getcount(empresa);
+            int registros = oRepresentanteDao.getcount(empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
@@ -148,17 +150,17 @@ public class RepresentanteService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            ClienteBean oClienteBean = new ClienteBean();
-            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+            RepresentanteBean oRepresentanteBean = new RepresentanteBean();
+            oRepresentanteBean = oGson.fromJson(strJsonFromClient, RepresentanteBean.class);
 
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
 
-            oClienteBean = oClienteDao.create(oClienteBean);
+            oRepresentanteBean = oRepresentanteDao.create(oRepresentanteBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -181,17 +183,17 @@ public class RepresentanteService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            ClienteBean oClienteBean = new ClienteBean();
-            oClienteBean = oGson.fromJson(strJsonFromClient, ClienteBean.class);
+            RepresentanteBean oRepresentanteBean = new RepresentanteBean();
+            oRepresentanteBean = oGson.fromJson(strJsonFromClient, RepresentanteBean.class);
 
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
 
-            int registros = oClienteDao.update(oClienteBean);
+            int registros = oRepresentanteDao.update(oRepresentanteBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -204,6 +206,7 @@ public class RepresentanteService {
 
         return oReplyBean;
     }
+
     public ReplyBean remove() throws Exception {
         ReplyBean oReplyBean;
         Connection oConnection = null;
@@ -221,8 +224,8 @@ public class RepresentanteService {
 
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
-            ClienteDao oClienteDao = new ClienteDao(oConnection, ob);
-            int registros = oClienteDao.remove(id, empresa);
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, ob);
+            int registros = oRepresentanteDao.remove(id, empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {

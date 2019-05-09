@@ -30,7 +30,7 @@ public class ClienteDao {
     }
 
     public ClienteBean get(int id, int empresa, Integer expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE clicodigo = ? and id_ejercicio = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE clicodigo = ? and id_ejercicio = ? ";
         ClienteBean oClienteBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
@@ -60,7 +60,7 @@ public class ClienteDao {
     }
 
     public ArrayList<ClienteBean> getpage(int iRpp, int iPage, int empresa, HashMap<String, String> hmOrder) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE id_ejercicio= ? order by clicodigo asc ";
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<ClienteBean> alClienteBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {

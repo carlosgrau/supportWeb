@@ -53,8 +53,8 @@ function cController($http,sessionService) {
 
 
 
-    self.save = function (id, desc) {
-        self.obj = { id : id, desc: desc};
+    self.save = function (codigo, nombre) {
+        self.obj = { codigo : codigo, nombre: nombre};
         self.onProductoSet();
     };
 

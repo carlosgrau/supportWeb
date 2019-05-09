@@ -1,3 +1,6 @@
+<header-component></header-component>
+
+
 <!-- PASO 1 -->
 <div>
     <form style="display:contents;" id="cabecera">
@@ -15,13 +18,16 @@
                         data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
                     </span></label>
                 <label>
-                    <input type="text" class="form-control" placeholder="Código Cliente">
+                    <input type="text" class="form-control" placeholder="Código Cliente"
+                        ng-model='ajaxDatoProducto.obj_cliente.codigo'>
 
-                    <cliente-selection class="modal fade" id="cadd-location-modal"></cliente-selection>
+                    <cliente-selection class="modal fade" id="cadd-location-modal" obj='ajaxDatoProducto.obj_cliente'>
+                    </cliente-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp
-                    <input type="text" class="form-control" placeholder="Nombre Cliente"></label>
+                    <input type="text" class="form-control" placeholder="Nombre Cliente"
+                        ng-model='ajaxDatoProducto.obj_cliente.nombre'></label>
             </div>
 
             <div class="col-12">
@@ -29,25 +35,31 @@
                         data-target="#padd-location-modal" ng-click='seleccionar(fila.cliente)'>
                     </span></label>
                 <label>
-                    <input type="text" class="form-control" placeholder="Forma Pago" ng-model="ajaxDatoProducto.obj_tipoProducto.id">
-                    <pago-selection class="modal fade" id="padd-location-modal"></pago-selection>
+                    <input type="text" class="form-control" placeholder="Forma Pago"
+                        ng-model="ajaxDatoProducto.obj_pago.codigo">
+                    <pago-selection class="modal fade" id="padd-location-modal" obj='ajaxDatoProducto.obj_pago'>
+                    </pago-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp
-                    <input type="text" class="form-control" placeholder="Nombre Pago"></label>
+                    <input type="text" class="form-control" placeholder="Nombre Pago"
+                        ng-model="ajaxDatoProducto.obj_pago.nombre"></label>
             </div>
 
             <div class="col-12">
                 <label>Representante <span class="input-group-text fa fa-search" data-toggle="modal"
-                        data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
+                        data-target="#radd-location-modal" ng-click='seleccionar(fila.cliente)'>
                     </span></label>
                 <label>
-                    <input type="text" class="form-control" placeholder="Código Representante">
-                    <representante-selection class="modal fade" id="cadd-location-modal"></representante-selection>
+                    <input type="text" class="form-control" placeholder="Código Representante"
+                        ng-model="ajaxDatoProducto.obj_representante.codigo">
+                    <representante-selection class="modal fade" id="radd-location-modal"
+                        obj='ajaxDatoProducto.obj_representante'></representante-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp
-                    <input type="text" class="form-control" placeholder="Nombre Representante"></label>
+                    <input type="text" class="form-control" placeholder="Nombre Representante"
+                        ng-model="ajaxDatoProducto.obj_representante.nombre"></label>
             </div>
 
             <div class="col-12">
@@ -83,6 +95,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Linea</th>
                                 <th>Referencia</th>
                                 <th>Descripción</th>
                                 <th>Precio</th>
@@ -93,18 +106,24 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             <tr ng-repeat="item in invoice.items">
+
                                 <div>
-                                    <producto-selection class="modal fade" id="cadd-location-modal">
-                                        <span class="input-group-text fa fa-search" data-toggle="modal"
-                                            data-target="#cadd-location-modal" ng-click='seleccionar(fila.producto)'>
-                                        </span>
+                                    <producto-selection class="modal fade" id="prodadd-location-modal">
+                                    </producto-selection>
+
                                 </div>
-                                <td><input type="text" ng-model="item.referencia" class="form-control" /></td>
-                                <td><input type="text" ng-model="item.description" class="form-control" /></td>
-                                <td><input type="number" ng-model="item.qty" class="form-control" /></td>
-                                <td><input type="number" ng-model="item.price" class="form-control" /></td>
-                                <td><input type="number" ng-model="item.price" class="form-control" /></td>
+                                <td>{{linea}}</td>
+                                <td><input type="text" ng-model="item.referencia" />
+                                    <span class="input-group-text fa fa-search" data-toggle="modal"
+                                        data-target="#prodadd-location-modal" ng-click='seleccionar(fila.producto)'>
+                                    </span>
+                                </td>
+                                <td><input type="text" ng-model="item.description" /></td>
+                                <td><input type="number" ng-model="item.price" /></td>
+                                <td><input type="number" ng-model="item.dto" /></td>
+                                <td><input type="number" ng-model="item.qty" /></td>
                                 <td>{{item.qty * item.price}} €</td>
                                 <td><button type="button" class="btn btn-danger"
                                         ng-click="remove($index)">Borrar</button></td>

@@ -9,20 +9,20 @@ moduleComponent.component('productoSelection', {
     },
 });
 
-function cController($http) {
+function cController($http, sessionService) {
     var self = this;
     self.ob = "producto";
     self.page = "1";
     self.totalPages = 1;
     self.orderURLServidor = "";
     self.rpp = "5";
-
+    var host = 'http://localhost:8081/';
 
     self.update = function (p) {
         self.page = p;
         $http({
             method: 'GET',
-            url: 'json?ob=' + self.ob + '&op=getcount'
+            url: host + 'json?ob=' + self.ob + '&op=getcount&ejercicio=' + sessionService.getEmpresa()
         }).then(function (response) {
             self.status = response.status;
             self.ajaxDataUsuariosNumber = response.data.message;
@@ -38,7 +38,7 @@ function cController($http) {
 
         $http({
             method: 'GET',
-            url: 'json?ob=' + self.ob + '&op=getpage&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
+            url: host + 'json?ob=' + self.ob + '&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;
@@ -53,7 +53,7 @@ function cController($http) {
 
 
     self.save = function (id, desc) {
-        self.obj = { id : id, desc: desc};
+        self.obj = { id: id, desc: desc };
         self.onProductoSet();
     };
 

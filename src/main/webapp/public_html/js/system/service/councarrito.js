@@ -6,7 +6,7 @@ moduleService.service('countcarritoService', ['$http', 'sessionService', functio
             var host = 'http://localhost:8081/';
             $http({
                 method: "GET",
-                url: host + "json?ob=usuario&op=check",
+                url: host + "json?ob=carrito&op=show",
                 dataType: "jsonp"
             }).then(function (response) {
                 var cantidad = 0;

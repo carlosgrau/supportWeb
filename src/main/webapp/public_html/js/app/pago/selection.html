@@ -29,7 +29,6 @@
                     <!--Table head-->
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>CÓDIGO</th>
                             <th>DESCRIPCION</th>
                         </tr>
@@ -38,13 +37,12 @@
                     <!--Table body-->
                     <tbody>
                         <tr ng-repeat="fila in c.data">
-                            <td>{{fila.id}}</td>
                             <td>{{fila.codigo}}</td>
                             <td>{{fila.nombre}}</td>
                             <td>
                                 <div class="btn-toolbar" role="toolbar">
                                     <div class="btn-group">
-                                        <a class="btn btn-default btn-xs" ng-click="c.save(fila.id, fila.desc)"
+                                        <a class="btn btn-default btn-xs" ng-click="c.save(fila.codigo, fila.nombre)"
                                             data-dismiss="modal">
                                             <i class="fa fa-reply" aria-hidden="true"></i>
                                         </a>
