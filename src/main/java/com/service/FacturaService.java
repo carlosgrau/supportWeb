@@ -48,7 +48,7 @@ public class FacturaService {
             password = oUsuarioBean.getPassCli();
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
-            
+
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
             FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 1);
             Gson oGson = new Gson();
@@ -125,6 +125,39 @@ public class FacturaService {
         return oReplyBean;
     }
 
+    public ReplyBean getcountXusuario() throws Exception {
+        ReplyBean oReplyBean;
+        Connection oConnection = null;
+        UsuarioBean oUsuarioBean = null;
+        HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
+        try {
+
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
+            oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
+
+            usuario = oUsuarioBean.getLoginCli();
+            password = oUsuarioBean.getPassCli();
+            conexion = oUsuarioBean.newConnectionClient();
+            oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
+
+            FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
+
+            int registros = oFacturaDao.getcountXusuario(empresa, cliente);
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+        } catch (Exception ex) {
+            throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            oHikariConectio.disposeConnection();
+        }
+
+        return oReplyBean;
+    }
+
     public ReplyBean getcount() throws Exception {
         ReplyBean oReplyBean;
         Connection oConnection = null;
@@ -134,6 +167,7 @@ public class FacturaService {
 
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
 
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();

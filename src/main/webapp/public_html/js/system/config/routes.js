@@ -5,11 +5,15 @@ SuportWeb4All.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/cliente/view/:id?', { templateUrl: 'js/app/cliente/view.html', controller: 'clienteViewController' });
         $routeProvider.when('/cliente/update/:id?', { templateUrl: 'js/app/cliente/update.html', controller: 'clienteEditController' });
         $routeProvider.when('/cliente/create', { templateUrl: 'js/app/cliente/create.html', controller: 'clienteCreateController' });
+        $routeProvider.when('/cliente/facturas/:id?', { templateUrl: 'js/app/cliente/facturas.html', controller: 'clientePlistClienteController' });
 
         //FACTURA
         $routeProvider.when('/factura/plist/:rpp?/:page?/:order?', { templateUrl: 'js/app/factura/plist.html', controller: 'facturaPlistController' });
         $routeProvider.when('/factura/view/:id?', { templateUrl: 'js/app/factura/view.html', controller: 'facturaViewController' });
 
+       
+       
+       
         //PRESUPUESTO
         $routeProvider.when('/presupuesto/new', { templateUrl: 'js/app/presupuesto/new.html', controller: 'presupuestoNewController' });
         $routeProvider.when('/presupuesto/view/:id?', { templateUrl: 'js/app/presupuesto/view.html', controller: 'presupuestoViewController' });

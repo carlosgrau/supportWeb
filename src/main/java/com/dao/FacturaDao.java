@@ -149,6 +149,30 @@ public class FacturaDao {
         }
         return res;
     }
+    public int getcountXusuario(int empresa,int codigo) throws Exception {
+        String strSQL = "SELECT COUNT(id_auto) FROM " + ob + " WHERE id_ejercicio= ?";
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, empresa);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao get de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return res;
+    }
      public FacturaBean create(FacturaBean oFacturaBean) throws Exception {
         String strSQL = "INSERT INTO " + ob;
         strSQL += "(" + oFacturaBean.getColumns() + ")";

@@ -52,8 +52,8 @@ function cController($http, sessionService) {
 
 
 
-    self.save = function (id, desc) {
-        self.obj = { id: id, desc: desc };
+    self.save = function (referencia, descripcion) {
+        self.obj = { referencia: referencia, descripcion: descripcion };
         self.onProductoSet();
     };
 

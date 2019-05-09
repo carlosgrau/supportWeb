@@ -7,10 +7,12 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center">
-                    <img alt="User Pic" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/user-male-icon.png" class="img-circle img-responsive" width="100%" height="100%">
+                    <img alt="User Pic"
+                        src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/user-male-icon.png"
+                        class="img-circle img-responsive" width="100%" height="100%">
                 </div>
 
-                <div class=" col-md-9 col-md-9 "> 
+                <div class=" col-md-9 col-md-9 ">
                     <table class="table table-user-information">
                         <tbody>
                             <tr>
@@ -36,35 +38,43 @@
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td><a href="mailto:{{ajaxDataUsuarios.email}}" target="_top">{{ajaxDataUsuarios.email}}</a></td>
+                                <td><a href="mailto:{{ajaxDataUsuarios.email}}"
+                                        target="_top">{{ajaxDataUsuarios.email}}</a></td>
 
                             </tr>
                         </tbody>
 
                     </table>
-                    <div class="row" >
-                        <div class="col-md-3" >
+                    <div class="row">
+                        <div class="col-md-3">
 
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                <button type="button" class="btn btn-warning" ng-click="editar(ajaxDataUsuarios.codigo)">
+                                <button type="button" class="btn btn-warning"
+                                    ng-click="editar(ajaxDataUsuarios.codigo)">
                                     <i class="fa fa-user-plus"></i> Editar
                                 </button>
 
 
-                                <button type="button"  class="btn btn-danger" ng-click="atras()">
-                                    <i class="fa fa-ban" ></i> Cancelar
+                                <button type="button" class="btn btn-danger" ng-click="atras()">
+                                    <i class="fa fa-ban"></i> Cancelar
                                 </button>
+
 
 
                             </div>
 
                         </div>
-                        <div class="col-md-3" ></div>
-                        <button type="button"  class="btn btn-danger" ng-click="borrar(ajaxDataUsuarios.id)">
-                            <i class="fa fa-ban" ></i> BORRAR
+                        <div class="col-md-3"></div>
+                        <button type="button" class="btn btn-danger" ng-click="borrar(ajaxDataUsuarios.id)">
+                            <i class="fa fa-ban"></i> BORRAR
                         </button>
+                        <a href="/suportWebClient/public_html/cliente/facturas/{{ajaxDataUsuarios.codigo}}">
+                            <button type="button" class="btn btn-info" ng-click="">
+                                <i class="fas fa-info"></i> Ver facturas
+                            </button>
+                        </a>
 
                     </div>
                 </div>

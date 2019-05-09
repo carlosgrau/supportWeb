@@ -43,7 +43,6 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
             };
             $scope.add = function () {
                 var longitud;
-                
                 $scope.invoice.items.push({
                     name: '',
                     description: '',

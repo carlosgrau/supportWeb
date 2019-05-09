@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
+moduleCliente.controller('clientePlistClienteController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
-moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
-    function ($scope, toolService, $http, sessionService, $routeParams, $location) {
         $scope.totalPages = 1;
         $scope.ejercicio = sessionService.getEmpresa();
-        sessionService.setEmpresa($scope.ejercicio);
+        var cliente = $routeParams.id;
         var host = 'http://localhost:8081/';
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -31,7 +31,7 @@ moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService',
         }
 
         $scope.resetOrder = function () {
-            $location.url(`presupuesto/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page);
         };
 
 
@@ -43,13 +43,13 @@ moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService',
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`presupuesto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         //getcount
         $http({
             method: 'GET',
-            url: host + 'json?ob=presupuesto&op=getcount&ejercicio=' + sessionService.getEmpresa()
+            url: host + 'json?ob=factura&op=getcountxusuario&ejercicio=' + sessionService.getEmpresa() + '&cliente=' + cliente
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxCountFactura = response.data.message;
@@ -66,7 +66,7 @@ moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService',
 
         $http({
             method: 'GET',
-            url: host + 'json?ob=presupuesto&op=getpage&ejercicio=' + sessionService.getEmpresa() + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: host + 'json?ob=factura&op=getpagexusuario&ejercicio=' + sessionService.getEmpresa() + '&cliente=' + cliente + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFactura = response.data.message;
@@ -76,7 +76,7 @@ moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService',
         });
 
         $scope.update = function () {
-            $location.url(`presupuesto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood
@@ -100,13 +100,9 @@ moduleFactura.controller('presupuestoPlistController', ['$scope', 'toolService',
                     }
                 }
             }
-        }
-        ;
-
-
+        };
         $scope.isActive = toolService.isActive;
-
-
 
     }
 ]);
+
