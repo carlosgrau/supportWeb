@@ -4,7 +4,7 @@ section #services {
   transform: translatez(0);
   display: flex;
   justify-content: space-evenly;
-  background-color: aqua;
+  background-color: #3E4D91;
   flex-wrap: wrap;
 }
 section #services h2 {
