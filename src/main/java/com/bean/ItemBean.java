@@ -11,35 +11,35 @@ package com.bean;
  */
 public class ItemBean {
 
-    private double descuento;
+    private float descuento;
 
-    private double precio;
+    private float precio;
 
-    private int cantidad;
+    private float cantidad;
 
     private ProductoBean obj_producto;
 
-    public double getDescuento() {
+    public float getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(double descuento) {
+    public void setDescuento(float descuento) {
         this.descuento = descuento;
     }
 
-    public double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
-    public int getCantidad() {
+    public float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(float cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -50,7 +50,5 @@ public class ItemBean {
     public void setObj_producto(ProductoBean obj_producto) {
         this.obj_producto = obj_producto;
     }
-    
-    
-    
+
 }

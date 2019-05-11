@@ -78,7 +78,7 @@ public class CarritoService {
 
             for (ItemBean ib : carrito) {
 
-                int cant = ib.getCantidad();
+                float cant = ib.getCantidad();
 
                 oLineaFacturaBean = new LineaFacturaBean();
 
@@ -94,7 +94,7 @@ public class CarritoService {
 
                 oProductoBean = ib.getObj_producto();
 
-                oProductoBean.setExistencias(oProductoBean.getExistencias() - cant);
+                oProductoBean.setExistencias((int) (oProductoBean.getExistencias() - cant));
 
                 oProductoDao.update(oProductoBean);
 
@@ -115,7 +115,7 @@ public class CarritoService {
             }
 
             oReplyBean = new ReplyBean(500, "Error en buy carritoService: " + e.getMessage());
-        }  finally {
+        } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
@@ -153,6 +153,10 @@ public class CarritoService {
 
             //Obtenemos el producto que deseamos a�adir al carrito
             String codigo = oRequest.getParameter("codigo");
+            float cantidadprod = Float.parseFloat(oRequest.getParameter("cantidad"));
+            float descuentoprod = Float.parseFloat(oRequest.getParameter("descuento"));
+            float precioprod = Float.parseFloat(oRequest.getParameter("precio"));
+
             ProductoDao oProductoDao = new ProductoDao(oConnection, "dat004a");
             ProductoBean oProductoBean = (ProductoBean) oProductoDao.get(codigo, 1, empresa);
 
@@ -172,13 +176,15 @@ public class CarritoService {
                 //Si es -1 es porque voy a registrar
                 if (oProductoBean.getExistencias() > 0) {
                     oItemBean.setObj_producto(oProductoBean);
-                    oItemBean.setCantidad(1);
+                    oItemBean.setCantidad(cantidadprod);
+                    oItemBean.setDescuento(descuentoprod);
+                    oItemBean.setPrecio(precioprod);
                     carrito.add(oItemBean);
                 }
             } else {
                 //Si es otro valor es porque el producto esta en el carrito
                 //y vamos actualizar la cantidad
-                Integer cantidad = carrito.get(indice).getCantidad() + 1;
+                float cantidad = carrito.get(indice).getCantidad() + cantidadprod;
                 if (oProductoBean.getExistencias() >= cantidad) {
                     carrito.get(indice).setCantidad(cantidad);
                 }
@@ -191,7 +197,7 @@ public class CarritoService {
         } catch (Exception ex) {
             // Logger.getLogger(CarritoService.class.getName()).log(Level.SEVERE, null, ex);
             oReplyBean = new ReplyBean(500, "Error en add carrito: " + ex.getMessage());
-        }  finally {
+        } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
@@ -256,7 +262,7 @@ public class CarritoService {
             if (indice == -1) {
                 oReplyBean = new ReplyBean(200, EncodingHelper.quotate("El producto no esta en el carrito"));
             } else {
-                int cantidad = carrito.get(indice).getCantidad();
+                float cantidad = carrito.get(indice).getCantidad();
                 if (carrito.get(indice).getCantidad() > 1) {
                     carrito.get(indice).setCantidad(cantidad - 1);
                     sesion.setAttribute("carrito", carrito);
