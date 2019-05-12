@@ -161,25 +161,24 @@ public class CarritoService {
             //SACO EL ULTIMO NUMERO DEL PRESUPUESTO
             Integer presupuesto = oPresupuestoDao.getpresupuesto(empresa);
             oPresupuestoBean.setPresupuesto(presupuesto + 1);
-            
+
             //ANTES DE CREAR LA CABECERA DE PRESUPESTO TENEMOS QUE METER EN EL BEAN LOS DATOS DEL JSON
-            
-            
-            
             PresupuestoBean oPresupuestoBeanCreada = (PresupuestoBean) oPresupuestoDao.create(oPresupuestoBean);
-            int id_presupuesto = oPresupuestoBeanCreada.getPresupuesto();
+            int id_presupuesto = oPresupuestoBeanCreada.getId();
 
             LineaPresupuestoDao oLineaPresupuestoDao;
             LineaPresupuestoBean oLineaPresupuestoBean;
 
             ProductoDao oProductoDao = new ProductoDao(oConnection, "dat004a");
             oLineaPresupuestoDao = new LineaPresupuestoDao(oConnection, "dat131a");
-            ProductoBean oProductoBean;
+            ProductoBean oProductoBean = null;
 
             for (ItemBean ib : carrito) {
 
                 float cant = ib.getCantidad();
-
+                float descuento = ib.getDescuento();
+                float precio = ib.getPrecio();
+                ProductoBean obprod = ib.getObj_producto();
                 oLineaPresupuestoBean = new LineaPresupuestoBean();
 
                 oLineaPresupuestoBean.setId_presupuesto(id_presupuesto);
@@ -187,6 +186,15 @@ public class CarritoService {
                 oLineaPresupuestoBean.setEmpresa(empresa);
                 oLineaPresupuestoBean.setObj_Producto(ib.getObj_producto());
                 oLineaPresupuestoBean.setCantidad(cant);
+                oLineaPresupuestoBean.setDescuento(descuento);
+                oLineaPresupuestoBean.setPrecio(precio);
+                if (descuento == 0) {
+                    oLineaPresupuestoBean.setPrecio_Total(cant * precio);
+                } else if (descuento > 0) {
+                    oLineaPresupuestoBean.setPrecio_Total(((cant * precio) * descuento) / 100);
+                }
+                oLineaPresupuestoBean.setReferencia(obprod.getCodigo());
+                oLineaPresupuestoBean.setDescripcion(obprod.getDescripcion());
 
                 oLineaPresupuestoDao.create(oLineaPresupuestoBean);
 

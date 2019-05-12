@@ -29,7 +29,7 @@ public class LineaPresupuestoService {
         super();
         this.oRequest = oRequest;
         if ("lineapresupuesto".equals(oRequest.getParameter("ob"))) {
-            ob = "dat131a";
+            ob = "dat033a";
         };
     }
 
