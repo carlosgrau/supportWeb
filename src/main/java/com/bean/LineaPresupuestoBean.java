@@ -7,6 +7,7 @@ package com.bean;
 
 import com.dao.ProductoDao;
 import com.google.gson.annotations.Expose;
+import com.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -144,6 +145,49 @@ public class LineaPresupuestoBean {
         }
         return this;
 
+    }
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id_auto,";
+        strColumns += "cantidad,";
+        strColumns += "id_ejercicio,";
+        strColumns += "id_dat032a,";
+        strColumns += "descripcion,";
+        strColumns += "presupuestos,";
+        strColumns += "preciounitario,";
+        strColumns += "referencia,";
+        strColumns += "d";
+        return strColumns;
+    }
+
+    public String getPairs() {
+        String strPairs = "";
+        strPairs += "id_auto=" + id + ",";
+        strPairs += "cantidad=" + cantidad + ",";
+        strPairs += "id_ejercicio=" + empresa + ",";
+        strPairs += "id_dat032a=" + id_dat032a + ",";
+        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
+        strPairs += "presupuestos=" + id_presupuesto + ",";
+        strPairs += "preciounitario=" + precio + ",";
+        strPairs += "referencia=" + EncodingHelper.quotate(referencia) + ",";
+        strPairs += "d=" + descuento ;
+
+        return strPairs;
+
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += cantidad + ",";
+        strColumns += empresa + ",";
+        strColumns += id_dat032a + ",";
+        strColumns += EncodingHelper.quotate(descripcion) + ",";
+        strColumns += id_presupuesto + ",";
+        strColumns += precio + ",";
+        strColumns += EncodingHelper.quotate(referencia) + ",";
+        strColumns += descuento;
+        return strColumns;
     }
 
 }

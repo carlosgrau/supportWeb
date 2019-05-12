@@ -5,6 +5,8 @@
  */
 package com.bean;
 
+import com.dao.FormaPagoDao;
+import com.dao.RepresentanteDao;
 import com.google.gson.annotations.Expose;
 import com.helper.EncodingHelper;
 import java.sql.Connection;
@@ -42,6 +44,16 @@ public class ClienteBean {
     private String poblacion;
     @Expose
     private String provincia;
+    @Expose
+    private Integer formapago;
+    @Expose
+    private Integer representate;
+    @Expose
+    private Integer tarifa;
+    @Expose
+    private RepresentanteBean objRepresentante;
+    @Expose
+    private FormaPagoBean objFormaPago;
 
     public int getId() {
         return id;
@@ -147,7 +159,47 @@ public class ClienteBean {
         this.provincia = provincia;
     }
 
-    public ClienteBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
+    public Integer getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Integer tarifa) {
+        this.tarifa = tarifa;
+    }
+
+    public Integer getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(Integer formapago) {
+        this.formapago = formapago;
+    }
+
+    public Integer getRepresentate() {
+        return representate;
+    }
+
+    public void setRepresentate(Integer representate) {
+        this.representate = representate;
+    }
+
+    public RepresentanteBean getObjRepresentante() {
+        return objRepresentante;
+    }
+
+    public void setObjRepresentante(RepresentanteBean objRepresentante) {
+        this.objRepresentante = objRepresentante;
+    }
+
+    public FormaPagoBean getObjFormaPago() {
+        return objFormaPago;
+    }
+
+    public void setObjFormaPago(FormaPagoBean objFormaPago) {
+        this.objFormaPago = objFormaPago;
+    }
+
+    public ClienteBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setCodigo(oResultSet.getInt("clicodigo"));
         this.setDireccion(oResultSet.getString("clidireccion"));
@@ -161,6 +213,15 @@ public class ClienteBean {
         this.setCodigopostal(oResultSet.getString("clicodpostal"));
         this.setPoblacion(oResultSet.getString("clipoblacion"));
         this.setProvincia(oResultSet.getString("cliprovincia"));
+        this.setRepresentate(oResultSet.getInt("clirepresentante"));
+        this.setFormapago(oResultSet.getInt("clifpago"));
+        this.setTarifa(oResultSet.getInt("clitarifahabitual"));
+        if (expand > 0) {
+            RepresentanteDao oRepresentanteDao = new RepresentanteDao(oConnection, "dat005a");
+            FormaPagoDao oFormaPagoDao = new FormaPagoDao(oConnection, "dat006a");
+            this.setObjRepresentante(oRepresentanteDao.get(oResultSet.getInt("clirepresentante"), oResultSet.getInt("id_ejercicio"), 1));
+            this.setObjFormaPago(oFormaPagoDao.get(oResultSet.getInt("clifpago"), oResultSet.getInt("id_ejercicio"), expand - 1));
+        }
         return this;
     }
 
@@ -178,7 +239,11 @@ public class ClienteBean {
         strColumns += "iban,";
         strColumns += "clicodpostal,";
         strColumns += "clipoblacion,";
-        strColumns += "cliprovincia";
+        strColumns += "cliprovincia,";
+        strColumns += "clirepresentante,";
+        strColumns += "clifpago,";
+        strColumns += "clitarifahabitual";
+
         return strColumns;
     }
 
@@ -196,7 +261,10 @@ public class ClienteBean {
         strColumns += EncodingHelper.quotate(iban) + ",";
         strColumns += EncodingHelper.quotate(codigopostal) + ",";
         strColumns += EncodingHelper.quotate(poblacion) + ",";
-        strColumns += EncodingHelper.quotate(provincia);
+        strColumns += EncodingHelper.quotate(provincia) + ",";
+        strColumns += representate + ",";
+        strColumns += formapago;
+        strColumns += tarifa;
 
         return strColumns;
     }
@@ -215,7 +283,10 @@ public class ClienteBean {
         strPairs += "iban=" + EncodingHelper.quotate(iban) + ",";
         strPairs += "clicodpostal=" + EncodingHelper.quotate(codigopostal) + ",";
         strPairs += "clipoblacion=" + EncodingHelper.quotate(poblacion) + ",";
-        strPairs += "cliprovincia=" + EncodingHelper.quotate(provincia);
+        strPairs += "cliprovincia=" + EncodingHelper.quotate(provincia) + ",";
+        strPairs += "clirepresentante=" + representate + ",";
+        strPairs += "clifpago=" + formapago + ",";
+        strPairs += "clitarifahabitual=" + formapago;
         return strPairs;
 
     }

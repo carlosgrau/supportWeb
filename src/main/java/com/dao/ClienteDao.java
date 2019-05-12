@@ -41,7 +41,7 @@ public class ClienteDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oClienteBean = new ClienteBean();
-                oClienteBean.fill(oResultSet, oConnection);
+                oClienteBean.fill(oResultSet, oConnection, expand);
             } else {
                 oClienteBean = null;
             }
@@ -75,7 +75,7 @@ public class ClienteDao {
                 while (oResultSet.next()) {
                     ClienteBean oClienteBean = new ClienteBean();
                     oClienteBean = new ClienteBean();
-                    oClienteBean.fill(oResultSet, oConnection);
+                    oClienteBean.fill(oResultSet, oConnection,1);
                     alClienteBean.add(oClienteBean);
                 }
             } catch (SQLException e) {
@@ -173,7 +173,8 @@ public class ClienteDao {
         }
         return iResult;
     }
-    public int remove(int id,int empresa) throws Exception {
+
+    public int remove(int id, int empresa) throws Exception {
         int iRes = 0;
         String strSQL = "DELETE FROM " + ob + " WHERE id_auto=?";
         PreparedStatement oPreparedStatement = null;

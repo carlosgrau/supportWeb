@@ -231,6 +231,9 @@ public class ServiceFactory {
                             case "buyfactura":
                                 oReplyBean = oCarritoService.buyFactura();
                                 break;
+                            case "buypresupuesto":
+                                oReplyBean = oCarritoService.buyPresupuesto();
+                                break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                                 break;

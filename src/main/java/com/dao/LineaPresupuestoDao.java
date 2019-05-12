@@ -91,4 +91,33 @@ public class LineaPresupuestoDao {
         return alLineaPresupuestoBean;
 
     }
+    public LineaPresupuestoBean create(LineaPresupuestoBean oLineaPresupuestoBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oLineaPresupuestoBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oLineaPresupuestoBean.getValues() + ")";
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.executeUpdate();
+            oResultSet = oPreparedStatement.getGeneratedKeys();
+            if (oResultSet.next()) {
+                oLineaPresupuestoBean.setId(oResultSet.getInt(1));
+            } else {
+                oLineaPresupuestoBean.setId(0);
+                oLineaPresupuestoBean.setId_dat032a(0);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao create de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oLineaPresupuestoBean;
+    }
 }

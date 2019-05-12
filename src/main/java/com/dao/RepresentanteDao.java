@@ -30,7 +30,7 @@ public class RepresentanteDao {
     }
 
     public RepresentanteBean get(int id, int empresa, Integer expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE forcodigo = ? and id_ejercicio = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE repcodigo = ? and id_ejercicio = ?";
         RepresentanteBean oRepresentanteBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;

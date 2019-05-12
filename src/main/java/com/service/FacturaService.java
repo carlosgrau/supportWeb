@@ -50,7 +50,7 @@ public class FacturaService {
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
 
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
-            FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 1);
+            FacturaBean oFacturaBean = oFacturaDao.get(id, empresa, 2);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(oFacturaBean));
         } catch (Exception ex) {
@@ -167,7 +167,6 @@ public class FacturaService {
 
             Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-            Integer cliente = Integer.parseInt(oRequest.getParameter("cliente"));
 
             usuario = oUsuarioBean.getLoginCli();
             password = oUsuarioBean.getPassCli();
