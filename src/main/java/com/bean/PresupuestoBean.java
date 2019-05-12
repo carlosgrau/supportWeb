@@ -45,14 +45,20 @@ public class PresupuestoBean {
     @Expose
     private float total_Precio;
 
-     @Expose
+    @Expose
     private double descuento;
-     
+
     @Expose
     private double iva;
 
     @Expose
     private double total_Iva;
+    @Expose
+    private int representante;
+    @Expose
+    private int tarifa;
+    @Expose
+    private int fpago;
 
     @Expose(deserialize = false)
     private ClienteBean obj_Cliente;
@@ -164,6 +170,30 @@ public class PresupuestoBean {
         this.descuento = descuento;
     }
 
+    public int getRepresentante() {
+        return representante;
+    }
+
+    public void setRepresentante(int representante) {
+        this.representante = representante;
+    }
+
+    public int getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(int tarifa) {
+        this.tarifa = tarifa;
+    }
+
+    public int getFpago() {
+        return fpago;
+    }
+
+    public void setFpago(int fpago) {
+        this.fpago = fpago;
+    }
+
     public PresupuestoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setFecha(oResultSet.getDate("fecha"));
@@ -176,6 +206,9 @@ public class PresupuestoBean {
         this.setDescuento(oResultSet.getDouble("descuento"));
         this.setIva(oResultSet.getDouble("iva2"));
         this.setTotal_Iva(oResultSet.getDouble("totaliva2"));
+        this.setRepresentante(oResultSet.getInt("representante"));
+        this.setTarifa(oResultSet.getInt("tarifa"));
+        this.setFpago(oResultSet.getInt("fpago"));
 
         if (expand > 0) {
             ClienteDao oClienteDao = new ClienteDao(oConnection, "dat001a");
@@ -199,7 +232,10 @@ public class PresupuestoBean {
         strColumns += "descuento,";
         strColumns += "total,";
         strColumns += "iva2,";
-        strColumns += "totaliva2";
+        strColumns += "totaliva2,";
+        strColumns += "representante,";
+        strColumns += "tarifa,";
+        strColumns += "fpago";
 
         return strColumns;
     }
@@ -216,7 +252,10 @@ public class PresupuestoBean {
         strPairs += "descuento=" + descuento + ",";
         strPairs += "iva2=" + iva + ",";
         strPairs += "totaliva2=" + total_Iva + ",";
-        strPairs += "totalbruto=" + precio_Bruto;
+        strPairs += "totalbruto=" + precio_Bruto + ",";
+        strPairs += "representante=" + representante + ",";
+        strPairs += "tarifa=" + tarifa + ",";
+        strPairs += "fpago=" + fpago;
 
         return strPairs;
 
@@ -234,7 +273,10 @@ public class PresupuestoBean {
         strColumns += descuento + ",";
         strColumns += iva + ",";
         strColumns += total_Iva + ",";
-        strColumns += precio_Bruto;
+        strColumns += precio_Bruto + ",";
+        strColumns += representante + ",";
+        strColumns += tarifa + ",";
+        strColumns += fpago;
 
         return strColumns;
     }

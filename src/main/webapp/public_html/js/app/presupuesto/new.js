@@ -5,22 +5,18 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
         $(document).ready(function () {
             $scope.id = $routeParams.id;
             var host = 'http://localhost:8081/';
-            $scope.linea=1;
+            $scope.linea = 1;
 
-            // $http({
-            //     method: 'GET',
-            //     url: host+'json?ob=presupuesto&op=get&ejercicio=' + sessionService.getEmpresa() + '&id=' + $routeParams.id
-            // }).then(function (response) {
-            //     $scope.status = response.status;
-            //     $scope.ajaxDataFactura = response.data.message;
-            //     $scope.ajaxDataLineaFactura = response.data.message.obj_LineaFactura;
-            //     $scope.ajaxDataCliente = response.data.message.obj_Cliente;
-            // }, function (response) {
-            //     $scope.status = response.status;
-            //     $scope.ajaxDataLineaFactura = response.data.message || 'Request failed';
-            //     $scope.ajaxDataCliente = response.data.message || 'Request failed';
-            //     $scope.ajaxDataFactura = response.data.message || 'Request failed';
-            // });
+            $http({
+                method: 'GET',
+                url: host + 'json?ob=carrito&op=empty'
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDatoLineas = response.data.message;
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDatoLineas = response.data.message || 'Request failed';
+            });
 
             $scope.update = function () {
                 $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
@@ -30,80 +26,110 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
             $scope.atras = function () {
                 window.history.back();
             };
-            $('div.setup-panel div a.btn-primary').trigger('click');
-            // $("input").prop("disabled", true); //Disable
-            $scope.invoice = {
-                items: [{
-                    referencia: 'item',
-                    description: 'item description',
-                    qty: 5,
-                    price: 5.5,
-                    dto:0
-                }]
+            $scope.sacarlineas = function () {
+                $http({
+                    method: 'GET',
+                    url: host + 'json?ob=carrito&op=show'
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message;
+                }, function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message || 'Request failed';
+                });
             };
-            $scope.add = function () {
-                var longitud;
-                $scope.invoice.items.push({
-                    name: '',
-                    description: '',
-                    qty: 1,
-                    price: 0,
-                    dto:0
+            $scope.completar = function () {
+                $http({
+                    method: 'GET',
+                    withCredentials: true,
+                    url: host + 'json?ob=cliente&op=get&ejercicio=' + sessionService.getEmpresa() + '&id=' + $scope.ajaxDatoProducto.obj_cliente.codigo
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDataUsuarios = response.data.message;
+                }, function (response) {
+                    $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+                    $scope.status = response.status;
                 });
 
-                if (longitud !== $scope.invoice.items.length) {
-                    for (var i = 0; i < $scope.invoice.items.length; i++) {
-                        var referencia = $scope.invoice.items[i].referencia;
-                        longitud = ($scope.invoice.items.length -1);
-                        if (referencia != undefined) {
-                            $http({
-                                method: 'GET',
-                                url: host + 'json?ob=carrito&op=add&codigo=' + referencia + '&cant=1&ejercicio=' + sessionService.getEmpresa()
-                            }).then(function (response) {
-                                $scope.status = response.status;
-                                $scope.ajaxCarrito = response.data.message;
-                                countcarritoService.updateCarrito();
-                                $scope.carrito = true;
-                                $scope.cantidadTotal = 0;
-                                $scope.precioTotalProd = 0.0;
-                                if (($scope.ajaxCarrito === "Carrito vacio") || ($scope.ajaxCarrito === null)) {
-                                    $scope.carrito = false;
-                                } else {
-                                    for (var i = 0; i < $scope.ajaxCarrito.length; i++) {
-                                        $scope.cantidadTotal += response.data.message[i].cantidad;
-                                        $scope.precioTotalProd += (response.data.message[i].obj_producto.precio * response.data.message[i].cantidad);
-                                    }
-                                }
-                            }, function (response) {
-                                $scope.status = response.status;
-                                $scope.ajaxCarrito = response.data.message || 'Request failed';
-                            });
-                        };
-                    }
+            };
+            $scope.addlineas = function () {
+                $http({
+                    method: 'GET',
+                    url: host + 'json?ob=carrito&op=add&ejercicio=' + sessionService.getEmpresa() + '&codigo=' + $scope.ajaxProducto.obj_cliente.referencia + '&cantidad=' + $scope.ajaxProducto.cantidad + '&descuento=' + $scope.ajaxProducto.descuento + '&precio=' + $scope.ajaxProducto.precio
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message;
+                    $(':input', '#lineasForm')
+                        .not(':button, :submit, :reset, :hidden')
+                        .val('')
+                        .prop('checked', false)
+                        .prop('selected', false);
+                }, function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message || 'Request failed';
+                });
+
+            };
+            $scope.grabar = function () {
+                var json = {
+                    fecha: $scope.myDate,
+                    id_cliente: $scope.ajaxDatoProducto.obj_cliente.codigo,
+                    nombre: $scope.ajaxDatoProducto.obj_cliente.nombre,
+                    empresa: sessionService.getEmpresa(),
+                    representante: $scope.ajaxDatoProducto.obj_cliente.codrepre,
+                    fpago: $scope.ajaxDatoProducto.obj_cliente.codfpago,
+                    tarifa: $scope.ajaxDatoProducto.obj_cliente.tarifa
+
                 };
-            },
-                $scope.remove = function (index) {
-                    $scope.invoice.items.splice(index, 1);
-                },
-                $scope.total = function () {
-                    var total = 0;
-                    angular.forEach($scope.invoice.items, function (item) {
-                        total += item.qty * item.price;
-                    })
-                    return total;
-                }
+                $http({
+                    method: 'GET',
+                    withCredentials: true,
+                    url: host + 'json?ob=carrito&op=buypresupuesto&ejercicio=' + sessionService.getEmpresa(),
+                    params: { json: JSON.stringify(json) }
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDataUsuarios = response.data.message;
+                }, function (response) {
+                    $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+                    $scope.status = response.status;
+                });
+
+            };
+
+            $scope.grabarcabecera = function () {
+                $scope.fecha = new Date($scope.date);
+                var fecha = $scope.date;
+                var codigocliente = $scope.ajaxDatoProducto.obj_cliente.codigo;
+                var nombrecliente = $scope.ajaxDatoProducto.obj_cliente.nombre;
+                var empresa = sessionService.getEmpresa();
+                var codigorespresentante = $scope.ajaxDatoProducto.obj_cliente.codrepre;
+                var codigoformapago = $scope.ajaxDatoProducto.obj_cliente.codfpago;
+                var codigotarifa = $scope.ajaxDatoProducto.obj_cliente.tarifa;
+            };
+
             $scope.formulario = function (paso) {
                 if (paso === 1) {
                     cabecera.style = 'display:content;;';
                     lineas.style = 'display:none;';
+                    plist.style = 'display:none;';
                     final.style = 'display:none;';
                 } else if (paso === 2) {
+                    $scope.grabarcabecera();
                     cabecera.style = 'display:none;';
                     lineas.style = 'display:content;';
+                    plist.style = 'display:none;';
                     final.style = 'display:none;';
                 } else if (paso === 3) {
                     cabecera.style = 'display:none;';
                     lineas.style = 'display:none;';
+                    plist.style = 'display:content;';
+                    $scope.sacarlineas();
+                    final.style = 'display:none;';
+                } else if (paso === 4) {
+                    cabecera.style = 'display:none;';
+                    lineas.style = 'display:none;';
+                    plist.style = 'display:none;';
+                    $scope.sacarlineas();
                     final.style = 'display:content;';
                 }
             }

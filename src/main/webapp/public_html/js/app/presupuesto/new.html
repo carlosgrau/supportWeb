@@ -8,8 +8,7 @@
 
         <div class="form-group">
             <label>Fecha</label>
-            <md-datepicker ng-model="myDate" md-placeholder="Fecha" ng-change="cambiofecha(myDate)" class="fecha">
-            </md-datepicker>
+            <md-datepicker ng-model="fecha" md-placeholder="Fecha" ng-readonly="true"></md-datepicker>
         </div>
 
         <div class="form-group">
@@ -19,7 +18,7 @@
                     </span></label>
                 <label>
                     <input type="text" class="form-control" placeholder="Código Cliente"
-                        ng-model='ajaxDatoProducto.obj_cliente.codigo' ng-required="true">
+                        ng-model='ajaxDatoProducto.obj_cliente.codigo' ng-required="true" ng-change='completar()'>
 
                     <cliente-selection class="modal fade" id="cadd-location-modal" obj='ajaxDatoProducto.obj_cliente'>
                     </cliente-selection>
@@ -36,14 +35,14 @@
                     </span></label>
                 <label>
                     <input type="text" class="form-control" placeholder="Forma Pago"
-                        ng-model="ajaxDatoProducto.obj_pago.codigo" ng-required="true">
+                        ng-model="ajaxDatoProducto.obj_cliente.codfpago" ng-required="true">
                     <pago-selection class="modal fade" id="padd-location-modal" obj='ajaxDatoProducto.obj_pago'>
                     </pago-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp
                     <input type="text" class="form-control" placeholder="Nombre Pago"
-                        ng-model="ajaxDatoProducto.obj_pago.nombre" ng-required="true"></label>
+                        ng-model="ajaxDatoProducto.obj_cliente.nomfpago" ng-required="true"></label>
             </div>
 
             <div class="col-12">
@@ -52,14 +51,14 @@
                     </span></label>
                 <label>
                     <input type="text" class="form-control" placeholder="Código Representante"
-                        ng-model="ajaxDatoProducto.obj_representante.codigo" ng-required="true">
+                        ng-model="ajaxDatoProducto.obj_cliente.codrepre" ng-required="true">
                     <representante-selection class="modal fade" id="radd-location-modal"
                         obj='ajaxDatoProducto.obj_representante'></representante-selection>
                 </label>
                 &nbsp
                 <label for="">&nbsp
                     <input type="text" class="form-control" placeholder="Nombre Representante"
-                        ng-model="ajaxDatoProducto.obj_representante.nombre"></label>
+                        ng-model="ajaxDatoProducto.obj_cliente.nomrepre"></label>
             </div>
 
             <div class="col-12">
@@ -67,17 +66,15 @@
                         data-target="#cadd-location-modal" ng-click='seleccionar(fila.cliente)'>
                     </span></label>
                 <label>
-                    <input type="text" class="form-control" placeholder="Tarifa" ng-required="true">
-                    <tarifa-selection class="modal fade" id="cadd-location-modal"></tarifa-selection>
+                    <input type="text" class="form-control" placeholder="Tarifa" ng-required="true"
+                    ng-model="ajaxDatoProducto.obj_cliente.tarifa">
                 </label>
-                &nbsp
-                <label for="">&nbsp
-                    <input type="text" class="form-control" placeholder="Nombre Pago" ></label>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-success" ng-click='formulario(2)' ng-disabled="userForm.$invalid">SIGUIENTE</button>
+                    <button type="submit" class="btn btn-success" ng-click='formulario(2)'
+                        ng-disabled="userForm.$invalid">SIGUIENTE</button>
                 </div>
             </div>
     </form>
@@ -86,71 +83,73 @@
 
 <!-- PASO 2 -->
 
-<div class="row setup-content" id="lineas" style="display:none;">
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <h3> Lineas Presupuesto</h3>
-            <div class="container">
-                <section class="row">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Referencia</th>
-                                <th>Descripción</th>
-                                <th>Precio</th>
-                                <th>DTO</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                                <th>Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr ng-repeat="item in invoice.items">
-
-                                <div>
-                                    <producto-selection class="modal fade" id="prodadd-location-modal"
-                                        obj='invoice.items.obj_producto'>
-                                    </producto-selection>
-
-                                </div>
-                                <td>
-                                    <input type="text" ng-model="item.obj_producto.referencia" />
-                                    <span class="input-group-text fa fa-search" data-toggle="modal"
-                                        data-target="#prodadd-location-modal" ng-click='seleccionar(fila.producto)'>
-                                    </span>
-                                </td>
-                                <td><input type="text" ng-model="item.obj_producto.description" /></td>
-                                <td><input type="number" ng-model="item.price" /></td>
-                                <td><input type="number" ng-model="item.dto" /></td>
-                                <td><input type="number" ng-model="item.qty" /></td>
-                                <td ng-show='{{item.dto}} > 0'>{{((item.qty * item.price)*item.dto)/100}} €</td>
-                                <td ng-show='{{item.dto}} === 0'>{{item.qty * item.price}} €</td>
-                                <td><button type="button" class="btn btn-danger"
-                                        ng-click="remove($index)">Borrar</button></td>
-                            </tr>
-                            <tr>
-                                <td><button type="button" class="btn btn-primary" ng-click="add()">Add item</button>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>Total : </td>
-                                <td>{{total()}} €</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-            <button class="btn btn-light btn-block nextBtn pull-right" type="button"
-                ng-click='formulario(1)'>Atras</button>
-            <button class="btn btn-light btn-block nextBtn pull-right" type="button"
-                ng-click='formulario(3)'>Next</button>
+<div class="container" id="lineas" style="display:none;">
+    <producto-selection class="modal fade" id="prodadd-location-modal" obj='ajaxProducto.obj_cliente'>
+    </producto-selection>
+    <form name="lineasForm" id="lineasForm">
+        <div class="form-group">
+            <label for="email">Producto
+                <span class="input-group-text fa fa-search" data-toggle="modal" data-target="#prodadd-location-modal">
+                </span>
+            </label>
+            <input type="text" class="form-control" ng-required="true" ng-model='ajaxProducto.obj_cliente.referencia'>
+            <input type="text" class="form-control" ng-required="true" ng-model='ajaxProducto.obj_cliente.descripcion'>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="email">Cantidad</label>
+            <input type="number" step="any" class="form-control" ng-model='ajaxProducto.cantidad' ng-required="true">
+        </div>
+        <div class="form-group">
+            <label for="email">Precio</label>
+            <input type="number" step="any" class="form-control" ng-model='ajaxProducto.precio' ng-required="true">
+        </div>
+        <div class="form-group">
+            <label for="email">Descuento </label>
+            <input type="number" step="any" class="form-control" ng-model='ajaxProducto.descuento' ng-required="true">
+
+        </div>
+        <button class="btn btn-info" ng-click='addlineas()'>Guardar / Añadir</button>
+    </form>
+
+    <button class="btn btn-success" ng-click='formulario(3)' ng-disabled="lineasForm.$invalid">Siguiente</button>
 </div>
 
 <!-- PASO 3 -->
 
+<div class="table-responsive-md" id="plist" style="display:none;">
+    <table class="datatable table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Linea</th>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Descuento</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gradeX" ng-repeat="fila in ajaxDatoLineas">
+                <td>1</td>
+                <td>{{fila.obj_producto.codigo}}</td>
+                <td>{{fila.obj_producto.descripcion}}</td>
+                <td>{{fila.precio}} €</td>
+                <td>{{fila.cantidad}}</td>
+                <td>{{fila.descuento}}</td>
+
+                <td>
+                    <a href="presupuesto/view/{{fila.presupuesto}}">
+                        <i class="fa fa-eye hvr-pop" style="font-size: 17px;" aria-hidden="true"
+                            onclick="window.scrollTo(0, 0)"></i>
+                    </a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <button class="btn btn-success" ng-click='formulario(4)'>Siguiente</button>
+</div>
 
 
 
@@ -172,7 +171,7 @@
                             <div class="col-md-6">
                                 <address>
                                     <br>
-                                    <strong class="">{{ajaxDataCliente.obj_Cliente.nombre}}</strong><br class="">
+                                    <strong class="">{{ajaxDatoProducto.obj_cliente.nombre}}</strong><br class="">
                                     {{ajaxDataCliente.obj_Cliente.nif}}<br class="">
                                     {{ajaxDataCliente.direccion}}<br class="">
                                 </address>
@@ -184,8 +183,8 @@
                                     {{ajaxDataCliente.email}}<br class="">
                                 </address>
                             </div>
-                        </div> <!-- row -->
-                    </div> <!-- panel heading -->
+                        </div>
+                    </div> 
                     <div class="panel-body">
                         <h3 class="panel-title">Detalle</h3>
                         <table class="table table-condensed">
@@ -200,9 +199,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="gradeX" ng-repeat="fila in ajaxDataLineaPresupuesto track by $index">
-                                    <td>{{fila.obj_Producto.codigo}}</td>
-                                    <td>{{fila.descripcion}}</td>
+                                <tr class="gradeX" ng-repeat="fila in ajaxDatoLineas track by $index">
+                                    <td>{{fila.obj_producto.codigo}}</td>
+                                    <td>{{fila.obj_producto.descripcion}}</td>
                                     <td>{{fila.precio}}</td>
                                     <td>{{fila.cantidad}}</td>
                                     <td>{{fila.descuento}}</td>
@@ -242,4 +241,5 @@
 
         </div>
     </div>
+    <button class="btn btn-success" ng-click='grabar()'>GRABAR</button>
 </div>

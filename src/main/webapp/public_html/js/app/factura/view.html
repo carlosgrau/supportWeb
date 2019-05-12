@@ -1,6 +1,6 @@
 <header-component></header-component>
 <div class="container" style="padding-top: 4%;">
-        <button type="button" class="btn btn-info" ng-click="atras()"><i class="fas fa-undo"></i> Atrás</button>
+    <button type="button" class="btn btn-info" ng-click="atras()"><i class="fas fa-undo"></i> Atrás</button>
     <div class="text-center">
         <h1 style="font-size: 50px;">Factura Nº {{id}}</h1>
         <br>
@@ -12,22 +12,35 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-6"> 
-                            <address>
-                                <br>
-                                <strong class="">{{ajaxDataCliente.nombre}}</strong><br class="">
-                                {{ajaxDataCliente.nif}}<br class="">
-                                {{ajaxDataCliente.direccion}}<br class="">
-                            </address>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <address>
+                                        <br>
+                                        <strong>{{ajaxDataCliente.nombre}}</strong><br class="">
+                                        {{ajaxDataCliente.nif}}<br class="">
+                                        {{ajaxDataCliente.direccion}}<br class="">
+                                    </address>
+                                </div>
+                                <div class="col-6">
+                                    <address>
+                                        <br>Representante :{{ajaxDataCliente.objRepresentante.nombre}}
+                                        <br>Forma de Pago :{{ajaxDataCliente.objFormaPago.nombre}}
+                                        <br>Tarifa :{{ajaxDataCliente.tarifa}}
+                                        <br>
+                                    </address>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <address>
                                 <br>
                                 {{ajaxDataCliente.telefono}}<br class="">
-                                {{ajaxDataCliente.email}}<br class="">                          
+                                {{ajaxDataCliente.email}}<br class="">
                             </address>
                         </div>
                     </div> <!-- row -->
+
                 </div> <!-- panel heading -->
                 <div class="panel-body">
                     <h3 class="panel-title">Detalle</h3>
@@ -45,7 +58,7 @@
                         <tbody>
                             <tr class="gradeX" ng-repeat="fila in ajaxDataLineaFactura track by $index">
                                 <td>{{fila.obj_Producto.codigo}}</td>
-                                <td>{{fila.descripcion}}</td>                    
+                                <td>{{fila.descripcion}}</td>
                                 <td>{{fila.precio}}</td>
                                 <td>{{fila.cantidad}}</td>
                                 <td>{{fila.descuento}}</td>
@@ -67,7 +80,7 @@
                         <tbody>
                             <tr class="gradeX">
                                 <td>{{ajaxDataFactura.total_bruto}}</td>
-                                <td>{{ajaxDataFactura.descuento}}</td>                    
+                                <td>{{ajaxDataFactura.descuento}}</td>
                                 <td>{{ajaxDataFactura.total_Iva}}</td>
                                 <td>{{ajaxDataFactura.iva}}</td>
 
@@ -76,9 +89,9 @@
                         </tbody>
                     </table>
 
-                </div> 
+                </div>
 
-            </div> 
-        </div> 
+            </div>
+        </div>
 
-    </div> 
+    </div>
