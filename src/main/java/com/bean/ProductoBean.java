@@ -5,6 +5,7 @@
  */
 package com.bean;
 
+import com.dao.TipoIvaDao;
 import com.google.gson.annotations.Expose;
 import com.helper.EncodingHelper;
 import java.sql.Connection;
@@ -34,6 +35,10 @@ public class ProductoBean {
     private float pvp2;
     @Expose
     private float pvp3;
+    @Expose
+    private int tipoiva;
+    @Expose
+    private TipoIvaBean obj_tipoIva;
 
     public int getId() {
         return id;
@@ -107,7 +112,23 @@ public class ProductoBean {
         this.pvp3 = pvp3;
     }
 
-    public ProductoBean fill(ResultSet oResultSet, Connection oConnection) throws Exception {
+    public TipoIvaBean getObj_tipoIva() {
+        return obj_tipoIva;
+    }
+
+    public void setObj_tipoIva(TipoIvaBean obj_tipoIva) {
+        this.obj_tipoIva = obj_tipoIva;
+    }
+
+    public int getTipoiva() {
+        return tipoiva;
+    }
+
+    public void setTipoiva(int tipoiva) {
+        this.tipoiva = tipoiva;
+    }
+
+    public ProductoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
         this.setId(oResultSet.getInt("id_auto"));
         this.setCodigo(oResultSet.getString("artcodigo"));
         this.setDescripcion(oResultSet.getString("artdescripcion"));
@@ -117,6 +138,12 @@ public class ProductoBean {
         this.setPvp1(oResultSet.getInt("artpvp1"));
         this.setPvp2(oResultSet.getInt("artpvp2"));
         this.setPvp3(oResultSet.getInt("artpvp3"));
+        this.setTipoiva(oResultSet.getInt("arttipoiva1"));
+
+        if (expand > 0) {
+            TipoIvaDao oTipoIvaDao = new TipoIvaDao(oConnection, "dat007a");
+            this.setObj_tipoIva(oTipoIvaDao.get(oResultSet.getInt("arttipoiva1"), oResultSet.getInt("id_ejercicio"), expand - 1));
+        }
         return this;
     }
 
@@ -130,7 +157,8 @@ public class ProductoBean {
         strColumns += "artexistencias,";
         strColumns += "artpvp1,";
         strColumns += "artpvp2,";
-        strColumns += "artpvp3";
+        strColumns += "artpvp3,";
+        strColumns += "arttipoiva1";
         return strColumns;
     }
 
@@ -145,6 +173,7 @@ public class ProductoBean {
         strColumns += pvp1 + ",";
         strColumns += pvp2 + ",";
         strColumns += pvp3;
+        strColumns += tipoiva;
 
         return strColumns;
     }
@@ -159,7 +188,8 @@ public class ProductoBean {
         strPairs += "artexistencias=" + existencias + ",";
         strPairs += "artpvp1=" + pvp1 + ",";
         strPairs += "artpvp2=" + pvp2 + ",";
-        strPairs += "artpvp3=" + pvp3;
+        strPairs += "artpvp2=" + pvp3 + ",";
+        strPairs += "arttipoiva1=" + tipoiva;
         return strPairs;
 
     }

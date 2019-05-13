@@ -39,15 +39,7 @@ public class ProductoDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oProductoBean = new ProductoBean();
-                oProductoBean.setId(oResultSet.getInt("id_auto"));
-                oProductoBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-                oProductoBean.setCodigo(oResultSet.getString("artcodigo"));
-                oProductoBean.setDescripcion(oResultSet.getString("artdescripcion"));
-                oProductoBean.setPvp1(oResultSet.getInt("artpvp1"));
-                oProductoBean.setPvp2(oResultSet.getInt("artpvp2"));
-                oProductoBean.setPvp3(oResultSet.getInt("artpvp3"));
-                oProductoBean.setExistencia_albaran(oResultSet.getInt("artalbaranes"));
-                oProductoBean.setExistencias(oResultSet.getInt("artexistencias"));
+                oProductoBean.fill(oResultSet, oConnection, 1);
             } else {
                 oProductoBean = null;
             }
@@ -78,16 +70,7 @@ public class ProductoDao {
                 alProductoBean = new ArrayList<ProductoBean>();
                 while (oResultSet.next()) {
                     ProductoBean oProductoBean = new ProductoBean();
-                    oProductoBean = new ProductoBean();
-                    oProductoBean.setId(oResultSet.getInt("id_auto"));
-                    oProductoBean.setEmpresa(oResultSet.getInt("id_ejercicio"));
-                    oProductoBean.setCodigo(oResultSet.getString("artcodigo"));
-                    oProductoBean.setDescripcion(oResultSet.getString("artdescripcion"));
-                    oProductoBean.setPvp1(oResultSet.getInt("artpvp1"));
-                    oProductoBean.setPvp2(oResultSet.getInt("artpvp2"));
-                    oProductoBean.setPvp3(oResultSet.getInt("artpvp3"));
-                    oProductoBean.setExistencia_albaran(oResultSet.getInt("artalbaranes"));
-                    oProductoBean.setExistencias(oResultSet.getInt("artexistencias"));
+                    oProductoBean.fill(oResultSet, oConnection, 1);
                     alProductoBean.add(oProductoBean);
                 }
             } catch (SQLException e) {

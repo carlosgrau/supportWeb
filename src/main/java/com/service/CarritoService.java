@@ -170,7 +170,7 @@ public class CarritoService {
             LineaPresupuestoBean oLineaPresupuestoBean;
 
             ProductoDao oProductoDao = new ProductoDao(oConnection, "dat004a");
-            oLineaPresupuestoDao = new LineaPresupuestoDao(oConnection, "dat131a");
+            oLineaPresupuestoDao = new LineaPresupuestoDao(oConnection, "dat033a");
             ProductoBean oProductoBean = null;
 
             for (ItemBean ib : carrito) {
@@ -178,6 +178,7 @@ public class CarritoService {
                 float cant = ib.getCantidad();
                 float descuento = ib.getDescuento();
                 float precio = ib.getPrecio();
+                float preciototal = cant * precio;
                 ProductoBean obprod = ib.getObj_producto();
                 oLineaPresupuestoBean = new LineaPresupuestoBean();
 
@@ -188,10 +189,12 @@ public class CarritoService {
                 oLineaPresupuestoBean.setCantidad(cant);
                 oLineaPresupuestoBean.setDescuento(descuento);
                 oLineaPresupuestoBean.setPrecio(precio);
+
                 if (descuento == 0) {
-                    oLineaPresupuestoBean.setPrecio_Total(cant * precio);
+
+                    oLineaPresupuestoBean.setPrecio_Total(preciototal);
                 } else if (descuento > 0) {
-                    oLineaPresupuestoBean.setPrecio_Total(((cant * precio) * descuento) / 100);
+                    oLineaPresupuestoBean.setPrecio_Total(preciototal - (preciototal * (descuento / 100)));
                 }
                 oLineaPresupuestoBean.setReferencia(obprod.getCodigo());
                 oLineaPresupuestoBean.setDescripcion(obprod.getDescripcion());
