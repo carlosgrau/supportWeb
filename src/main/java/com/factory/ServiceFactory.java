@@ -139,6 +139,9 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oPresupuestoService.getpage();
                         break;
+                    case "getpresupuesto":
+                        oReplyBean = oPresupuestoService.getpresupuesto();
+                        break;
                     case "getpagexusuario":
                         oReplyBean = oPresupuestoService.getpageXusuario();
                         break;
