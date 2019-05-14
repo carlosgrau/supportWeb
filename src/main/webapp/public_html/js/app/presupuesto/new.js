@@ -1,11 +1,12 @@
 'use strict';
 
-moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location', 'countcarritoService',
-    function ($scope, toolService, $http, sessionService, $routeParams, $location, countcarritoService) {
+moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location', 'countcarritoService', '$filter',
+    function ($scope, toolService, $http, sessionService, $routeParams, $location, countcarritoService, $filter) {
         $(document).ready(function () {
             $scope.id = $routeParams.id;
             var host = 'http://localhost:8081/';
             $scope.linea = 1;
+            var fecha;
 
             $http({
                 method: 'GET',
@@ -37,8 +38,26 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     $scope.status = response.status;
                     $scope.ajaxDatoLineas = response.data.message || 'Request failed';
                 });
-            };
-            $scope.completar = function () {
+                $http({
+                    method: 'GET',
+                    url: host + 'json?ob=carrito&op=show'
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message;
+                }, function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxDatoLineas = response.data.message || 'Request failed';
+                });
+                $http({
+                    method: 'GET',
+                    url: host + 'json?ob=presupuesto&op=getpresupuesto&ejercicio=' + sessionService.getEmpresa()
+                }).then(function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxPresupuestoId = response.data.message;
+                }, function (response) {
+                    $scope.status = response.status;
+                    $scope.ajaxPresupuestoId = response.data.message || 'Request failed';
+                });
                 $http({
                     method: 'GET',
                     withCredentials: true,
@@ -50,7 +69,15 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
                     $scope.status = response.status;
                 });
-
+                var length = $scope.ajaxDatoLineas.length;
+                $scope.precioBruto = 0;
+                $scope.precioIva = 0;
+                for (var i = 0; i < length; i++) {
+                    console.log($scope.ajaxDatoLineas[i]);
+                    $scope.precioBruto += $scope.ajaxDatoLineas[i].precio;
+                    $scope.iva = 21;
+                    $scope.precioIva += ($scope.precioBruto * $scope.iva) / 100;
+                }
             };
             $scope.addlineas = function () {
                 $http({
@@ -58,7 +85,7 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     url: host + 'json?ob=carrito&op=add&ejercicio=' + sessionService.getEmpresa() + '&codigo=' + $scope.ajaxProducto.obj_cliente.referencia + '&cantidad=' + $scope.ajaxProducto.cantidad + '&descuento=' + $scope.ajaxProducto.descuento + '&precio=' + $scope.ajaxProducto.precio
                 }).then(function (response) {
                     $scope.status = response.status;
-                    $scope.ajaxDatoLineas = response.data.message;
+                    $scope.ajaxDatoLineasAdd = response.data.message;
                     $(':input', '#lineasForm')
                         .not(':button, :submit, :reset, :hidden')
                         .val('')
@@ -66,19 +93,19 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                         .prop('selected', false);
                 }, function (response) {
                     $scope.status = response.status;
-                    $scope.ajaxDatoLineas = response.data.message || 'Request failed';
+                    $scope.ajaxDatoLineasAdd = response.data.message || 'Request failed';
                 });
 
             };
             $scope.grabar = function () {
                 var json = {
-                    fecha: $scope.myDate,
                     id_cliente: $scope.ajaxDatoProducto.obj_cliente.codigo,
                     nombre: $scope.ajaxDatoProducto.obj_cliente.nombre,
                     empresa: sessionService.getEmpresa(),
                     representante: $scope.ajaxDatoProducto.obj_cliente.codrepre,
                     fpago: $scope.ajaxDatoProducto.obj_cliente.codfpago,
-                    tarifa: $scope.ajaxDatoProducto.obj_cliente.tarifa
+                    tarifa: $scope.ajaxDatoProducto.obj_cliente.tarifa,
+                    fecha: $filter('date')(new Date())
 
                 };
                 $http({
@@ -97,8 +124,13 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
             };
 
             $scope.grabarcabecera = function () {
-                $scope.fecha = new Date($scope.date);
-                var fecha = $scope.date;
+
+                if ($scope.ajaxDatoProducto.obj_cliente.fecha === undefined) {
+                    fecha = $filter('date')(new Date(), "yyyy-MM-dd");
+                } else {
+                    fecha = $filter('date')($scope.ajaxDatoProducto.obj_cliente.fecha, "yyyy-MM-dd");;
+                }
+
                 var codigocliente = $scope.ajaxDatoProducto.obj_cliente.codigo;
                 var nombrecliente = $scope.ajaxDatoProducto.obj_cliente.nombre;
                 var empresa = sessionService.getEmpresa();

@@ -8,7 +8,11 @@
 
         <div class="form-group">
             <label>Fecha</label>
-            <md-datepicker ng-model="fecha" md-placeholder="Fecha" ng-readonly="true"></md-datepicker>
+            <md-datepicker ng-model="ajaxDatoProducto.obj_cliente.fecha" md-placeholder="Fecha"
+                ng-change="cambiofecha(myDate)"
+                class="ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope ng-valid-mindate ng-valid-maxdate ng-valid-filtered ng-valid-valid ng-not-empty"
+                tabindex="-1" aria-invalid="false">
+            </md-datepicker>
         </div>
 
         <div class="form-group">
@@ -67,7 +71,7 @@
                     </span></label>
                 <label>
                     <input type="text" class="form-control" placeholder="Tarifa" ng-required="true"
-                    ng-model="ajaxDatoProducto.obj_cliente.tarifa">
+                        ng-model="ajaxDatoProducto.obj_cliente.tarifa">
                 </label>
             </div>
 
@@ -111,6 +115,7 @@
         <button class="btn btn-info" ng-click='addlineas()'>Guardar / Añadir</button>
     </form>
 
+    <button class="btn btn-danger" ng-click='formulario(1)'>Atras</button>
     <button class="btn btn-success" ng-click='formulario(3)' ng-disabled="lineasForm.$invalid">Siguiente</button>
 </div>
 
@@ -130,7 +135,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="gradeX" ng-repeat="fila in ajaxDatoLineas">
+            <tr class="gradeX" ng-repeat="fila in ajaxDatoLineas track by $index">
                 <td>1</td>
                 <td>{{fila.obj_producto.codigo}}</td>
                 <td>{{fila.obj_producto.descripcion}}</td>
@@ -148,6 +153,7 @@
 
         </tbody>
     </table>
+    <button class="btn btn-danger" ng-click='formulario(2)'>Atras</button>
     <button class="btn btn-success" ng-click='formulario(4)'>Siguiente</button>
 </div>
 
@@ -158,9 +164,9 @@
 <div id="final" style="display:none;">
     <div class="container" style="padding-top: 4%;">
         <div class="text-center">
-            <h1 style="font-size: 50px;">Presupuesto Nº {{id}}</h1>
+            <h1 style="font-size: 50px;">Presupuesto Nº {{ajaxPresupuestoId}}</h1>
             <br>
-            <h3>{{ajaxDataPresupuesto.fecha}}</h3>
+            <h3>{{fecha}}</h3>
         </div>
 
         <div class="row">
@@ -168,23 +174,35 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-md-6">
-                                <address>
-                                    <br>
-                                    <strong class="">{{ajaxDatoProducto.obj_cliente.nombre}}</strong><br class="">
-                                    {{ajaxDataCliente.obj_Cliente.nif}}<br class="">
-                                    {{ajaxDataCliente.direccion}}<br class="">
-                                </address>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <address>
+                                            <br>
+                                            <strong>{{ajaxDataUsuarios.nombre}}</strong><br class="">
+                                            {{ajaxDataUsuarios.nif}}<br class="">
+                                            {{ajaxDataUsuarios.direccion}}<br class="">
+                                        </address>
+                                    </div>
+                                    <div class="col-6">
+                                        <address>
+                                            <br>Representante :{{ajaxDataUsuarios.objRepresentante.nombre}}
+                                            <br>Forma de Pago :{{ajaxDataUsuarios.objFormaPago.nombre}}
+                                            <br>Tarifa :{{ajaxDataUsuarios.tarifa}}
+                                            <br>
+                                        </address>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <address>
                                     <br>
-                                    {{ajaxDataCliente.telefono}}<br class="">
-                                    {{ajaxDataCliente.email}}<br class="">
+                                    {{ajaxDataUsuarios.telefono}}<br class="">
+                                    {{ajaxDataUsuarios.email}}<br class="">
                                 </address>
                             </div>
-                        </div>
-                    </div> 
+                        </div> <!-- row -->
+                    </div>
                     <div class="panel-body">
                         <h3 class="panel-title">Detalle</h3>
                         <table class="table table-condensed">
@@ -206,9 +224,10 @@
                                     <td>{{fila.cantidad}}</td>
                                     <td>{{fila.descuento}}</td>
 
-                                    <td ng-show='fila.descuento > 0'>
-                                        {{(fila.precio_Total/((fila.descuento/100)+1)).toFixed(2)}}</td>
-                                    <td ng-show='fila.descuento == 0'>{{fila.precio_Total}}</td>
+                                    <td>
+                                        {{((fila.precio *fila.cantidad)-((fila.precio *fila.cantidad)*fila.descuento)/100).toFixed(2)}}
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -216,7 +235,6 @@
                             <thead>
                                 <tr>
                                     <th class="">Base Imponible</th>
-                                    <th class="">Descuento</th>
                                     <th class="">IVA</th>
                                     <th class="">%</th>
                                     <th class="">Total Presupuesto</th>
@@ -224,12 +242,11 @@
                             </thead>
                             <tbody>
                                 <tr class="gradeX">
-                                    <td>{{ajaxDataPresupuesto.precio_Bruto}}</td>
-                                    <td>{{ajaxDataPresupuesto.descuento}}</td>
-                                    <td>{{ajaxDataPresupuesto.total_Iva}}</td>
-                                    <td>{{ajaxDataPresupuesto.iva}}</td>
+                                    <td>{{precioBruto}} €</td>
+                                    <td>{{iva}} %</td>
+                                    <td>{{(precioBruto * iva)/100}} €</td>
 
-                                    <td>{{ajaxDataPresupuesto.total_Precio}}</td>
+                                    <td>{{precioBruto + ((precioBruto * iva)/100)}} €</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -241,5 +258,6 @@
 
         </div>
     </div>
+    <button class="btn btn-danger" ng-click='formulario(3)'>Atras</button>
     <button class="btn btn-success" ng-click='grabar()'>GRABAR</button>
 </div>
