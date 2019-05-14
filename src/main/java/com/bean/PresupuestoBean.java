@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +38,7 @@ public class PresupuestoBean {
     private String nombre;
 
     @Expose
-    private Date fecha;
+    private Timestamp fecha;
 
     @Expose
     private float precio_Bruto;
@@ -106,11 +107,11 @@ public class PresupuestoBean {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
@@ -196,7 +197,7 @@ public class PresupuestoBean {
 
     public PresupuestoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id_auto"));
-        this.setFecha(oResultSet.getDate("fecha"));
+        this.setFecha(oResultSet.getTimestamp("fecha"));
         this.setEmpresa(oResultSet.getInt("id_ejercicio"));
         this.setPresupuesto(oResultSet.getInt("presupuesto"));
         this.setId_cliente(oResultSet.getInt("cliente"));
