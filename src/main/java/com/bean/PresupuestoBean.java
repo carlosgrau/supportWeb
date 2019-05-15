@@ -265,7 +265,7 @@ public class PresupuestoBean {
     public String getValues() {
         String strColumns = "";
         strColumns += "null,";
-        strColumns += fecha + ",";
+        strColumns += "'" + fecha + "',";
         strColumns += empresa + ",";
         strColumns += presupuesto + ",";
         strColumns += id_cliente + ",";

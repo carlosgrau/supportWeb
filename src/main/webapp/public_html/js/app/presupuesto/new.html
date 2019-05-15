@@ -8,11 +8,7 @@
 
         <div class="form-group">
             <label>Fecha</label>
-            <md-datepicker ng-model="ajaxDatoProducto.obj_cliente.fecha" md-placeholder="Fecha"
-                ng-change="cambiofecha(myDate)"
-                class="ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope ng-valid-mindate ng-valid-maxdate ng-valid-filtered ng-valid-valid ng-not-empty"
-                tabindex="-1" aria-invalid="false">
-            </md-datepicker>
+            <md-datepicker ng-model="myDate" md-placeholder="Fecha" ng-change="cambiofecha(myDate)"></md-datepicker>
         </div>
 
         <div class="form-group">
@@ -77,8 +73,10 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
+                    <button class="btn btn-danger" ng-click='atras()'>Atras</button>
                     <button type="submit" class="btn btn-success" ng-click='formulario(2)'
                         ng-disabled="userForm.$invalid">SIGUIENTE</button>
+
                 </div>
             </div>
     </form>
@@ -117,6 +115,7 @@
 
     <button class="btn btn-danger" ng-click='formulario(1)'>Atras</button>
     <button class="btn btn-success" ng-click='formulario(3)' ng-disabled="lineasForm.$invalid">Siguiente</button>
+
 </div>
 
 <!-- PASO 3 -->
@@ -125,7 +124,6 @@
     <table class="datatable table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Linea</th>
                 <th>Código</th>
                 <th>Producto</th>
                 <th>Precio</th>
@@ -136,12 +134,11 @@
         </thead>
         <tbody>
             <tr class="gradeX" ng-repeat="fila in ajaxDatoLineas track by $index">
-                <td>1</td>
                 <td>{{fila.obj_producto.codigo}}</td>
                 <td>{{fila.obj_producto.descripcion}}</td>
                 <td>{{fila.precio}} €</td>
                 <td>{{fila.cantidad}}</td>
-                <td>{{fila.descuento}}</td>
+                <td>{{((fila.precio *fila.cantidad)-((fila.precio *fila.cantidad)*fila.descuento)/100).toFixed(2)}}</td>
 
                 <td>
                     <a href="presupuesto/view/{{fila.presupuesto}}">
@@ -155,12 +152,12 @@
     </table>
     <button class="btn btn-danger" ng-click='formulario(2)'>Atras</button>
     <button class="btn btn-success" ng-click='formulario(4)'>Siguiente</button>
+
 </div>
 
 
 
 <!-- PASO 4 -->
-
 <div id="final" style="display:none;">
     <div class="container" style="padding-top: 4%;">
         <div class="text-center">
@@ -242,11 +239,11 @@
                             </thead>
                             <tbody>
                                 <tr class="gradeX">
-                                    <td>{{precioBruto}} €</td>
-                                    <td>{{iva}} %</td>
-                                    <td>{{(precioBruto * iva)/100}} €</td>
+                                    <td ng-model="precioBruto">{{precioBruto}} €</td>
+                                    <td ng-model="iva">{{iva}} %</td>
+                                    <td ng-model="iva">{{(precioBruto * iva)/100}} €</td>
 
-                                    <td>{{precioBruto + ((precioBruto * iva)/100)}} €</td>
+                                    <td ng-model="precioBruto">{{precioBruto + ((precioBruto * iva)/100)}} €</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -259,5 +256,5 @@
         </div>
     </div>
     <button class="btn btn-danger" ng-click='formulario(3)'>Atras</button>
-    <button class="btn btn-success" ng-click='grabar()'>GRABAR</button>
+    <button class="btn btn-success" ng-click='grabar()' id="grabar">GRABAR</button>
 </div>

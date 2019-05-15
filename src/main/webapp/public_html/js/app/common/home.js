@@ -41,20 +41,27 @@ moduleCommon.controller('homeController', ['$scope', '$location', 'toolService',
                         $scope.mensajeError = true;
                     } else {
                         $scope.mensajeError = false;
-                        /* sessionService.setSessionActive();
-                         sessionService.setUserName(response.data.message.nombre + ' ' + response.data.message.ape1);
-                         sessionService.setUserId(response.data.message.id);
-                         $scope.idUsuariologeado= sessionService.getUserId();
-                         $scope.usuariologeado = sessionService.getUserName();
-                         sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);*/
                         $scope.mensaje = true;
+                        swal({
+                            icon: 'success',
+                            title: "Usuario logueado correctamente!"
+                        });
                     }
+                }else {
+                    swal({
+                        icon: 'error',
+                        title: "Ha ocurrido un error en el presupuesto!"
+                    });
                 }
                 $location.url('/empresa');
             }, function (response) {
                 $scope.mensajeError = true;
                 $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
                 $scope.status = response.status;
+                swal({
+                    icon: 'error',
+                    title: "Ha ocurrido un error en el presupuesto!"
+                });
             });
 
         };

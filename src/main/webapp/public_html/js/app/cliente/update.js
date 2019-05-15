@@ -37,12 +37,17 @@ moduleCliente.controller('clienteEditController', ['$scope', '$http', '$location
                 params: { json: JSON.stringify(json) }
             }).then(function (response) {
                 $scope.status = response.status;
-                swal("Datos actualizados", "Los datos han sido actualizados correctamente", "success");
+                swal(
+                    "Datos actualizados",
+                    "Los datos han sido actualizados correctamente",
+                    "success");
                 $location.path('/cliente/plist');
             }, function (response) {
                 $scope.ajaxDataUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;
-                swal("Error al actualizar", "Los datos no han sido actualizados debido a un error", "error");
+                swal("Error al actualizar",
+                    "Los datos no han sido actualizados debido a un error",
+                    "error");
             });
         };
 

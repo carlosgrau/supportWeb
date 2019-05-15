@@ -1,12 +1,16 @@
 'use strict';
 
-moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location', 'countcarritoService', '$filter',
+moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '$http',
+    'sessionService', '$routeParams', '$location', 'countcarritoService', '$filter',
     function ($scope, toolService, $http, sessionService, $routeParams, $location, countcarritoService, $filter) {
         $(document).ready(function () {
             $scope.id = $routeParams.id;
             var host = 'http://localhost:8081/';
             $scope.linea = 1;
-            var fecha;
+            $scope.fecha;
+            $scope.precioBruto = 0;
+            $scope.precioIva = 0;
+            $scope.iva = 0;
 
             $http({
                 method: 'GET',
@@ -70,13 +74,12 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     $scope.status = response.status;
                 });
                 var length = $scope.ajaxDatoLineas.length;
-                $scope.precioBruto = 0;
-                $scope.precioIva = 0;
+
                 for (var i = 0; i < length; i++) {
                     console.log($scope.ajaxDatoLineas[i]);
-                    $scope.precioBruto += $scope.ajaxDatoLineas[i].precio;
+                    $scope.precioBruto = + ($scope.ajaxDatoLineas[i].precio * $scope.ajaxDatoLineas[i].cantidad);
                     $scope.iva = 21;
-                    $scope.precioIva += ($scope.precioBruto * $scope.iva) / 100;
+                    $scope.precioIva = + ($scope.precioBruto * $scope.iva) / 100;
                 }
             };
             $scope.addlineas = function () {
@@ -85,7 +88,7 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                     url: host + 'json?ob=carrito&op=add&ejercicio=' + sessionService.getEmpresa() + '&codigo=' + $scope.ajaxProducto.obj_cliente.referencia + '&cantidad=' + $scope.ajaxProducto.cantidad + '&descuento=' + $scope.ajaxProducto.descuento + '&precio=' + $scope.ajaxProducto.precio
                 }).then(function (response) {
                     $scope.status = response.status;
-                    $scope.ajaxDatoLineasAdd = response.data.message;
+                    $scope.ajaxDatoLineas = response.data.message;
                     $(':input', '#lineasForm')
                         .not(':button, :submit, :reset, :hidden')
                         .val('')
@@ -93,20 +96,24 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                         .prop('selected', false);
                 }, function (response) {
                     $scope.status = response.status;
-                    $scope.ajaxDatoLineasAdd = response.data.message || 'Request failed';
+                    $scope.ajaxDatoLineas = response.data.message || 'Request failed';
                 });
 
             };
             $scope.grabar = function () {
+
                 var json = {
+                    fecha: $scope.fecha,
                     id_cliente: $scope.ajaxDatoProducto.obj_cliente.codigo,
                     nombre: $scope.ajaxDatoProducto.obj_cliente.nombre,
                     empresa: sessionService.getEmpresa(),
                     representante: $scope.ajaxDatoProducto.obj_cliente.codrepre,
                     fpago: $scope.ajaxDatoProducto.obj_cliente.codfpago,
                     tarifa: $scope.ajaxDatoProducto.obj_cliente.tarifa,
-                    fecha: $filter('date')(new Date())
-
+                    total_Precio: ($scope.precioBruto + $scope.precioIva),
+                    precio_Bruto: $scope.precioBruto,
+                    total_Iva: $scope.precioIva,
+                    iva: $scope.iva
                 };
                 $http({
                     method: 'GET',
@@ -116,21 +123,28 @@ moduleFactura.controller('presupuestoNewController', ['$scope', 'toolService', '
                 }).then(function (response) {
                     $scope.status = response.status;
                     $scope.ajaxDataUsuarios = response.data.message;
+                    swal({
+                        icon: 'success',
+                        title: "Presupuesto guardado correctamente!"
+                    });
+                    grabar.style = 'display:none;';
                 }, function (response) {
                     $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
                     $scope.status = response.status;
+                    swal({
+                        icon: 'error',
+                        title: "Ha ocurrido un error en el presupuesto!"
+                    });
                 });
 
             };
 
             $scope.grabarcabecera = function () {
-
-                if ($scope.ajaxDatoProducto.obj_cliente.fecha === undefined) {
-                    fecha = $filter('date')(new Date(), "yyyy-MM-dd");
+                if ($scope.myDate === undefined) {
+                    $scope.fecha = $filter('date')(new Date(), 'yyyy-MM-dd');
                 } else {
-                    fecha = $filter('date')($scope.ajaxDatoProducto.obj_cliente.fecha, "yyyy-MM-dd");;
+                    $scope.fecha = $filter('date')($scope.myDate, 'yyyy-MM-dd');;
                 }
-
                 var codigocliente = $scope.ajaxDatoProducto.obj_cliente.codigo;
                 var nombrecliente = $scope.ajaxDatoProducto.obj_cliente.nombre;
                 var empresa = sessionService.getEmpresa();
