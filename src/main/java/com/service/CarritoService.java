@@ -182,8 +182,8 @@ public class CarritoService {
                 ProductoBean obprod = ib.getObj_producto();
                 oLineaPresupuestoBean = new LineaPresupuestoBean();
 
-                oLineaPresupuestoBean.setId_presupuesto(id_presupuesto);
-                oLineaPresupuestoBean.setId_dat032a(presupuesto + 1);
+                oLineaPresupuestoBean.setId_presupuesto(presupuesto + 1);
+                oLineaPresupuestoBean.setId_dat032a(id_presupuesto);
                 oLineaPresupuestoBean.setEmpresa(empresa);
                 oLineaPresupuestoBean.setObj_Producto(ib.getObj_producto());
                 oLineaPresupuestoBean.setCantidad(cant);
@@ -287,20 +287,12 @@ public class CarritoService {
             ItemBean oItemBean = new ItemBean();
             if (indice == -1) {
                 //Si es -1 es porque voy a registrar
-                if (oProductoBean.getExistencias() > 0) {
+                
                     oItemBean.setObj_producto(oProductoBean);
                     oItemBean.setCantidad(cantidadprod);
                     oItemBean.setDescuento(descuentoprod);
                     oItemBean.setPrecio(precioprod);
                     carrito.add(oItemBean);
-                }
-            } else {
-                //Si es otro valor es porque el producto esta en el carrito
-                //y vamos actualizar la cantidad
-                float cantidad = carrito.get(indice).getCantidad() + cantidadprod;
-                if (oProductoBean.getExistencias() >= cantidad) {
-                    carrito.get(indice).setCantidad(cantidad);
-                }
             }
             //Actualizamos la sesion del carrito de compras
             sesion.setAttribute("carrito", carrito);
