@@ -207,8 +207,6 @@ public class CarritoService {
 
                 oProductoBean = ib.getObj_producto();
 
-                oProductoBean.setExistencias((int) (oProductoBean.getExistencias() - cant));
-
                 oProductoDao.update(oProductoBean);
 
             }

@@ -135,5 +135,4 @@ public class UsuarioBean {
     public String toString() {
         return "UsuarioBean{ id=" + id + ", usuario=" + usuario + ", login=" + login + ", pass=" + pass + ", loginCli=" + loginCli + ", passCli=" + passCli + ", hostCli=" + hostCli + ", portCli=" + portCli + ", databaseCli=" + databaseCli + '}';
     }
-
 }
