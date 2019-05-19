@@ -52,8 +52,14 @@ function cController($http, sessionService) {
 
 
 
-    self.save = function (referencia, descripcion) {
-        self.obj = { referencia: referencia, descripcion: descripcion };
+    self.save = function (referencia, descripcion, existencias) {
+        if (existencias <= 0) {
+            swal({
+                icon: 'success',
+                title: "Artículo sin existencias!"
+            });
+        }
+        self.obj = { referencia: referencia, descripcion: descripcion, existencias: existencias };
         self.onProductoSet();
     };
 

@@ -42,7 +42,7 @@ public class EmpresaService {
         HikariConnectionForUser oHikariConectio = new HikariConnectionForUser();
 
         try {
-            Integer id = Integer.parseInt(oRequest.getParameter("id"));
+            Integer empresa = Integer.parseInt(oRequest.getParameter("ejercicio"));
             oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
 
             usuario = oUsuarioBean.getLoginCli();
@@ -50,7 +50,7 @@ public class EmpresaService {
             conexion = oUsuarioBean.newConnectionClient();
             oConnection = (Connection) oHikariConectio.newConnectionParams(usuario, password, conexion);
             EmpresaDao oEmpresaDao = new EmpresaDao(oConnection, ob);
-            EmpresaBean oEmpresaBean = oEmpresaDao.get(id);
+            EmpresaBean oEmpresaBean = oEmpresaDao.get(empresa);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(oEmpresaBean));
         } catch (Exception ex) {
